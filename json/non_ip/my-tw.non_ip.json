@@ -5,12 +5,6 @@
       "domain_suffix": [
         "cdn.hinet.net"
       ],
-      "domain_regex": [
-        "^[\\\\w.-]*?\\\\.ffzy-online[\\\\w.-]\\\\.com$",
-        "^[\\\\w.-]*?\\\\.ffzy-play[\\\\w.-]\\\\.com$",
-        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-]\\\\.com$",
-        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-][\\\\w.-]\\\\.com$"
-      ],
       "domain": [
         "av.jkforum.net",
         "www.manhuagui.com",
@@ -19,6 +13,12 @@
         "avbebe.com",
         "mhgui.com",
         "hanime1.me"
+      ],
+      "domain_regex": [
+        "^[\\\\w.-]*?\\\\.ffzy-online[\\\\w.-]\\\\.com$",
+        "^[\\\\w.-]*?\\\\.ffzy-play[\\\\w.-]\\\\.com$",
+        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-]\\\\.com$",
+        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-][\\\\w.-]\\\\.com$"
       ]
     }
   ]

@@ -25,6 +25,7 @@
         "-live.meituan.net",
         "-fin.meituan.com"
       ],
+      "port": 7680,
       "process_name": [
         "Tencent Lemon",
         "LemonMonitor",
@@ -74,8 +75,7 @@
         "loan-supermarket.faas.ele.me",
         "push.12306.cn",
         "ad.12306.cn"
-      ],
-      "port": 7680
+      ]
     }
   ]
 }

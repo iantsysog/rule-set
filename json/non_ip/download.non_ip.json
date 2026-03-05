@@ -2,6 +2,9 @@
   "version": 4,
   "rules": [
     {
+      "process_name": [
+        "NeatDownloadManager"
+      ],
       "domain_regex": [
         "^http://(.+)\\.gvt\\d\\.com/edgedl",
         "^download[\\\\w.-]*?\\\\.mediafire\\\\.com$",
@@ -11,9 +14,6 @@
         "^cdn-[\\\\w.-]*?\\\\.comaps\\\\.app$",
         "^cdn-[\\\\w.-]*?\\\\.comaps\\\\.tech$",
         "^cdn-[\\\\w.-]*?\\\\.organicmaps\\\\.app$"
-      ],
-      "process_name": [
-        "NeatDownloadManager"
       ]
     }
   ]

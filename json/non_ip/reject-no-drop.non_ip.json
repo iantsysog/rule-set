@@ -47,14 +47,6 @@
         "p2plog.douyucdn.cn",
         "gjfzpt.cn"
       ],
-      "domain_regex": [
-        "^p2p[\\\\w.-]*?\\\\.qq\\\\.com$",
-        "^p2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^p2pchunk-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^dyp2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^p2plive-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^stun[\\\\w.-]*?\\\\.douyucdn\\\\.cn$"
-      ],
       "domain": [
         "upos-sz-302ppio.bilivideo.com",
         "upos-sz-302kodo.bilivideo.com",
@@ -62,6 +54,14 @@
         "livewebbs2pcdn.msstatic.com",
         "stun1.douyucdn.cn",
         "stun.douyucdn.cn"
+      ],
+      "domain_regex": [
+        "^p2p[\\\\w.-]*?\\\\.qq\\\\.com$",
+        "^p2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^p2pchunk-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^dyp2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^p2plive-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^stun[\\\\w.-]*?\\\\.douyucdn\\\\.cn$"
       ]
     }
   ]
