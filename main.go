@@ -144,7 +144,10 @@ func run(ctx context.Context) error {
 	}
 
 	b, bctx := batch.New(ctx, batch.WithConcurrencyNum[struct{}](maxConnections))
-	resolver := asn.NewASNResolver()
+	resolver, err := asn.NewASNResolver()
+	if err != nil {
+		return E.Cause(err, "create ASN resolver")
+	}
 
 	for _, file := range confFiles {
 		file := file
