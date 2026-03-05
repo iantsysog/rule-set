@@ -10,6 +10,10 @@ DOMAIN,epay.10010.com
 DOMAIN,loan-supermarket.faas.ele.me
 DOMAIN,push.12306.cn
 DOMAIN,ad.12306.cn
+DOMAIN-KEYWORD,bahoom
+DOMAIN-KEYWORD,-flv.meituan.net
+DOMAIN-KEYWORD,-live.meituan.net
+DOMAIN-KEYWORD,-fin.meituan.com
 AND,((DOMAIN-KEYWORD,genuine),(DOMAIN-KEYWORD,autodesk))
 DST-PORT,7680
 PROCESS-NAME,Tencent Lemon
@@ -44,7 +48,3 @@ DOMAIN-SUFFIX,adobe.io
 DOMAIN-SUFFIX,newbuy.chinaunicom.cn
 DOMAIN-SUFFIX,mall.10010.cn
 DOMAIN-SUFFIX,pipi.cn
-DOMAIN-KEYWORD,bahoom
-DOMAIN-KEYWORD,-flv.meituan.net
-DOMAIN-KEYWORD,-live.meituan.net
-DOMAIN-KEYWORD,-fin.meituan.com
