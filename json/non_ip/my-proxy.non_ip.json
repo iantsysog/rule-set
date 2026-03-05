@@ -2,14 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain": [
-        "sgminorshort.wechat.com",
-        "sgshort.wechat.com",
-        "sglong.wechat.com",
-        "fonts.googleapis.cn",
-        "fonts.gstatic.cn",
-        "ip.cn"
-      ],
       "domain_suffix": [
         "ipstack.com",
         "ip-api.com",
@@ -21,6 +13,14 @@
         "ipregistry.co",
         "ipdata.co",
         "services.googleapis.cn"
+      ],
+      "domain": [
+        "sgminorshort.wechat.com",
+        "sgshort.wechat.com",
+        "sglong.wechat.com",
+        "fonts.googleapis.cn",
+        "fonts.gstatic.cn",
+        "ip.cn"
       ]
     }
   ]

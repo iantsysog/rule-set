@@ -5,14 +5,14 @@
       "domain_keyword": [
         "mac-torrent-download"
       ],
+      "process_name": [
+        "AdGuardHome",
+        "nmap"
+      ],
       "domain_suffix": [
         "torrentmac.net",
         "engage.cloudflareclient.com",
         "download.555mac.com"
-      ],
-      "process_name": [
-        "AdGuardHome",
-        "nmap"
       ]
     }
   ]

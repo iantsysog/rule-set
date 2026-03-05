@@ -2,15 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain": [
-        "news.ycombinator.com",
-        "ees.elsevier.com",
-        "community.oneplus.com",
-        "ccmdl.adobe.com",
-        "help.ubnt.com",
-        "wego.here.com",
-        "store.ui.com.cn"
-      ],
       "domain_keyword": [
         "google",
         "blogspot",
@@ -1255,6 +1246,15 @@
         "instagr.am",
         "ai",
         "ac"
+      ],
+      "domain": [
+        "news.ycombinator.com",
+        "ees.elsevier.com",
+        "community.oneplus.com",
+        "ccmdl.adobe.com",
+        "help.ubnt.com",
+        "wego.here.com",
+        "store.ui.com.cn"
       ]
     }
   ]
