@@ -5,7 +5,7 @@ go 1.25.0
 require (
 	github.com/iantsysog/sing-rule v0.0.0-20260305114142-ed4a17f89285
 	github.com/sagernet/sing v0.8.1
-	github.com/sagernet/sing-box v1.13.0
+	github.com/sagernet/sing-box v1.13.1
 )
 
 require (
