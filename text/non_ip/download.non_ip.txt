@@ -1,4 +1,3 @@
-PROCESS-NAME,NeatDownloadManager
 DOMAIN-WILDCARD,download*.mediafire.com
 DOMAIN-WILDCARD,ftp.??.debian.org
 DOMAIN-WILDCARD,ftp.??.freebsd.org
@@ -7,3 +6,4 @@ DOMAIN-WILDCARD,cdn-*.comaps.app
 DOMAIN-WILDCARD,cdn-*.comaps.tech
 DOMAIN-WILDCARD,cdn-*.organicmaps.app
 DOMAIN-REGEX,^http://(.+)\.gvt\d\.com/edgedl
+PROCESS-NAME,NeatDownloadManager

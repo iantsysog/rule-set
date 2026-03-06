@@ -11,8 +11,6 @@ DOMAIN,jules.google.com
 DOMAIN,api.github.com
 DOMAIN,openrouter.ai
 DOMAIN,api.jetbrains.ai
-DOMAIN-KEYWORD,openai
-DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
 DOMAIN-SUFFIX,generativeai.google
 DOMAIN-SUFFIX,notebooklm.google
 DOMAIN-SUFFIX,deepmind.google
@@ -46,3 +44,5 @@ DOMAIN-SUFFIX,meta.ai
 DOMAIN-SUFFIX,dify.ai
 DOMAIN-SUFFIX,x.ai
 DOMAIN-SUFFIX,g.ai
+DOMAIN-KEYWORD,openai
+DOMAIN-KEYWORD,alkalimakersuite-pa.clients6.google.com
