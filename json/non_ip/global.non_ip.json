@@ -2,17 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_keyword": [
-        "google",
-        "blogspot",
-        "facebook",
-        "whatsapp",
-        "discord",
-        "sci-hub",
-        "browserleaks",
-        "dropbox",
-        "pinterest"
-      ],
       "domain_suffix": [
         "community",
         "network",
@@ -1246,6 +1235,17 @@
         "instagr.am",
         "ai",
         "ac"
+      ],
+      "domain_keyword": [
+        "google",
+        "blogspot",
+        "facebook",
+        "whatsapp",
+        "discord",
+        "sci-hub",
+        "browserleaks",
+        "dropbox",
+        "pinterest"
       ],
       "domain": [
         "news.ycombinator.com",

@@ -2,22 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_keyword": [
-        "avoddashs",
-        "bbcfmt",
-        "uk-live",
-        "voddazn",
-        "jooxweb-api",
-        "nowtv100",
-        "rthklive",
-        "netflixdnstest",
-        "dualstack.apiproxy-",
-        "dualstack.ichnaea-web-",
-        "apiproxy-device-prod-nlb-",
-        "-spotify-com",
-        "-tiktokcdn-com",
-        "tvbanywhere"
-      ],
       "process_name": [
         "com.amazon.avod.thirdpartyclient",
         "tv",
@@ -234,6 +218,22 @@
         "amazonvideo.cc",
         "primevideo.cc",
         "netflix.ca"
+      ],
+      "domain_keyword": [
+        "avoddashs",
+        "bbcfmt",
+        "uk-live",
+        "voddazn",
+        "jooxweb-api",
+        "nowtv100",
+        "rthklive",
+        "netflixdnstest",
+        "dualstack.apiproxy-",
+        "dualstack.ichnaea-web-",
+        "apiproxy-device-prod-nlb-",
+        "-spotify-com",
+        "-tiktokcdn-com",
+        "tvbanywhere"
       ],
       "domain": [
         "d3c7rimkq79yfu.cloudfront.net",

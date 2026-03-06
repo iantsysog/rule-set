@@ -57,16 +57,16 @@
         "storeedgefd.dsx.mp.microsoft.com",
         "fs.microsoft.com"
       ],
-      "domain_regex": [
-        "^http://www\\.microsoft\\.com/pki/",
-        "^http://www\\.microsoft\\.com/pkiops/"
-      ],
       "domain": [
         "res-h3.public.cdn.office.net",
         "statics.teams.cdn.office.net",
         "res-2.cdn.office.net",
         "res-1.cdn.office.net",
         "res.cdn.office.net"
+      ],
+      "domain_regex": [
+        "^http://www\\.microsoft\\.com/pki/",
+        "^http://www\\.microsoft\\.com/pkiops/"
       ]
     }
   ]
