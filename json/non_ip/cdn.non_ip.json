@@ -2,29 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_keyword": [
-        "-files.gitbook.io",
-        "vod-adaptive.akamaized.net",
-        "web-assets.zendesk",
-        "-res.cloudinary.com",
-        "dsn.algolia.net",
-        "-thumbs.pornhost.com",
-        "-cdn.eporner.com",
-        "cdn.adultempire.com",
-        "static.trustpilot.com",
-        "scripts.trustpilot.com",
-        "images.trustpilot.com",
-        "cdn.trustpilot.net",
-        "assets.trustpilot.net",
-        "images.trustpilot.net",
-        "-assets.worldsex.com",
-        "-thumbs.worldsex.com",
-        "99avcdn",
-        "-images.disco-api.com",
-        "vdownload.hanime1",
-        "fonts.hanime1",
-        "static.grammarly.com"
-      ],
       "domain": [
         "cdn-msp.18comic.vip",
         "cdn-msp.18comic.org",
@@ -90,6 +67,29 @@
         "^cdn[\\\\w.-]*?\\\\.porn87\\\\.com$",
         "^cdn[\\\\w.-]*?\\\\.pornhost\\\\.com$",
         "^cdn[\\\\w.-]*?\\\\.boysfood\\\\.com$"
+      ],
+      "domain_keyword": [
+        "-files.gitbook.io",
+        "vod-adaptive.akamaized.net",
+        "web-assets.zendesk",
+        "-res.cloudinary.com",
+        "dsn.algolia.net",
+        "-thumbs.pornhost.com",
+        "-cdn.eporner.com",
+        "cdn.adultempire.com",
+        "static.trustpilot.com",
+        "scripts.trustpilot.com",
+        "images.trustpilot.com",
+        "cdn.trustpilot.net",
+        "assets.trustpilot.net",
+        "images.trustpilot.net",
+        "-assets.worldsex.com",
+        "-thumbs.worldsex.com",
+        "99avcdn",
+        "-images.disco-api.com",
+        "vdownload.hanime1",
+        "fonts.hanime1",
+        "static.grammarly.com"
       ]
     }
   ]

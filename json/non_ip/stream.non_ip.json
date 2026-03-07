@@ -2,22 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "process_name": [
-        "com.amazon.avod.thirdpartyclient",
-        "tv",
-        "music",
-        "com.bstar.intl",
-        "com.hulu.plus",
-        "com.tencent.ibg.joox",
-        "com.linecorp.linetv",
-        "com.netflix.mediaclient",
-        "com.twgood.android",
-        "tv.twitch.android.app",
-        "com.viu.pad",
-        "com.viu.phone",
-        "com.vuclip.viu",
-        "com.hktve.viutv"
-      ],
       "domain_suffix": [
         "kk.stream",
         "spotify.design",
@@ -219,22 +203,6 @@
         "primevideo.cc",
         "netflix.ca"
       ],
-      "domain_keyword": [
-        "avoddashs",
-        "bbcfmt",
-        "uk-live",
-        "voddazn",
-        "jooxweb-api",
-        "nowtv100",
-        "rthklive",
-        "netflixdnstest",
-        "dualstack.apiproxy-",
-        "dualstack.ichnaea-web-",
-        "apiproxy-device-prod-nlb-",
-        "-spotify-com",
-        "-tiktokcdn-com",
-        "tvbanywhere"
-      ],
       "domain": [
         "d3c7rimkq79yfu.cloudfront.net",
         "d349g9zuie06uo.cloudfront.net",
@@ -295,6 +263,38 @@
         "www.tubi.tv",
         "chuangcachecdnoversea-tw.inter.ptqy.gitv.tv",
         "akmcdnoversea-tw.inter.ptqy.gitv.tv"
+      ],
+      "process_name": [
+        "com.amazon.avod.thirdpartyclient",
+        "tv",
+        "music",
+        "com.bstar.intl",
+        "com.hulu.plus",
+        "com.tencent.ibg.joox",
+        "com.linecorp.linetv",
+        "com.netflix.mediaclient",
+        "com.twgood.android",
+        "tv.twitch.android.app",
+        "com.viu.pad",
+        "com.viu.phone",
+        "com.vuclip.viu",
+        "com.hktve.viutv"
+      ],
+      "domain_keyword": [
+        "avoddashs",
+        "bbcfmt",
+        "uk-live",
+        "voddazn",
+        "jooxweb-api",
+        "nowtv100",
+        "rthklive",
+        "netflixdnstest",
+        "dualstack.apiproxy-",
+        "dualstack.ichnaea-web-",
+        "apiproxy-device-prod-nlb-",
+        "-spotify-com",
+        "-tiktokcdn-com",
+        "tvbanywhere"
       ]
     }
   ]
