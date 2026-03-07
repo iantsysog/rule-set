@@ -10,6 +10,11 @@ DOMAIN,epay.10010.com
 DOMAIN,loan-supermarket.faas.ele.me
 DOMAIN,push.12306.cn
 DOMAIN,ad.12306.cn
+PROCESS-NAME,Tencent Lemon
+PROCESS-NAME,LemonMonitor
+PROCESS-NAME,LemonDaemon
+PROCESS-NAME,LemonAgent
+PROCESS-NAME,LemonService
 AND,((DOMAIN-KEYWORD,genuine),(DOMAIN-KEYWORD,autodesk))
 DOMAIN-SUFFIX,0.0.198.in-addr.arpa
 DOMAIN-SUFFIX,jr.airstarfinance.net
@@ -43,8 +48,3 @@ DOMAIN-KEYWORD,bahoom
 DOMAIN-KEYWORD,-flv.meituan.net
 DOMAIN-KEYWORD,-live.meituan.net
 DOMAIN-KEYWORD,-fin.meituan.com
-PROCESS-NAME,Tencent Lemon
-PROCESS-NAME,LemonMonitor
-PROCESS-NAME,LemonDaemon
-PROCESS-NAME,LemonAgent
-PROCESS-NAME,LemonService
