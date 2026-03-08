@@ -34,6 +34,13 @@
         "push.12306.cn",
         "ad.12306.cn"
       ],
+      "process_name": [
+        "Tencent Lemon",
+        "LemonMonitor",
+        "LemonDaemon",
+        "LemonAgent",
+        "LemonService"
+      ],
       "domain_suffix": [
         "0.0.198.in-addr.arpa",
         "jr.airstarfinance.net",
@@ -68,13 +75,6 @@
         "-flv.meituan.net",
         "-live.meituan.net",
         "-fin.meituan.com"
-      ],
-      "process_name": [
-        "Tencent Lemon",
-        "LemonMonitor",
-        "LemonDaemon",
-        "LemonAgent",
-        "LemonService"
       ]
     }
   ]

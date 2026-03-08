@@ -18,6 +18,9 @@
         "tubi.tv",
         "www.tubi.tv"
       ],
+      "process_name": [
+        "com.hulu.plus"
+      ],
       "domain_suffix": [
         "paramountplus.com",
         "discoveryplus.com",
@@ -47,9 +50,6 @@
         "hulu.jp",
         "production-public.tubi.io",
         "discoveryplus.in"
-      ],
-      "process_name": [
-        "com.hulu.plus"
       ]
     }
   ]

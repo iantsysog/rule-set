@@ -15,6 +15,13 @@
         "44wilhpljf.execute-api.ap-southeast-1.amazonaws.com",
         "hbounify-prod.evergent.com"
       ],
+      "process_name": [
+        "com.viu.pad",
+        "com.viu.phone",
+        "com.vuclip.viu",
+        "com.hktve.viutv",
+        "com.bstar.intl"
+      ],
       "domain_suffix": [
         "mytvsuper.com",
         "hbogoasia.com",
@@ -36,13 +43,6 @@
       "domain_keyword": [
         "nowtv100",
         "rthklive"
-      ],
-      "process_name": [
-        "com.viu.pad",
-        "com.viu.phone",
-        "com.vuclip.viu",
-        "com.hktve.viutv",
-        "com.bstar.intl"
       ]
     }
   ]

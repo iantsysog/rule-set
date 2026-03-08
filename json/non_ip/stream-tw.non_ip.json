@@ -19,6 +19,9 @@
         "ana.video.friday.tw",
         "www.litv.tv"
       ],
+      "process_name": [
+        "com.linecorp.linetv"
+      ],
       "domain_suffix": [
         "kk.stream",
         "fanfox.net",
@@ -38,9 +41,6 @@
         "kktv.me",
         "hbogoasia.id",
         "hbogoasia.hk"
-      ],
-      "process_name": [
-        "com.linecorp.linetv"
       ]
     }
   ]
