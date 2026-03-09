@@ -38,13 +38,13 @@ DOMAIN,epay.10010.com
 DOMAIN,loan-supermarket.faas.ele.me
 DOMAIN,push.12306.cn
 DOMAIN,ad.12306.cn
+DOMAIN-KEYWORD,bahoom
+DOMAIN-KEYWORD,-flv.meituan.net
+DOMAIN-KEYWORD,-live.meituan.net
+DOMAIN-KEYWORD,-fin.meituan.com
 PROCESS-NAME,Tencent Lemon
 PROCESS-NAME,LemonMonitor
 PROCESS-NAME,LemonDaemon
 PROCESS-NAME,LemonAgent
 PROCESS-NAME,LemonService
-DOMAIN-KEYWORD,bahoom
-DOMAIN-KEYWORD,-flv.meituan.net
-DOMAIN-KEYWORD,-live.meituan.net
-DOMAIN-KEYWORD,-fin.meituan.com
 DST-PORT,7680
