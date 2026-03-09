@@ -2,10 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "process_name": [
-        "AdGuardHome",
-        "nmap"
-      ],
       "domain_suffix": [
         "torrentmac.net",
         "engage.cloudflareclient.com",
@@ -13,6 +9,10 @@
       ],
       "domain_keyword": [
         "mac-torrent-download"
+      ],
+      "process_name": [
+        "AdGuardHome",
+        "nmap"
       ]
     }
   ]

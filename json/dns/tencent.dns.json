@@ -2,10 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain": [
-        "tx-safety-video.acfun.cn",
-        "url.cn"
-      ],
       "domain_suffix": [
         "cnb.cool",
         "tencent-cloud.net",
@@ -55,6 +51,10 @@
         "wegame.com.cn",
         "gtimg.com.cn",
         "qq.com.cn"
+      ],
+      "domain": [
+        "tx-safety-video.acfun.cn",
+        "url.cn"
       ]
     }
   ]

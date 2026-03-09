@@ -2,6 +2,12 @@
   "version": 4,
   "rules": [
     {
+      "domain": [
+        "cdn-msp.18comic.vip",
+        "cdn-msp.18comic.org",
+        "cdn-msp.jmcomic-zzz.one",
+        "cdn-msp.jmcomic.me"
+      ],
       "domain_regex": [
         "^cdn\\\\.[\\\\w.-]*?\\\\.office\\\\.net$",
         "^cdn\\\\.[\\\\w.-]*?\\\\.microsoft\\\\.com$",
@@ -61,12 +67,6 @@
         "^cdn[\\\\w.-]*?\\\\.porn87\\\\.com$",
         "^cdn[\\\\w.-]*?\\\\.pornhost\\\\.com$",
         "^cdn[\\\\w.-]*?\\\\.boysfood\\\\.com$"
-      ],
-      "domain": [
-        "cdn-msp.18comic.vip",
-        "cdn-msp.18comic.org",
-        "cdn-msp.jmcomic-zzz.one",
-        "cdn-msp.jmcomic.me"
       ],
       "domain_keyword": [
         "-files.gitbook.io",

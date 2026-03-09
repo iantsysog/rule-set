@@ -2,6 +2,24 @@
   "version": 4,
   "rules": [
     {
+      "domain_suffix": [
+        "gs2.ww.prod.dl.playstation.net",
+        "gs2.ww.prod.dl.playstation.net.edgesuite.net",
+        "microsoft.com.edgesuite.net",
+        "wup.eshop.nintendo.net",
+        "hac.lp1.eshop.nintendo.net",
+        "wup.shop.nintendo.net",
+        "hac.lp1.d4c.nintendo.net",
+        "dyn.riotcdn.net",
+        "gs2-ww-prod.psn.akadns.net",
+        "gs2.sonycoment.loris-e.llnwd.net",
+        "windowsupdate.com",
+        "update.microsoft.com",
+        "dl.delivery.mp.microsoft.com",
+        "do.dsp.mp.microsoft.com",
+        "cdn.blizzard.com",
+        "cdn.ubi.com"
+      ],
       "domain": [
         "patches.totemarts.services",
         "patches.totemarts.games",
@@ -107,24 +125,6 @@
         "lvlt.cdn.ea.com",
         "cl-453343cd.gcdn.co",
         "wg.gcdn.co"
-      ],
-      "domain_suffix": [
-        "gs2.ww.prod.dl.playstation.net",
-        "gs2.ww.prod.dl.playstation.net.edgesuite.net",
-        "microsoft.com.edgesuite.net",
-        "wup.eshop.nintendo.net",
-        "hac.lp1.eshop.nintendo.net",
-        "wup.shop.nintendo.net",
-        "hac.lp1.d4c.nintendo.net",
-        "dyn.riotcdn.net",
-        "gs2-ww-prod.psn.akadns.net",
-        "gs2.sonycoment.loris-e.llnwd.net",
-        "windowsupdate.com",
-        "update.microsoft.com",
-        "dl.delivery.mp.microsoft.com",
-        "do.dsp.mp.microsoft.com",
-        "cdn.blizzard.com",
-        "cdn.ubi.com"
       ]
     }
   ]
