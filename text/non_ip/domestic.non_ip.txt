@@ -834,7 +834,6 @@ DOMAIN-SUFFIX,22.cn
 DOMAIN-SUFFIX,t.cn
 DOMAIN-SUFFIX,6.cn
 DOMAIN-SUFFIX,3.cn
-DOMAIN-WILDCARD,*.qhimgs?.com
 DOMAIN,dot.pub
 DOMAIN,doh.pub
 DOMAIN,dns.pub
@@ -856,3 +855,4 @@ DOMAIN,assets1.xboxlive.cn
 DOMAIN,lv.queniujq.cn
 DOMAIN,www.intel.cn
 DOMAIN,url.cn
+DOMAIN-WILDCARD,*.qhimgs?.com
