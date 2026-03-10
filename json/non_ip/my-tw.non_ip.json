@@ -2,8 +2,11 @@
   "version": 4,
   "rules": [
     {
-      "domain_suffix": [
-        "cdn.hinet.net"
+      "domain_regex": [
+        "^[\\\\w.-]*?\\\\.ffzy-online[\\\\w.-]\\\\.com$",
+        "^[\\\\w.-]*?\\\\.ffzy-play[\\\\w.-]\\\\.com$",
+        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-]\\\\.com$",
+        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-][\\\\w.-]\\\\.com$"
       ],
       "domain": [
         "av.jkforum.net",
@@ -14,11 +17,8 @@
         "mhgui.com",
         "hanime1.me"
       ],
-      "domain_regex": [
-        "^[\\\\w.-]*?\\\\.ffzy-online[\\\\w.-]\\\\.com$",
-        "^[\\\\w.-]*?\\\\.ffzy-play[\\\\w.-]\\\\.com$",
-        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-]\\\\.com$",
-        "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-][\\\\w.-]\\\\.com$"
+      "domain_suffix": [
+        "cdn.hinet.net"
       ]
     }
   ]

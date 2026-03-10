@@ -2,6 +2,17 @@
   "version": 4,
   "rules": [
     {
+      "process_name": [
+        "netbiosd",
+        "com.apple.geod",
+        "mapspushd",
+        "com.apple.Maps",
+        "apsd",
+        "fmfd",
+        "findmydevice-user-agent",
+        "CoreLocationAgent",
+        "WeatherWidget"
+      ],
       "domain_suffix": [
         "apple.news",
         "apple-dns.net",
@@ -19,17 +30,6 @@
         "me.com",
         "appsto.re",
         "apple.co"
-      ],
-      "process_name": [
-        "netbiosd",
-        "com.apple.geod",
-        "mapspushd",
-        "com.apple.Maps",
-        "apsd",
-        "fmfd",
-        "findmydevice-user-agent",
-        "CoreLocationAgent",
-        "WeatherWidget"
       ]
     }
   ]
