@@ -11,8 +11,7 @@
         "^cdn-[\\w.-]*?\\.comaps\\.tech$",
         "^cdn-[\\w.-]*?\\.organicmaps\\.app$",
         "^http://(.+)\\.gvt\\d\\.com/edgedl"
-      ],
-      "process_name": "NeatDownloadManager"
+      ]
     }
   ]
 }
