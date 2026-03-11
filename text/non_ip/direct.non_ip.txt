@@ -1,12 +1,3 @@
-DOMAIN-KEYWORD,cnki.net
-DOMAIN-KEYWORD,wanfangdata
-DOMAIN-KEYWORD,pkulaw
-DOMAIN-KEYWORD,westlawchina
-DOMAIN-KEYWORD,readcube
-DOMAIN-KEYWORD,sciencedirect
-DOMAIN-KEYWORD,elsevier
-DOMAIN-KEYWORD,deepdyve
-DOMAIN-KEYWORD,els-cdn
 DOMAIN-SUFFIX,localdomain
 DOMAIN-SUFFIX,internal
 DOMAIN-SUFFIX,orpheus.network
@@ -203,6 +194,7 @@ DOMAIN,mobile.hotspot
 DOMAIN,unifi
 DOMAIN,ntt.setup
 DOMAIN,pi.hole
+DOMAIN,public.localsend.org
 DOMAIN,injections.adguard.org
 DOMAIN,local.adguard.org
 DOMAIN,homerouter.cpe
@@ -214,3 +206,12 @@ DOMAIN,captive.apple.com
 DOMAIN,repeater.asus.com
 DOMAIN,router.asus.com
 DOMAIN,aterm.me
+DOMAIN-KEYWORD,cnki.net
+DOMAIN-KEYWORD,wanfangdata
+DOMAIN-KEYWORD,pkulaw
+DOMAIN-KEYWORD,westlawchina
+DOMAIN-KEYWORD,readcube
+DOMAIN-KEYWORD,sciencedirect
+DOMAIN-KEYWORD,elsevier
+DOMAIN-KEYWORD,deepdyve
+DOMAIN-KEYWORD,els-cdn
