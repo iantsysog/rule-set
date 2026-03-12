@@ -1,7 +1,3 @@
-DOMAIN,cdn-msp.18comic.vip
-DOMAIN,cdn-msp.18comic.org
-DOMAIN,cdn-msp.jmcomic-zzz.one
-DOMAIN,cdn-msp.jmcomic.me
 DOMAIN-WILDCARD,cdn.*.office.net
 DOMAIN-WILDCARD,cdn.*.microsoft.com
 DOMAIN-WILDCARD,cdn-*.microsoft.com
@@ -60,6 +56,10 @@ DOMAIN-WILDCARD,fastly-*.allmovie.com
 DOMAIN-WILDCARD,cdn*.porn87.com
 DOMAIN-WILDCARD,cdn*.pornhost.com
 DOMAIN-WILDCARD,cdn*.boysfood.com
+DOMAIN,cdn-msp.18comic.vip
+DOMAIN,cdn-msp.18comic.org
+DOMAIN,cdn-msp.jmcomic-zzz.one
+DOMAIN,cdn-msp.jmcomic.me
 DOMAIN-KEYWORD,-files.gitbook.io
 DOMAIN-KEYWORD,vod-adaptive.akamaized.net
 DOMAIN-KEYWORD,web-assets.zendesk

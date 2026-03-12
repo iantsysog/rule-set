@@ -1,3 +1,4 @@
+DST-PORT,7680
 DOMAIN-SUFFIX,0.0.198.in-addr.arpa
 DOMAIN-SUFFIX,jr.airstarfinance.net
 DOMAIN-SUFFIX,tongdun.net
@@ -30,7 +31,6 @@ PROCESS-NAME,LemonMonitor
 PROCESS-NAME,LemonDaemon
 PROCESS-NAME,LemonAgent
 PROCESS-NAME,LemonService
-DST-PORT,7680
 AND,((DOMAIN-KEYWORD,genuine),(DOMAIN-KEYWORD,autodesk))
 DOMAIN,daisydiskapp.com
 DOMAIN,locationhistoryplacedetails-pa.googleapis.com
