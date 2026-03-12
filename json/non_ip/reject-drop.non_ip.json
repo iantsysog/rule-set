@@ -5,11 +5,6 @@
       "domain_regex": [
         "^f-log[\\\\w.-]*?\\\\.grammarly\\\\.io$"
       ],
-      "domain": [
-        "stats.grafana.org",
-        "nom.telemetrydeck.com",
-        "stat.youpin.mi.com"
-      ],
       "domain_suffix": [
         "undefined",
         "null",
@@ -32,6 +27,11 @@
         "jpush.io",
         "femetrics.qagr.io",
         "jpush.cn"
+      ],
+      "domain": [
+        "stats.grafana.org",
+        "nom.telemetrydeck.com",
+        "stat.youpin.mi.com"
       ]
     }
   ]

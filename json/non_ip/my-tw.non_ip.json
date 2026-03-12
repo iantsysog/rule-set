@@ -8,6 +8,9 @@
         "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-]\\\\.com$",
         "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-][\\\\w.-]\\\\.com$"
       ],
+      "domain_suffix": [
+        "cdn.hinet.net"
+      ],
       "domain": [
         "av.jkforum.net",
         "www.manhuagui.com",
@@ -16,9 +19,6 @@
         "avbebe.com",
         "mhgui.com",
         "hanime1.me"
-      ],
-      "domain_suffix": [
-        "cdn.hinet.net"
       ]
     }
   ]
