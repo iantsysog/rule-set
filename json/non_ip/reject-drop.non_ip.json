@@ -2,9 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_regex": [
-        "^f-log[\\\\w.-]*?\\\\.grammarly\\\\.io$"
-      ],
       "domain_suffix": [
         "undefined",
         "null",
@@ -32,6 +29,9 @@
         "stats.grafana.org",
         "nom.telemetrydeck.com",
         "stat.youpin.mi.com"
+      ],
+      "domain_regex": [
+        "^f-log[\\\\w.-]*?\\\\.grammarly\\\\.io$"
       ]
     }
   ]

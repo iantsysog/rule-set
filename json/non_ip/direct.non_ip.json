@@ -2,6 +2,17 @@
   "version": 4,
   "rules": [
     {
+      "domain_keyword": [
+        "cnki.net",
+        "wanfangdata",
+        "pkulaw",
+        "westlawchina",
+        "readcube",
+        "sciencedirect",
+        "elsevier",
+        "deepdyve",
+        "els-cdn"
+      ],
       "domain_suffix": [
         "localdomain",
         "internal",
@@ -177,17 +188,6 @@
         "repeater.asus.com",
         "router.asus.com",
         "aterm.me"
-      ],
-      "domain_keyword": [
-        "cnki.net",
-        "wanfangdata",
-        "pkulaw",
-        "westlawchina",
-        "readcube",
-        "sciencedirect",
-        "elsevier",
-        "deepdyve",
-        "els-cdn"
       ],
       "process_name": [
         "v2ray",

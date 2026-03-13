@@ -2,6 +2,10 @@
   "version": 4,
   "rules": [
     {
+      "domain_keyword": [
+        "nowtv100",
+        "rthklive"
+      ],
       "domain_suffix": [
         "mytvsuper.com",
         "hbogoasia.com",
@@ -32,10 +36,6 @@
         "hbolb.onwardsmg.com",
         "44wilhpljf.execute-api.ap-southeast-1.amazonaws.com",
         "hbounify-prod.evergent.com"
-      ],
-      "domain_keyword": [
-        "nowtv100",
-        "rthklive"
       ],
       "process_name": [
         "com.viu.pad",

@@ -2,6 +2,10 @@
   "version": 4,
   "rules": [
     {
+      "domain_keyword": [
+        "openai",
+        "alkalimakersuite-pa.clients6.google.com"
+      ],
       "domain_suffix": [
         "generativeai.google",
         "notebooklm.google",
@@ -51,10 +55,6 @@
         "api.github.com",
         "openrouter.ai",
         "api.jetbrains.ai"
-      ],
-      "domain_keyword": [
-        "openai",
-        "alkalimakersuite-pa.clients6.google.com"
       ]
     }
   ]

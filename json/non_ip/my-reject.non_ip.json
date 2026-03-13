@@ -19,6 +19,13 @@
       "invert": false
     },
     {
+      "port": 7680,
+      "domain_keyword": [
+        "bahoom",
+        "-flv.meituan.net",
+        "-live.meituan.net",
+        "-fin.meituan.com"
+      ],
       "domain_suffix": [
         "0.0.198.in-addr.arpa",
         "jr.airstarfinance.net",
@@ -62,13 +69,6 @@
         "push.12306.cn",
         "ad.12306.cn"
       ],
-      "domain_keyword": [
-        "bahoom",
-        "-flv.meituan.net",
-        "-live.meituan.net",
-        "-fin.meituan.com"
-      ],
-      "port": 7680,
       "process_name": [
         "Tencent Lemon",
         "LemonMonitor",
