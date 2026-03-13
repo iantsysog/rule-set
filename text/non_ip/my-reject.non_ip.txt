@@ -1,4 +1,3 @@
-DST-PORT,7680
 DOMAIN-SUFFIX,0.0.198.in-addr.arpa
 DOMAIN-SUFFIX,jr.airstarfinance.net
 DOMAIN-SUFFIX,tongdun.net
@@ -26,11 +25,10 @@ DOMAIN-SUFFIX,adobe.io
 DOMAIN-SUFFIX,newbuy.chinaunicom.cn
 DOMAIN-SUFFIX,mall.10010.cn
 DOMAIN-SUFFIX,pipi.cn
-PROCESS-NAME,Tencent Lemon
-PROCESS-NAME,LemonMonitor
-PROCESS-NAME,LemonDaemon
-PROCESS-NAME,LemonAgent
-PROCESS-NAME,LemonService
+DOMAIN-KEYWORD,bahoom
+DOMAIN-KEYWORD,-flv.meituan.net
+DOMAIN-KEYWORD,-live.meituan.net
+DOMAIN-KEYWORD,-fin.meituan.com
 AND,((DOMAIN-KEYWORD,genuine),(DOMAIN-KEYWORD,autodesk))
 DOMAIN,daisydiskapp.com
 DOMAIN,locationhistoryplacedetails-pa.googleapis.com
@@ -44,7 +42,9 @@ DOMAIN,epay.10010.com
 DOMAIN,loan-supermarket.faas.ele.me
 DOMAIN,push.12306.cn
 DOMAIN,ad.12306.cn
-DOMAIN-KEYWORD,bahoom
-DOMAIN-KEYWORD,-flv.meituan.net
-DOMAIN-KEYWORD,-live.meituan.net
-DOMAIN-KEYWORD,-fin.meituan.com
+PROCESS-NAME,Tencent Lemon
+PROCESS-NAME,LemonMonitor
+PROCESS-NAME,LemonDaemon
+PROCESS-NAME,LemonAgent
+PROCESS-NAME,LemonService
+DST-PORT,7680
