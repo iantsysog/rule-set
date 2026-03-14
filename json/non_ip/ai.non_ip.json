@@ -2,6 +2,21 @@
   "version": 4,
   "rules": [
     {
+      "domain": [
+        "antigravity.google",
+        "antigravity-unleash.goog",
+        "ai.google.dev",
+        "daily-cloudcode-pa.googleapis.com",
+        "robinfrontend-pa.googleapis.com",
+        "aisandbox-pa.googleapis.com",
+        "aida.googleapis.com",
+        "gateway.ai.cloudflare.com",
+        "alkalicore-pa.clients6.google.com",
+        "jules.google.com",
+        "api.github.com",
+        "openrouter.ai",
+        "api.jetbrains.ai"
+      ],
       "domain_keyword": [
         "openai",
         "alkalimakersuite-pa.clients6.google.com"
@@ -40,21 +55,6 @@
         "dify.ai",
         "x.ai",
         "g.ai"
-      ],
-      "domain": [
-        "antigravity.google",
-        "antigravity-unleash.goog",
-        "ai.google.dev",
-        "daily-cloudcode-pa.googleapis.com",
-        "robinfrontend-pa.googleapis.com",
-        "aisandbox-pa.googleapis.com",
-        "aida.googleapis.com",
-        "gateway.ai.cloudflare.com",
-        "alkalicore-pa.clients6.google.com",
-        "jules.google.com",
-        "api.github.com",
-        "openrouter.ai",
-        "api.jetbrains.ai"
       ]
     }
   ]

@@ -2,6 +2,10 @@
   "version": 4,
   "rules": [
     {
+      "domain": [
+        "itvpnpmobile-a.akamaihd.net",
+        "bbc.mp-pxcdn.com"
+      ],
       "domain_keyword": [
         "bbcfmt",
         "uk-live"
@@ -11,10 +15,6 @@
         "tvlicensing.co.uk",
         "bbci.co.uk",
         "bbc.co.uk"
-      ],
-      "domain": [
-        "itvpnpmobile-a.akamaihd.net",
-        "bbc.mp-pxcdn.com"
       ]
     }
   ]
