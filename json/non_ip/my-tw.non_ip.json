@@ -2,6 +2,9 @@
   "version": 4,
   "rules": [
     {
+      "domain_suffix": [
+        "cdn.hinet.net"
+      ],
       "domain": [
         "av.jkforum.net",
         "www.manhuagui.com",
@@ -16,9 +19,6 @@
         "^[\\\\w.-]*?\\\\.ffzy-play[\\\\w.-]\\\\.com$",
         "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-]\\\\.com$",
         "^[\\\\w.-]*?\\\\.lz-cdn[\\\\w.-][\\\\w.-]\\\\.com$"
-      ],
-      "domain_suffix": [
-        "cdn.hinet.net"
       ]
     }
   ]
