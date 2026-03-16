@@ -19,6 +19,33 @@
       "invert": false
     },
     {
+      "domain_keyword": [
+        "bahoom",
+        "-flv.meituan.net",
+        "-live.meituan.net",
+        "-fin.meituan.com"
+      ],
+      "process_name": [
+        "Tencent Lemon",
+        "LemonMonitor",
+        "LemonDaemon",
+        "LemonAgent",
+        "LemonService"
+      ],
+      "domain": [
+        "daisydiskapp.com",
+        "locationhistoryplacedetails-pa.googleapis.com",
+        "locationhistoryaggregates-pa.googleapis.com",
+        "locationhistory-pa.googleapis.com",
+        "userlocation.googleapis.com",
+        "contents.meituan.com",
+        "fyb-2.cdn.bcebos.com",
+        "mpush-api.aliyun.com",
+        "epay.10010.com",
+        "loan-supermarket.faas.ele.me",
+        "push.12306.cn",
+        "ad.12306.cn"
+      ],
       "port": 7680,
       "domain_suffix": [
         "0.0.198.in-addr.arpa",
@@ -48,33 +75,6 @@
         "newbuy.chinaunicom.cn",
         "mall.10010.cn",
         "pipi.cn"
-      ],
-      "domain_keyword": [
-        "bahoom",
-        "-flv.meituan.net",
-        "-live.meituan.net",
-        "-fin.meituan.com"
-      ],
-      "domain": [
-        "daisydiskapp.com",
-        "locationhistoryplacedetails-pa.googleapis.com",
-        "locationhistoryaggregates-pa.googleapis.com",
-        "locationhistory-pa.googleapis.com",
-        "userlocation.googleapis.com",
-        "contents.meituan.com",
-        "fyb-2.cdn.bcebos.com",
-        "mpush-api.aliyun.com",
-        "epay.10010.com",
-        "loan-supermarket.faas.ele.me",
-        "push.12306.cn",
-        "ad.12306.cn"
-      ],
-      "process_name": [
-        "Tencent Lemon",
-        "LemonMonitor",
-        "LemonDaemon",
-        "LemonAgent",
-        "LemonService"
       ]
     }
   ]
