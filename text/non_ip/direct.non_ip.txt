@@ -1,3 +1,20 @@
+DOMAIN,mobile.hotspot
+DOMAIN,unifi
+DOMAIN,ntt.setup
+DOMAIN,pi.hole
+DOMAIN,public.localsend.org
+DOMAIN,injections.adguard.org
+DOMAIN,local.adguard.org
+DOMAIN,127.atlas.skk.moe
+DOMAIN,homerouter.cpe
+DOMAIN,setmeup.arubanetworks.com
+DOMAIN,instant.arubanetworks.com
+DOMAIN,console.gl-inet.com
+DOMAIN,hotspot.cslwifi.com
+DOMAIN,captive.apple.com
+DOMAIN,repeater.asus.com
+DOMAIN,router.asus.com
+DOMAIN,aterm.me
 PROCESS-NAME,v2ray
 PROCESS-NAME,xray
 PROCESS-NAME,ss-local
@@ -34,22 +51,6 @@ PROCESS-NAME,SunloginClient_Helper
 PROCESS-NAME,BaiduNetdisk_mac
 PROCESS-NAME,Logi Options
 PROCESS-NAME,Logi Options Daemon
-DOMAIN,mobile.hotspot
-DOMAIN,unifi
-DOMAIN,ntt.setup
-DOMAIN,pi.hole
-DOMAIN,public.localsend.org
-DOMAIN,injections.adguard.org
-DOMAIN,local.adguard.org
-DOMAIN,homerouter.cpe
-DOMAIN,setmeup.arubanetworks.com
-DOMAIN,instant.arubanetworks.com
-DOMAIN,console.gl-inet.com
-DOMAIN,hotspot.cslwifi.com
-DOMAIN,captive.apple.com
-DOMAIN,repeater.asus.com
-DOMAIN,router.asus.com
-DOMAIN,aterm.me
 DOMAIN-KEYWORD,cnki.net
 DOMAIN-KEYWORD,wanfangdata
 DOMAIN-KEYWORD,pkulaw
@@ -147,7 +148,6 @@ DOMAIN-SUFFIX,discfan.net
 DOMAIN-SUFFIX,pthome.net
 DOMAIN-SUFFIX,nicept.net
 DOMAIN-SUFFIX,joyhd.net
-DOMAIN-SUFFIX,127.atlas.skk.moe
 DOMAIN-SUFFIX,m2m
 DOMAIN-SUFFIX,lan
 DOMAIN-SUFFIX,blackwell-synergy.com
@@ -198,7 +198,6 @@ DOMAIN-SUFFIX,hdsky.me
 DOMAIN-SUFFIX,lztr.me
 DOMAIN-SUFFIX,nebulance.io
 DOMAIN-SUFFIX,filelist.io
-DOMAIN-SUFFIX,127.0.0.1.sslip.io
 DOMAIN-SUFFIX,karagarga.in
 DOMAIN-SUFFIX,totheglory.im
 DOMAIN-SUFFIX,jpopsuki.eu
