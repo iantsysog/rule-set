@@ -14,6 +14,14 @@
       "invert": false
     },
     {
+      "domain_regex": [
+        "^p2p[\\\\w.-]*?\\\\.qq\\\\.com$",
+        "^p2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^p2pchunk-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^dyp2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^p2plive-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
+        "^stun[\\\\w.-]*?\\\\.douyucdn\\\\.cn$"
+      ],
       "domain_keyword": [
         "-p2p.pull.yximgs.com",
         "-p2p-v2.pull.yximgs.com"
@@ -25,14 +33,6 @@
         "livewebbs2pcdn.msstatic.com",
         "stun1.douyucdn.cn",
         "stun.douyucdn.cn"
-      ],
-      "domain_regex": [
-        "^p2p[\\\\w.-]*?\\\\.qq\\\\.com$",
-        "^p2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^p2pchunk-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^dyp2p-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^p2plive-[\\\\w.-]*?\\\\.douyucdn\\\\.cn$",
-        "^stun[\\\\w.-]*?\\\\.douyucdn\\\\.cn$"
       ],
       "domain_suffix": [
         "ppio.cloud",

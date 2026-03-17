@@ -6,13 +6,6 @@
         "nowtv100",
         "rthklive"
       ],
-      "process_name": [
-        "com.viu.pad",
-        "com.viu.phone",
-        "com.vuclip.viu",
-        "com.hktve.viutv",
-        "com.bstar.intl"
-      ],
       "domain": [
         "d2anahhhmp1ffz.cloudfront.net",
         "d1k2us671qcoau.cloudfront.net",
@@ -43,6 +36,13 @@
         "hbogoasia.id",
         "hbogoasia.hk",
         "psg.cdn.hgc.com.hk"
+      ],
+      "process_name": [
+        "com.viu.pad",
+        "com.viu.phone",
+        "com.vuclip.viu",
+        "com.hktve.viutv",
+        "com.bstar.intl"
       ]
     }
   ]

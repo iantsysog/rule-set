@@ -2,6 +2,9 @@
   "version": 4,
   "rules": [
     {
+      "domain_regex": [
+        "^[\\\\w.-]*?\\\\.qhimgs[\\\\w.-]\\\\.com$"
+      ],
       "domain": [
         "dot.pub",
         "doh.pub",
@@ -24,9 +27,6 @@
         "lv.queniujq.cn",
         "www.intel.cn",
         "url.cn"
-      ],
-      "domain_regex": [
-        "^[\\\\w.-]*?\\\\.qhimgs[\\\\w.-]\\\\.com$"
       ],
       "domain_suffix": [
         "c-t.work",

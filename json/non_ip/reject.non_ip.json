@@ -2,6 +2,26 @@
   "version": 4,
   "rules": [
     {
+      "domain_regex": [
+        "^info\\\\.[\\\\w.-]*?\\\\.aleragroup\\\\.com$",
+        "^f-log[\\\\w.-]*?\\\\.grammarly\\\\.io$",
+        "^[\\\\w.-]*?\\\\.ad\\\\.[\\\\w.-]*?\\\\.prod\\\\.hosts\\\\.ooklaserver\\\\.net$",
+        "^adv0[\\\\w.-]*?\\\\.msa\\\\.cdn\\\\.mediaset\\\\.net$",
+        "^v[\\\\w.-]*?\\\\.thenewstack\\\\.io$",
+        "^beacons[\\\\w.-]*?\\\\.gvt[\\\\w.-]\\\\.com$",
+        "^[\\\\w.-]*?-pcdn-[\\\\w.-]*?\\\\.biliapi\\\\.net$",
+        "^tracking\\\\.[\\\\w.-]*?\\\\.miui\\\\.com$",
+        "^[\\\\w.-]*?\\\\.tracking\\\\.[\\\\w.-]*?\\\\.miui\\\\.com$",
+        "^ads-[\\\\w.-]*?\\\\.xhscdn\\\\.com$",
+        "^ads-[\\\\w.-]*?\\\\.tiktok\\\\.com$",
+        "^mon-[\\\\w.-]*?\\\\.byteoversea\\\\.com$",
+        "^pixel[\\\\w.-]*?\\\\.adswizz\\\\.com$",
+        "^log[\\\\w.-]*?-normal-[\\\\w.-]*?\\\\.tiktokv\\\\.com$",
+        "^analytics-[\\\\w.-]*?\\\\.aasaam\\\\.com$",
+        "/igd\\.xml",
+        "/\\d+/resolve",
+        "/\\d+/sign_d"
+      ],
       "domain_keyword": [
         ".estream.",
         "jshosting",
@@ -148,6 +168,10 @@
         "httpdns-v6.gslb.yy.com"
       ],
       "ip_cidr": [
+        "2402:db40:5100:1011::5/128",
+        "2402:4e00:1900:1700:0:9554:1ad9:c3a/128",
+        "240e:928:1400:10::25/128",
+        "2402:4e00:1200:ed00:0:9089:6dac:96b6/128",
         "39.97.128.148/32",
         "39.97.130.51/32",
         "42.81.232.18/32",
@@ -190,31 +214,7 @@
         "202.90.110.46/32",
         "203.107.1.0/24",
         "203.119.204.66/32",
-        "203.119.238.194/32",
-        "2402:db40:5100:1011::5/128",
-        "2402:4e00:1900:1700:0:9554:1ad9:c3a/128",
-        "240e:928:1400:10::25/128",
-        "2402:4e00:1200:ed00:0:9089:6dac:96b6/128"
-      ],
-      "domain_regex": [
-        "/igd\\.xml",
-        "/\\d+/resolve",
-        "/\\d+/sign_d",
-        "^info\\\\.[\\\\w.-]*?\\\\.aleragroup\\\\.com$",
-        "^f-log[\\\\w.-]*?\\\\.grammarly\\\\.io$",
-        "^[\\\\w.-]*?\\\\.ad\\\\.[\\\\w.-]*?\\\\.prod\\\\.hosts\\\\.ooklaserver\\\\.net$",
-        "^adv0[\\\\w.-]*?\\\\.msa\\\\.cdn\\\\.mediaset\\\\.net$",
-        "^v[\\\\w.-]*?\\\\.thenewstack\\\\.io$",
-        "^beacons[\\\\w.-]*?\\\\.gvt[\\\\w.-]\\\\.com$",
-        "^[\\\\w.-]*?-pcdn-[\\\\w.-]*?\\\\.biliapi\\\\.net$",
-        "^tracking\\\\.[\\\\w.-]*?\\\\.miui\\\\.com$",
-        "^[\\\\w.-]*?\\\\.tracking\\\\.[\\\\w.-]*?\\\\.miui\\\\.com$",
-        "^ads-[\\\\w.-]*?\\\\.xhscdn\\\\.com$",
-        "^ads-[\\\\w.-]*?\\\\.tiktok\\\\.com$",
-        "^mon-[\\\\w.-]*?\\\\.byteoversea\\\\.com$",
-        "^pixel[\\\\w.-]*?\\\\.adswizz\\\\.com$",
-        "^log[\\\\w.-]*?-normal-[\\\\w.-]*?\\\\.tiktokv\\\\.com$",
-        "^analytics-[\\\\w.-]*?\\\\.aasaam\\\\.com$"
+        "203.119.238.194/32"
       ],
       "domain": [
         "resolver.msg.xiaomi.net",

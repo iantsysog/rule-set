@@ -2,9 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "process_name": [
-        "com.hulu.plus"
-      ],
       "domain": [
         "staticasiafox.akamaized.net",
         "dashasiafox.akamaized.net",
@@ -50,6 +47,9 @@
         "hulu.jp",
         "production-public.tubi.io",
         "discoveryplus.in"
+      ],
+      "process_name": [
+        "com.hulu.plus"
       ]
     }
   ]
