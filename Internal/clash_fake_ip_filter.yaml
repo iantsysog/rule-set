@@ -9,8 +9,6 @@ dns:
     - +.internal
     - +.localdomain
     - home.arpa
-    - 127.0.0.1.sslip.io
-    - 127.atlas.skk.moe
     - dns.msftncsi.com
     - "*.srv.nintendo.net"
     - "*.stun.playstation.net"
@@ -29,3 +27,4 @@ dns:
     - 127-*-*-*.nip.io
     - "*.127.*.*.*.nip.io"
     - "*-127-*-*-*.nip.io"
+    - 127.atlas.skk.moe
