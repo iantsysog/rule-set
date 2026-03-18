@@ -2,6 +2,9 @@
   "version": 4,
   "rules": [
     {
+      "process_name": [
+        "com.linecorp.linetv"
+      ],
       "domain": [
         "d3c7rimkq79yfu.cloudfront.net",
         "players.brightcove.net",
@@ -38,9 +41,6 @@
         "kktv.me",
         "hbogoasia.id",
         "hbogoasia.hk"
-      ],
-      "process_name": [
-        "com.linecorp.linetv"
       ]
     }
   ]

@@ -19,7 +19,13 @@
       "invert": false
     },
     {
-      "port": 7680,
+      "process_name": [
+        "Tencent Lemon",
+        "LemonMonitor",
+        "LemonDaemon",
+        "LemonAgent",
+        "LemonService"
+      ],
       "domain_keyword": [
         "bahoom",
         "-flv.meituan.net",
@@ -69,13 +75,7 @@
         "mall.10010.cn",
         "pipi.cn"
       ],
-      "process_name": [
-        "Tencent Lemon",
-        "LemonMonitor",
-        "LemonDaemon",
-        "LemonAgent",
-        "LemonService"
-      ]
+      "port": 7680
     }
   ]
 }
