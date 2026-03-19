@@ -1,3 +1,20 @@
+DOMAIN,mobile.hotspot
+DOMAIN,unifi
+DOMAIN,ntt.setup
+DOMAIN,pi.hole
+DOMAIN,public.localsend.org
+DOMAIN,injections.adguard.org
+DOMAIN,local.adguard.org
+DOMAIN,127.atlas.skk.moe
+DOMAIN,homerouter.cpe
+DOMAIN,setmeup.arubanetworks.com
+DOMAIN,instant.arubanetworks.com
+DOMAIN,console.gl-inet.com
+DOMAIN,hotspot.cslwifi.com
+DOMAIN,captive.apple.com
+DOMAIN,repeater.asus.com
+DOMAIN,router.asus.com
+DOMAIN,aterm.me
 DOMAIN-SUFFIX,localdomain
 DOMAIN-SUFFIX,internal
 DOMAIN-SUFFIX,orpheus.network
@@ -197,20 +214,3 @@ PROCESS-NAME,SunloginClient_Helper
 PROCESS-NAME,BaiduNetdisk_mac
 PROCESS-NAME,Logi Options
 PROCESS-NAME,Logi Options Daemon
-DOMAIN,mobile.hotspot
-DOMAIN,unifi
-DOMAIN,ntt.setup
-DOMAIN,pi.hole
-DOMAIN,public.localsend.org
-DOMAIN,injections.adguard.org
-DOMAIN,local.adguard.org
-DOMAIN,127.atlas.skk.moe
-DOMAIN,homerouter.cpe
-DOMAIN,setmeup.arubanetworks.com
-DOMAIN,instant.arubanetworks.com
-DOMAIN,console.gl-inet.com
-DOMAIN,hotspot.cslwifi.com
-DOMAIN,captive.apple.com
-DOMAIN,repeater.asus.com
-DOMAIN,router.asus.com
-DOMAIN,aterm.me
