@@ -2,17 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_keyword": [
-        "nowtv100",
-        "rthklive"
-      ],
-      "process_name": [
-        "com.viu.pad",
-        "com.viu.phone",
-        "com.vuclip.viu",
-        "com.hktve.viutv",
-        "com.bstar.intl"
-      ],
       "domain": [
         "d2anahhhmp1ffz.cloudfront.net",
         "d1k2us671qcoau.cloudfront.net",
@@ -43,6 +32,17 @@
         "hbogoasia.id",
         "hbogoasia.hk",
         "psg.cdn.hgc.com.hk"
+      ],
+      "domain_keyword": [
+        "nowtv100",
+        "rthklive"
+      ],
+      "process_name": [
+        "com.viu.pad",
+        "com.viu.phone",
+        "com.vuclip.viu",
+        "com.hktve.viutv",
+        "com.bstar.intl"
       ]
     }
   ]

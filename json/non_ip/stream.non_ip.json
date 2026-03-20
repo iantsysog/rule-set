@@ -2,38 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_keyword": [
-        "avoddashs",
-        "bbcfmt",
-        "uk-live",
-        "voddazn",
-        "jooxweb-api",
-        "nowtv100",
-        "rthklive",
-        "netflixdnstest",
-        "dualstack.apiproxy-",
-        "dualstack.ichnaea-web-",
-        "apiproxy-device-prod-nlb-",
-        "-spotify-com",
-        "-tiktokcdn-com",
-        "tvbanywhere"
-      ],
-      "process_name": [
-        "com.amazon.avod.thirdpartyclient",
-        "tv",
-        "music",
-        "com.bstar.intl",
-        "com.hulu.plus",
-        "com.tencent.ibg.joox",
-        "com.linecorp.linetv",
-        "com.netflix.mediaclient",
-        "com.twgood.android",
-        "tv.twitch.android.app",
-        "com.viu.pad",
-        "com.viu.phone",
-        "com.vuclip.viu",
-        "com.hktve.viutv"
-      ],
       "domain": [
         "d3c7rimkq79yfu.cloudfront.net",
         "d349g9zuie06uo.cloudfront.net",
@@ -295,6 +263,38 @@
         "amazonvideo.cc",
         "primevideo.cc",
         "netflix.ca"
+      ],
+      "domain_keyword": [
+        "avoddashs",
+        "bbcfmt",
+        "uk-live",
+        "voddazn",
+        "jooxweb-api",
+        "nowtv100",
+        "rthklive",
+        "netflixdnstest",
+        "dualstack.apiproxy-",
+        "dualstack.ichnaea-web-",
+        "apiproxy-device-prod-nlb-",
+        "-spotify-com",
+        "-tiktokcdn-com",
+        "tvbanywhere"
+      ],
+      "process_name": [
+        "com.amazon.avod.thirdpartyclient",
+        "tv",
+        "music",
+        "com.bstar.intl",
+        "com.hulu.plus",
+        "com.tencent.ibg.joox",
+        "com.linecorp.linetv",
+        "com.netflix.mediaclient",
+        "com.twgood.android",
+        "tv.twitch.android.app",
+        "com.viu.pad",
+        "com.viu.phone",
+        "com.vuclip.viu",
+        "com.hktve.viutv"
       ]
     }
   ]

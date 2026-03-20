@@ -2,10 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_keyword": [
-        "openai",
-        "alkalimakersuite-pa.clients6.google.com"
-      ],
       "domain": [
         "antigravity.google",
         "antigravity-unleash.goog",
@@ -55,6 +51,10 @@
         "dify.ai",
         "x.ai",
         "g.ai"
+      ],
+      "domain_keyword": [
+        "openai",
+        "alkalimakersuite-pa.clients6.google.com"
       ]
     }
   ]

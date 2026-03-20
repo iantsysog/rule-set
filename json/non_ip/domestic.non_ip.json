@@ -2,9 +2,6 @@
   "version": 4,
   "rules": [
     {
-      "domain_regex": [
-        "^[\\\\w.-]*?\\\\.qhimgs[\\\\w.-]\\\\.com$"
-      ],
       "domain": [
         "dot.pub",
         "doh.pub",
@@ -865,6 +862,9 @@
         "t.cn",
         "6.cn",
         "3.cn"
+      ],
+      "domain_regex": [
+        "^[\\\\w.-]*?\\\\.qhimgs[\\\\w.-]\\\\.com$"
       ]
     }
   ]
