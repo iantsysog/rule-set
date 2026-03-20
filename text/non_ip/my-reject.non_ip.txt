@@ -1,5 +1,3 @@
-DST-PORT,7680
-AND,((DOMAIN-KEYWORD,genuine),(DOMAIN-KEYWORD,autodesk))
 DOMAIN,daisydiskapp.com
 DOMAIN,locationhistoryplacedetails-pa.googleapis.com
 DOMAIN,locationhistoryaggregates-pa.googleapis.com
@@ -48,3 +46,5 @@ PROCESS-NAME,LemonMonitor
 PROCESS-NAME,LemonDaemon
 PROCESS-NAME,LemonAgent
 PROCESS-NAME,LemonService
+AND,((DOMAIN-KEYWORD,genuine),(DOMAIN-KEYWORD,autodesk))
+DST-PORT,7680
