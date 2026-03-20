@@ -366,8 +366,8 @@ func parseLine(line string) ruleEntry {
 	if net.ParseIP(entry) != nil {
 		return ruleEntry{pattern: "IP-CIDR", address: entry}
 	}
-	if strings.HasPrefix(entry, "+") {
-		return ruleEntry{pattern: "DOMAIN-SUFFIX", address: strings.TrimPrefix(strings.TrimPrefix(entry, "+"), ".")}
+	if after, ok0 :=strings.CutPrefix(entry, "+"); ok0  {
+		return ruleEntry{pattern: "DOMAIN-SUFFIX", address: strings.TrimPrefix(after, ".")}
 	}
 	return ruleEntry{pattern: "DOMAIN", address: entry}
 }
