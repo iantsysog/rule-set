@@ -13,7 +13,6 @@ import (
 	"os/signal"
 	"path/filepath"
 	"regexp"
-	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -80,6 +79,12 @@ var (
 
 	regexValidationCache sync.Map
 )
+
+var logicalRuleKeys = map[string]struct{}{
+	"AND": {},
+	"OR":  {},
+	"NOT": {},
+}
 
 type ruleEntry struct {
 	pattern string
@@ -208,13 +213,17 @@ func collectFiles(dir string, categories []string) ([]fileInfo, error) {
 
 		for _, match := range matches {
 			base := filepath.Base(match)
-			if !strings.HasSuffix(base, ".conf") || len(base) <= len(".conf") {
+			if filepath.Ext(base) != ".conf" {
+				continue
+			}
+			name := strings.TrimSuffix(base, ".conf")
+			if name == "" {
 				continue
 			}
 			files = append(files, fileInfo{
 				path:     match,
 				category: category,
-				name:     strings.TrimSuffix(base, ".conf"),
+				name:     name,
 			})
 		}
 	}
@@ -303,8 +312,8 @@ func prepareFrame(ctx context.Context, client *http.Client, source string) (*rul
 }
 
 func openSource(ctx context.Context, client *http.Client, source string) (io.ReadCloser, error) {
-	if strings.HasPrefix(source, "file://") {
-		return os.Open(strings.TrimPrefix(source, "file://"))
+	if after, ok :=strings.CutPrefix(source, "file://"); ok  {
+		return os.Open(after)
 	}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, source, nil)
@@ -346,7 +355,7 @@ func parseLine(line string) ruleEntry {
 		return ruleEntry{pattern: pattern, address: addr}
 	}
 
-	entry := strings.Trim(line, `"'`)
+	entry := strings.Trim(strings.TrimSpace(line), `"'`)
 	if entry == "" {
 		return ruleEntry{}
 	}
@@ -426,9 +435,7 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 
 	patterns := make([]string, 0, len(frame.groups))
 	for pattern := range frame.groups {
-		switch pattern {
-		case "AND", "OR", "NOT":
-		default:
+		if _, isLogical := logicalRuleKeys[pattern]; !isLogical {
 			patterns = append(patterns, pattern)
 		}
 	}
@@ -503,12 +510,13 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 }
 
 func parseNetworkType(value string) (option.InterfaceType, bool) {
-	switch strings.ToUpper(strings.TrimSpace(value)) {
-	case "WIFI":
+	value = strings.TrimSpace(value)
+	switch {
+	case strings.EqualFold(value, "WIFI"):
 		return option.InterfaceType(C.InterfaceTypeWIFI), true
-	case "WIRED":
+	case strings.EqualFold(value, "WIRED"):
 		return option.InterfaceType(C.InterfaceTypeEthernet), true
-	case "CELLULAR":
+	case strings.EqualFold(value, "CELLULAR"):
 		return option.InterfaceType(C.InterfaceTypeCellular), true
 	default:
 		return 0, false
@@ -568,34 +576,20 @@ func singLogicalRules(ctx context.Context, resolver *asn.ASNResolver, addresses 
 }
 
 func splitLogicalParts(inner string) []string {
-	if strings.Contains(inner, "),(") {
-		parts := strings.Split(inner, "),(")
-		if len(parts) > 0 && strings.HasPrefix(parts[0], "(") {
-			parts[0] = parts[0][1:]
-		}
-		last := len(parts) - 1
-		if len(parts) > 0 && strings.HasSuffix(parts[last], ")") {
-			parts[last] = parts[last][:len(parts[last])-1]
-		}
-		return parts
-	}
-
-	if strings.Contains(inner, "), (") {
-		parts := strings.Split(inner, "), (")
-		if len(parts) > 0 && strings.HasPrefix(parts[0], "(") {
-			parts[0] = parts[0][1:]
-		}
-		last := len(parts) - 1
-		if len(parts) > 0 && strings.HasSuffix(parts[last], ")") {
-			parts[last] = parts[last][:len(parts[last])-1]
+	normalized := strings.ReplaceAll(inner, "), (", "),(")
+	if strings.Contains(normalized, "),(") {
+		parts := strings.Split(normalized, "),(")
+		for i := range parts {
+			parts[i] = strings.TrimPrefix(parts[i], "(")
+			parts[i] = strings.TrimSuffix(parts[i], ")")
+			parts[i] = strings.TrimSpace(parts[i])
 		}
 		return parts
 	}
-
-	if strings.HasPrefix(inner, "(") && strings.HasSuffix(inner, ")") {
-		return []string{inner[1 : len(inner)-1]}
+	if strings.HasPrefix(normalized, "(") && strings.HasSuffix(normalized, ")") {
+		return []string{strings.TrimSpace(normalized[1 : len(normalized)-1])}
 	}
-	return []string{inner}
+	return []string{strings.TrimSpace(normalized)}
 }
 
 func parseSingSubRule(ctx context.Context, resolver *asn.ASNResolver, ruleType, ruleValue string) *option.HeadlessRule {
@@ -704,7 +698,7 @@ func processRule(rule *option.DefaultHeadlessRule, address string) {
 }
 
 func appendProcessOptions(existing []string, prefix, company, app, options string) []string {
-	for _, opt := range strings.Split(options, "|") {
+	for opt := range strings.SplitSeq(options, "|") {
 		opt = strings.TrimSpace(opt)
 		if opt == "" {
 			continue
@@ -715,7 +709,7 @@ func appendProcessOptions(existing []string, prefix, company, app, options strin
 }
 
 func appendProcessOptionsSimple(existing []string, prefix, company, options string) []string {
-	for _, opt := range strings.Split(options, "|") {
+	for opt := range strings.SplitSeq(options, "|") {
 		opt = strings.TrimSpace(opt)
 		if opt == "" {
 			continue
@@ -740,8 +734,8 @@ func deduplicateDefaultRule(rule option.DefaultHeadlessRule) option.DefaultHeadl
 	rule.SourcePortRange = badoption.Listable[string](dedupe(rule.SourcePortRange))
 	rule.SourceIPCIDR = badoption.Listable[string](dedupe(rule.SourceIPCIDR))
 	rule.NetworkType = dedupeNetworkTypes(rule.NetworkType)
-	rule.Port = slices.Compact(rule.Port)
-	rule.SourcePort = slices.Compact(rule.SourcePort)
+	rule.Port = dedupeUint16(rule.Port)
+	rule.SourcePort = dedupeUint16(rule.SourcePort)
 	return rule
 }
 
@@ -930,9 +924,14 @@ func processPorts(addresses []string) ([]uint16, []string) {
 				delimiter = '-'
 			}
 			if left, right, ok := strings.Cut(raw, string(delimiter)); ok {
-				start, errStart := strconv.Atoi(strings.TrimSpace(left))
-				end, errEnd := strconv.Atoi(strings.TrimSpace(right))
-				if errStart == nil && errEnd == nil && isValidPort(start) && isValidPort(end) {
+				start64, errStart := strconv.ParseUint(strings.TrimSpace(left), 10, 16)
+				end64, errEnd := strconv.ParseUint(strings.TrimSpace(right), 10, 16)
+				if errStart == nil && errEnd == nil {
+					start := int(start64)
+					end := int(end64)
+					if !isValidPort(start) || !isValidPort(end) {
+						continue
+					}
 					if start > end {
 						start, end = end, start
 					}
@@ -942,8 +941,12 @@ func processPorts(addresses []string) ([]uint16, []string) {
 			}
 		}
 
-		port, err := strconv.Atoi(raw)
-		if err != nil || !isValidPort(port) {
+		port64, err := strconv.ParseUint(raw, 10, 16)
+		if err != nil {
+			continue
+		}
+		port := int(port64)
+		if !isValidPort(port) {
 			continue
 		}
 		ports = append(ports, uint16(port))
