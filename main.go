@@ -845,7 +845,7 @@ func normalizeCIDRs(entries []string) []string {
 }
 
 func isRegexLike(value string) bool {
-	if !strings.ContainsAny(value, `\.+*?()|[]{}^$`) {
+	if !strings.ContainsAny(value, `\+*?()|[]{}^$`) {
 		return false
 	}
 	return validateRegex(value)
