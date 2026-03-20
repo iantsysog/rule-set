@@ -12,7 +12,6 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
-	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -20,6 +19,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/coregx/coregex"
 	"github.com/iantsysog/sing-rule/convertor/asn"
 	"github.com/sagernet/sing-box/common/srs"
 	C "github.com/sagernet/sing-box/constant"
@@ -42,8 +42,8 @@ const (
 )
 
 var (
-	processRegexComplex = regexp.MustCompile(`^([^.]+)\.([^.]+)\.([^.]+)\.\(([^)]+)\)$`)
-	processRegexSimple  = regexp.MustCompile(`^([^.]+)\.([^.]+)\.\(([^)]+)\)$`)
+	processRegexComplex = coregex.MustCompile(`^([^.]+)\.([^.]+)\.([^.]+)\.\(([^)]+)\)$`)
+	processRegexSimple  = coregex.MustCompile(`^([^.]+)\.([^.]+)\.\(([^)]+)\)$`)
 
 	excludedAddresses = map[string]struct{}{
 		"":  {},
@@ -112,12 +112,10 @@ func main() {
 }
 
 func run(ctx context.Context) error {
-	listDir := findDirectory("List", "dist/List", "../dist/List")
+	listDir := findDirectory("List", "../List")
 	modulesDir := findDirectory(
 		"Modules/Rules/sukka_local_dns_mapping",
-		"dist/Modules/Rules/sukka_local_dns_mapping",
 		"../Modules/Rules/sukka_local_dns_mapping",
-		"../dist/Rules/sukka_local_dns_mapping",
 	)
 	if listDir == "" {
 		return E.New("list directory not found")
@@ -312,7 +310,7 @@ func prepareFrame(ctx context.Context, client *http.Client, source string) (*rul
 }
 
 func openSource(ctx context.Context, client *http.Client, source string) (io.ReadCloser, error) {
-	if after, ok :=strings.CutPrefix(source, "file://"); ok  {
+	if after, ok := strings.CutPrefix(source, "file://"); ok {
 		return os.Open(after)
 	}
 
@@ -366,7 +364,7 @@ func parseLine(line string) ruleEntry {
 	if net.ParseIP(entry) != nil {
 		return ruleEntry{pattern: "IP-CIDR", address: entry}
 	}
-	if after, ok0 :=strings.CutPrefix(entry, "+"); ok0  {
+	if after, ok0 := strings.CutPrefix(entry, "+"); ok0 {
 		return ruleEntry{pattern: "DOMAIN-SUFFIX", address: strings.TrimPrefix(after, ".")}
 	}
 	return ruleEntry{pattern: "DOMAIN", address: entry}
@@ -762,7 +760,7 @@ func validateRegex(pattern string) bool {
 	if cached, ok := regexValidationCache.Load(pattern); ok {
 		return cached.(bool)
 	}
-	_, err := regexp.Compile(pattern)
+	_, err := coregex.Compile(pattern)
 	valid := err == nil
 	regexValidationCache.Store(pattern, valid)
 	return valid
