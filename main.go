@@ -6,19 +6,21 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
+	"path"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
 	"sync"
-	"syscall"
 	"time"
 
+	"github.com/bmatcuk/doublestar/v4"
 	"github.com/coregx/coregex"
 	"github.com/iantsysog/sing-rule/convertor/asn"
 	"github.com/sagernet/sing-box/common/srs"
@@ -28,6 +30,7 @@ import (
 	E "github.com/sagernet/sing/common/exceptions"
 	"github.com/sagernet/sing/common/json"
 	"github.com/sagernet/sing/common/json/badoption"
+	"golang.org/x/sys/unix"
 )
 
 const (
@@ -42,26 +45,11 @@ const (
 )
 
 var (
-	processRegexComplex = coregex.MustCompile(`^([^.]+)\.([^.]+)\.([^.]+)\.\(([^)]+)\)$`)
-	processRegexSimple  = coregex.MustCompile(`^([^.]+)\.([^.]+)\.\(([^)]+)\)$`)
-
 	excludedAddresses = map[string]struct{}{
 		"":  {},
 		"#": {},
 		"th1s_rule5et_1s_m4d3_by_5ukk4w_ruleset.skk.moe": {},
 		"7h1s_rul35et_i5_mad3_by_5ukk4w-ruleset.skk.moe": {},
-	}
-
-	regexChars = map[rune]struct{}{
-		'*': {}, '+': {}, '?': {}, '^': {}, '$': {},
-		'{': {}, '}': {}, '(': {}, ')': {}, '|': {},
-		'[': {}, ']': {}, '\\': {},
-	}
-
-	charMap = map[rune]string{
-		'.': `\.`,
-		'*': `[\w.-]*?`,
-		'?': `[\w.-]`,
 	}
 
 	bufferPool = sync.Pool{
@@ -103,11 +91,12 @@ type fileInfo struct {
 }
 
 func main() {
-	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, unix.SIGTERM)
 	defer cancel()
 
 	if err := run(ctx); err != nil {
-		log.Fatal(err)
+		slog.Error("run failed", "error", err)
+		os.Exit(1)
 	}
 }
 
@@ -681,12 +670,12 @@ func processRule(rule *option.DefaultHeadlessRule, address string) {
 	}
 
 	if isRegexLike(address) {
-		if matches := processRegexComplex.FindStringSubmatch(address); len(matches) == 5 {
-			rule.ProcessName = appendProcessOptions(rule.ProcessName, matches[1], matches[2], matches[3], matches[4])
+		if prefix, company, app, options, ok := parseProcessRegexComplex(address); ok {
+			rule.ProcessName = appendProcessOptions(rule.ProcessName, prefix, company, app, options)
 			return
 		}
-		if matches := processRegexSimple.FindStringSubmatch(address); len(matches) == 4 {
-			rule.ProcessName = appendProcessOptionsSimple(rule.ProcessName, matches[1], matches[2], matches[3])
+		if prefix, company, options, ok := parseProcessRegexSimple(address); ok {
+			rule.ProcessName = appendProcessOptionsSimple(rule.ProcessName, prefix, company, options)
 			return
 		}
 		return
@@ -715,6 +704,52 @@ func appendProcessOptionsSimple(existing []string, prefix, company, options stri
 		existing = append(existing, fmt.Sprintf("%s.%s.%s", prefix, company, opt))
 	}
 	return existing
+}
+
+func parseProcessRegexComplex(value string) (prefix, company, app, options string, ok bool) {
+	parts := parseProcessRegexPattern(value)
+	if len(parts) != 4 {
+		return "", "", "", "", false
+	}
+	if parts[0] == "" || parts[1] == "" || parts[2] == "" || parts[3] == "" {
+		return "", "", "", "", false
+	}
+	return parts[0], parts[1], parts[2], parts[3], true
+}
+
+func parseProcessRegexSimple(value string) (prefix, company, options string, ok bool) {
+	parts := parseProcessRegexPattern(value)
+	if len(parts) != 3 {
+		return "", "", "", false
+	}
+	if parts[0] == "" || parts[1] == "" || parts[2] == "" {
+		return "", "", "", false
+	}
+	return parts[0], parts[1], parts[2], true
+}
+
+func parseProcessRegexPattern(value string) []string {
+	value = strings.TrimSpace(value)
+	if !strings.HasSuffix(value, ")") {
+		return nil
+	}
+	openIdx := strings.LastIndex(value, ".(")
+	if openIdx <= 0 || openIdx+2 >= len(value)-1 {
+		return nil
+	}
+	head := value[:openIdx]
+	options := value[openIdx+2 : len(value)-1]
+	if strings.Contains(options, ")") {
+		return nil
+	}
+	parts := strings.Split(head, ".")
+	for _, p := range parts {
+		if p == "" || strings.Contains(p, "(") || strings.Contains(p, ")") {
+			return nil
+		}
+	}
+	parts = append(parts, options)
+	return parts
 }
 
 func deduplicateDefaultRule(rule option.DefaultHeadlessRule) option.DefaultHeadlessRule {
@@ -772,18 +807,10 @@ func maskRegex(pattern string) string {
 		return "^$"
 	}
 
-	var builder strings.Builder
-	builder.Grow(len(masked) * 2)
-	builder.WriteByte('^')
-	for _, ch := range masked {
-		if replacement, ok := charMap[ch]; ok {
-			builder.WriteString(replacement)
-			continue
-		}
-		builder.WriteRune(ch)
-	}
-	builder.WriteByte('$')
-	return builder.String()
+	quoted := regexp.QuoteMeta(masked)
+	quoted = strings.ReplaceAll(quoted, `\*`, `[\w.-]*?`)
+	quoted = strings.ReplaceAll(quoted, `\?`, `[\w.-]`)
+	return "^" + quoted + "$"
 }
 
 func normalizeCIDR(entry string) string {
@@ -818,30 +845,31 @@ func normalizeCIDRs(entries []string) []string {
 }
 
 func isRegexLike(value string) bool {
-	for _, ch := range value {
-		if _, ok := regexChars[ch]; ok {
-			return validateRegex(value)
-		}
+	if !strings.ContainsAny(value, `\.+*?()|[]{}^$`) {
+		return false
 	}
-	return false
+	return validateRegex(value)
 }
 
 func isWildcardLike(value string) bool {
-	return strings.ContainsAny(value, "*?")
+	value = strings.TrimSpace(value)
+	if value == "" || !strings.ContainsAny(value, "*?") {
+		return false
+	}
+	return doublestar.ValidatePattern(value)
 }
 
 func isPathLike(value string) bool {
-	if strings.Contains(value, "/") {
+	if value == "" {
+		return false
+	}
+	if filepath.IsAbs(value) || filepath.VolumeName(value) != "" {
 		return true
 	}
-	if len(value) > 1 && value[1] == ':' && isAlpha(value[0]) {
+	if strings.ContainsAny(value, `/\`) {
 		return true
 	}
-	return false
-}
-
-func isAlpha(c byte) bool {
-	return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+	return path.Clean(value) != "." && strings.Contains(path.Clean(value), "/")
 }
 
 func filterValidRegex(addresses []string) []string {
@@ -861,6 +889,9 @@ func maskWildcards(addresses []string) []string {
 	for _, address := range addresses {
 		address = strings.TrimSpace(address)
 		if address == "" {
+			continue
+		}
+		if !doublestar.ValidatePattern(address) {
 			continue
 		}
 		masked := maskRegex(address)
