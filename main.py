@@ -82,8 +82,12 @@ CHAR_MAP: Final[dict[str, str]] = {
     "?": r"[\\w.-]",
 }
 
-DOMAIN_REGEX_OPTION3: Final[re.Pattern[str]] = re.compile(r"^([^.]+)\.([^.]+)\.([^.]+)\.\(([^)]+)\)$")
-DOMAIN_REGEX_OPTION2: Final[re.Pattern[str]] = re.compile(r"^([^.]+)\.([^.]+)\.\(([^)]+)\)$")
+DOMAIN_REGEX_OPTION3: Final[re.Pattern[str]] = re.compile(
+    r"^([^.]+)\.([^.]+)\.([^.]+)\.\(([^)]+)\)$"
+)
+DOMAIN_REGEX_OPTION2: Final[re.Pattern[str]] = re.compile(
+    r"^([^.]+)\.([^.]+)\.\(([^)]+)\)$"
+)
 LOGICAL_PARENS: Final[re.Pattern[str]] = re.compile(r"\(([^()]*)\)")
 
 SUBNET_TYPES: Final[dict[str, str]] = {
@@ -265,7 +269,11 @@ def _strip_no_resolve(value: str, /) -> tuple[str, bool]:
 
 
 def _sing_cidr_rule(cidr_list: Iterable[str], /) -> list[str]:
-    return [normalize_cidr(address.removesuffix(",no-resolve")) for address in cidr_list if address]
+    return [
+        normalize_cidr(address.removesuffix(",no-resolve"))
+        for address in cidr_list
+        if address
+    ]
 
 
 async def _fetch_asn_cidrs(asn_id: str, /) -> list[str]:
@@ -284,7 +292,10 @@ async def _fetch_asn_cidrs(asn_id: str, /) -> list[str]:
                 data = payload.get("data") or {}
                 prefixes = [
                     prefix.get("prefix")
-                    for prefix in [*(data.get("ipv4_prefixes") or []), *(data.get("ipv6_prefixes") or [])]
+                    for prefix in [
+                        *(data.get("ipv4_prefixes") or []),
+                        *(data.get("ipv6_prefixes") or []),
+                    ]
                     if isinstance(prefix, dict)
                 ]
             else:
@@ -295,7 +306,9 @@ async def _fetch_asn_cidrs(asn_id: str, /) -> list[str]:
                     if isinstance(prefix, dict)
                 ]
 
-            cidrs = [prefix for prefix in prefixes if isinstance(prefix, str) and prefix]
+            cidrs = [
+                prefix for prefix in prefixes if isinstance(prefix, str) and prefix
+            ]
             if payload.get("status") == "ok" and cidrs:
                 return _dedupe_preserve_order(cidrs)
 
@@ -329,7 +342,9 @@ async def _sing_asn_to_cidrs(asn_list: Sequence[str], /) -> list[str]:
     return _dedupe_preserve_order(merged)
 
 
-def _append_rule_values(target: dict[str, object], key: str, values: Iterable[str], /) -> None:
+def _append_rule_values(
+    target: dict[str, object], key: str, values: Iterable[str], /
+) -> None:
     typed = cast("list[str]", target.setdefault(key, []))
     typed.extend(value for value in values if value)
 
@@ -370,7 +385,11 @@ async def compose_sing(frame: pl.DataFrame, cidrs: list[str]) -> SingRuleSet:
                 raw_type, raw_value = raw.split(",", 1)
                 rule_type = raw_type.strip().upper()
                 rule_value = raw_value.strip()
-                if not rule_type or not rule_value or rule_type not in SURGE_RULE_TYPES_SET:
+                if (
+                    not rule_type
+                    or not rule_value
+                    or rule_type not in SURGE_RULE_TYPES_SET
+                ):
                     continue
 
                 sub_rule: SingHeadlessRule | None = None
@@ -447,7 +466,9 @@ async def compose_sing(frame: pl.DataFrame, cidrs: list[str]) -> SingRuleSet:
     if addresses := grouped_map.get("OR"):
         logical_rules.extend(await build_logical_rules(addresses, mode="or"))
     if addresses := grouped_map.get("NOT"):
-        logical_rules.extend(await build_logical_rules(addresses, mode="and", invert=True))
+        logical_rules.extend(
+            await build_logical_rules(addresses, mode="and", invert=True)
+        )
 
     regular: dict[str, object] = {}
 
@@ -464,10 +485,14 @@ async def compose_sing(frame: pl.DataFrame, cidrs: list[str]) -> SingRuleSet:
             case "DOMAIN-KEYWORD":
                 _append_rule_values(regular, "domain_keyword", addresses)
             case "DOMAIN-WILDCARD":
-                _append_rule_values(regular, "domain_regex", _sing_domain_wildcard(addresses))
+                _append_rule_values(
+                    regular, "domain_regex", _sing_domain_wildcard(addresses)
+                )
             case "IP-ASN":
                 asns = [
-                    address.upper() if address.upper().startswith("AS") else f"AS{address.upper()}"
+                    address.upper()
+                    if address.upper().startswith("AS")
+                    else f"AS{address.upper()}"
                     for address in addresses
                     if address
                 ]
@@ -478,23 +503,37 @@ async def compose_sing(frame: pl.DataFrame, cidrs: list[str]) -> SingRuleSet:
                     _append_rule_values(
                         regular,
                         "wifi_ssid",
-                        (address for address in addresses if address and address.upper() != "SSID"),
+                        (
+                            address
+                            for address in addresses
+                            if address and address.upper() != "SSID"
+                        ),
                     )
                 if "BSSID" in upper:
                     _append_rule_values(
                         regular,
                         "wifi_bssid",
-                        (address for address in addresses if address and address.upper() != "BSSID"),
+                        (
+                            address
+                            for address in addresses
+                            if address and address.upper() != "BSSID"
+                        ),
                     )
                 _append_rule_values(
                     regular,
                     "network_type",
-                    (SUBNET_TYPES[address.upper()] for address in addresses if address and address.upper() in SUBNET_TYPES),
+                    (
+                        SUBNET_TYPES[address.upper()]
+                        for address in addresses
+                        if address and address.upper() in SUBNET_TYPES
+                    ),
                 )
             case "IP-CIDR" | "IP-CIDR6":
                 _append_rule_values(regular, "ip_cidr", _sing_cidr_rule(addresses))
             case "SRC-IP":
-                _append_rule_values(regular, "source_ip_cidr", _sing_cidr_rule(addresses))
+                _append_rule_values(
+                    regular, "source_ip_cidr", _sing_cidr_rule(addresses)
+                )
             case "DEST-PORT" | "IN-PORT" | "SRC-PORT":
                 ports, ranges = process_ports(addresses)
                 prefix = "" if rule_type == "DEST-PORT" else "source_"
@@ -507,9 +546,15 @@ async def compose_sing(frame: pl.DataFrame, cidrs: list[str]) -> SingRuleSet:
                     process_rule = _process_rule(address)
                     for key, value in process_rule.items():
                         if isinstance(value, list):
-                            _append_rule_values(regular, key, (item for item in value if isinstance(item, str)))
+                            _append_rule_values(
+                                regular,
+                                key,
+                                (item for item in value if isinstance(item, str)),
+                            )
             case "URL-REGEX":
-                _append_rule_values(regular, "domain_regex", _sing_domain_regex(addresses))
+                _append_rule_values(
+                    regular, "domain_regex", _sing_domain_regex(addresses)
+                )
 
     _append_rule_values(regular, "ip_cidr", _sing_cidr_rule(cidrs))
 
@@ -532,7 +577,9 @@ async def compose_sing(frame: pl.DataFrame, cidrs: list[str]) -> SingRuleSet:
     return {"version": 4, "rules": all_rules}
 
 
-def compose_meta(frame: pl.DataFrame, cidrs: list[str], category: str, /) -> list[str] | None:
+def compose_meta(
+    frame: pl.DataFrame, cidrs: list[str], category: str, /
+) -> list[str] | None:
     def cidr_rule(value: str, /, *, src: bool = False) -> str:
         clean, has_no_resolve = _strip_no_resolve(value)
         prefix = "SRC-IP-CIDR" if src else "IP-CIDR"
@@ -591,7 +638,9 @@ def compose_meta(frame: pl.DataFrame, cidrs: list[str], category: str, /) -> lis
         if not ports and not ranges:
             return []
         header = f"{prefix},{label}" if prefix else label
-        return [f"{header},{port}" for port in ports] + [f"{header},{port_range}" for port_range in ranges]
+        return [f"{header},{port}" for port in ports] + [
+            f"{header},{port_range}" for port_range in ranges
+        ]
 
     def protocol_rule(addresses: Sequence[str], /) -> list[str]:
         return [
@@ -688,9 +737,13 @@ def compose_meta(frame: pl.DataFrame, cidrs: list[str], category: str, /) -> lis
                 case "IP-CIDR" | "IP-CIDR6":
                     results.append(f"{pattern},{cidr_rule(clean_address)}")
                 case "DEST-PORT":
-                    results.extend(port_rule([clean_address], "DST-PORT", prefix=pattern))
+                    results.extend(
+                        port_rule([clean_address], "DST-PORT", prefix=pattern)
+                    )
                 case "SRC-PORT" | "IN-PORT":
-                    results.extend(port_rule([clean_address], "SRC-PORT", prefix=pattern))
+                    results.extend(
+                        port_rule([clean_address], "SRC-PORT", prefix=pattern)
+                    )
                 case _:
                     results.append(f"{pattern},{clean_pattern},{clean_address}")
 
@@ -701,7 +754,11 @@ def compose_meta(frame: pl.DataFrame, cidrs: list[str], category: str, /) -> lis
             case "DOMAIN":
                 return domain_rule(addresses, "DOMAIN")
             case "DOMAIN-SUFFIX":
-                return domain_rule(addresses, "DOMAIN-SUFFIX", transform=lambda value: value.lstrip("."))
+                return domain_rule(
+                    addresses,
+                    "DOMAIN-SUFFIX",
+                    transform=lambda value: value.lstrip("."),
+                )
             case "DOMAIN-KEYWORD":
                 return domain_rule(addresses, "DOMAIN-KEYWORD")
             case "DOMAIN-WILDCARD":
@@ -825,7 +882,9 @@ async def prepare_frame(url: str, /) -> tuple[pl.DataFrame, list[str]] | None:
     return frame, []
 
 
-async def emit_meta_file(url: str, directory: str, category: str, /) -> anyio.Path | None:
+async def emit_meta_file(
+    url: str, directory: str, category: str, /
+) -> anyio.Path | None:
     result = await prepare_frame(url)
     if result is None:
         return None
@@ -863,7 +922,9 @@ async def emit_meta_file(url: str, directory: str, category: str, /) -> anyio.Pa
     return file_path
 
 
-async def emit_sing_file(url: str, directory: str, category: str, /) -> anyio.Path | None:
+async def emit_sing_file(
+    url: str, directory: str, category: str, /
+) -> anyio.Path | None:
     result = await prepare_frame(url)
     if result is None:
         return None
@@ -893,13 +954,21 @@ async def find_directory(*paths: str) -> anyio.Path | None:
     return None
 
 
-async def ensure_directories(base_dirs: Sequence[anyio.Path], subdirs: frozenset[str], /) -> None:
+async def ensure_directories(
+    base_dirs: Sequence[anyio.Path], subdirs: frozenset[str], /
+) -> None:
     await asyncio.gather(
-        *((base / subdir).mkdir(exist_ok=True, parents=True) for base in base_dirs for subdir in subdirs),
+        *(
+            (base / subdir).mkdir(exist_ok=True, parents=True)
+            for base in base_dirs
+            for subdir in subdirs
+        ),
     )
 
 
-async def collect_files(list_dir: anyio.Path, categories: frozenset[str], /) -> list[tuple[anyio.Path, str]]:
+async def collect_files(
+    list_dir: anyio.Path, categories: frozenset[str], /
+) -> list[tuple[anyio.Path, str]]:
     files: list[tuple[anyio.Path, str]] = []
     for category in categories:
         category_dir = list_dir / category
@@ -951,8 +1020,12 @@ async def main() -> None:
         )
         if modules_dir is not None:
             dns_files = [(file, "dns") async for file in modules_dir.glob("*.conf")]
-            sing_tasks.extend(await create_tasks(dns_files, sing_json_base, emit_sing_file))
-            meta_tasks.extend(await create_tasks(dns_files, meta_text_base, emit_meta_file))
+            sing_tasks.extend(
+                await create_tasks(dns_files, sing_json_base, emit_sing_file)
+            )
+            meta_tasks.extend(
+                await create_tasks(dns_files, meta_text_base, emit_meta_file)
+            )
 
         all_tasks = [*sing_tasks, *meta_tasks]
         if all_tasks:
