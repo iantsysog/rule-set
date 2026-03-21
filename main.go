@@ -481,10 +481,6 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 			for _, addr := range addresses {
 				processRule(&defaultRule, addr)
 			}
-		case "URL-REGEX":
-			if valid := filterValidRegex(addresses); len(valid) > 0 {
-				defaultRule.DomainRegex = badoption.Listable[string](dedupe(append([]string(defaultRule.DomainRegex), valid...)))
-			}
 		}
 	}
 
@@ -608,10 +604,6 @@ func parseSingSubRule(ctx context.Context, resolver *asn.ASNResolver, ruleType, 
 		}
 		if cidrs, err := resolver.ResolveASNs(ctx, []string{asnCode}); err == nil && len(cidrs) > 0 {
 			rule.IPCIDR = badoption.Listable[string](cidrs)
-		}
-	case "URL-REGEX":
-		if valid := filterValidRegex([]string{ruleValue}); len(valid) > 0 {
-			rule.DomainRegex = badoption.Listable[string](valid)
 		}
 	case "PROCESS-NAME":
 		processRule(&rule, ruleValue)
