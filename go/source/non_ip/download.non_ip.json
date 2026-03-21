@@ -9,8 +9,7 @@
         "^[\\w.-]*?\\.s3\\.[\\w.-]*?\\.backblazeb2\\.com$",
         "^cdn-[\\w.-]*?\\.comaps\\.app$",
         "^cdn-[\\w.-]*?\\.comaps\\.tech$",
-        "^cdn-[\\w.-]*?\\.organicmaps\\.app$",
-        "^http://(.+)\\.gvt\\d\\.com/edgedl"
+        "^cdn-[\\w.-]*?\\.organicmaps\\.app$"
       ]
     }
   ]
