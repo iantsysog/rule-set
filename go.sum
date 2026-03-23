@@ -8,12 +8,10 @@ github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc h1:U9qPSI2PIWSS1
 github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
-github.com/iantsysog/sing-rule v0.0.0-20260323152230-dde395977b3f h1:OqaW1f7czbgHWjqc1pPQ44LPsnvYHubr2Jr1xBXqFX8=
-github.com/iantsysog/sing-rule v0.0.0-20260323152230-dde395977b3f/go.mod h1:O7a6/vIdyUkk3LIBWUNrs8PTJiJ/ivst+wKKIXD7eUU=
+github.com/iantsysog/sing-rule v0.0.0-20260323180115-ff81011b93bc h1:Xdq6kLBLKSFQK3mZ8fLtk8GQRgDDKz9wEeMuz8GQuzs=
+github.com/iantsysog/sing-rule v0.0.0-20260323180115-ff81011b93bc/go.mod h1:ObhIyzG1kGuPhN9PR78IsYjz+T6L0oOKh/b7gZH6IcU=
 github.com/miekg/dns v1.1.72 h1:vhmr+TF2A3tuoGNkLDFK9zi36F2LS+hKTRW0Uf8kbzI=
 github.com/miekg/dns v1.1.72/go.mod h1:+EuEPhdHOsfk6Wk5TT2CzssZdqkmFhf8r+aVyDEToIs=
-github.com/oschwald/maxminddb-golang/v2 v2.1.1 h1:lA8FH0oOrM4u7mLvowq8IT6a3Q/qEnqRzLQn9eH5ojc=
-github.com/oschwald/maxminddb-golang/v2 v2.1.1/go.mod h1:PLdx6PR+siSIoXqqy7C7r3SB3KZnhxWr1Dp6g0Hacl8=
 github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 h1:Jamvg5psRIccs7FGNTlIRMkT8wgtp5eCXdBlqhYGL6U=
 github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/sagernet/sing v0.8.3-0.20260315153529-ed51f65fbfde h1:RNQzlpnsXIuu1HGts/fIzJ1PR7RhrzaNlU52MDyiX1c=
