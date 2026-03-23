@@ -524,7 +524,7 @@ func singLogicalRules(ctx context.Context, resolver *asn.ASNResolver, addresses 
 			continue
 		}
 
-		inner := strings.TrimSpace(addr[2 : len(addr)-2])
+		inner := strings.TrimSpace(addr[1 : len(addr)-1])
 		if inner == "" {
 			continue
 		}
