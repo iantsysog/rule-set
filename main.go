@@ -481,6 +481,17 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 			for _, addr := range addresses {
 				processRule(&defaultRule, addr)
 			}
+		case "PROTOCOL":
+			var protocols []string
+			for _, addr := range addresses {
+				addrUpper := strings.ToUpper(addr)
+				if addrUpper == "TCP" || addrUpper == "UDP" {
+					protocols = append(protocols, strings.ToLower(addrUpper))
+				}
+			}
+			if len(protocols) > 0 {
+				defaultRule.Network = badoption.Listable[string](dedupe(protocols))
+			}
 		}
 	}
 
@@ -493,13 +504,12 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 }
 
 func parseNetworkType(value string) (option.InterfaceType, bool) {
-	value = strings.TrimSpace(value)
-	switch {
-	case strings.EqualFold(value, "WIFI"):
+	switch strings.ToUpper(strings.TrimSpace(value)) {
+	case "WIFI":
 		return option.InterfaceType(C.InterfaceTypeWIFI), true
-	case strings.EqualFold(value, "WIRED"):
+	case "WIRED":
 		return option.InterfaceType(C.InterfaceTypeEthernet), true
-	case strings.EqualFold(value, "CELLULAR"):
+	case "CELLULAR":
 		return option.InterfaceType(C.InterfaceTypeCellular), true
 	default:
 		return 0, false
@@ -559,20 +569,46 @@ func singLogicalRules(ctx context.Context, resolver *asn.ASNResolver, addresses 
 }
 
 func splitLogicalParts(inner string) []string {
-	normalized := strings.ReplaceAll(inner, "), (", "),(")
-	if strings.Contains(normalized, "),(") {
-		parts := strings.Split(normalized, "),(")
-		for i := range parts {
-			parts[i] = strings.TrimPrefix(parts[i], "(")
-			parts[i] = strings.TrimSuffix(parts[i], ")")
-			parts[i] = strings.TrimSpace(parts[i])
+	inner = strings.TrimSpace(inner)
+	if inner == "" {
+		return nil
+	}
+
+	parts := make([]string, 0, 4)
+	start := 0
+	depth := 0
+
+	for i := 0; i < len(inner); i++ {
+		switch inner[i] {
+		case '(':
+			depth++
+		case ')':
+			if depth > 0 {
+				depth--
+			}
+		case ',':
+			if depth == 0 {
+				part := strings.TrimSpace(inner[start:i])
+				part = strings.TrimPrefix(part, "(")
+				part = strings.TrimSuffix(part, ")")
+				part = strings.TrimSpace(part)
+				if part != "" {
+					parts = append(parts, part)
+				}
+				start = i + 1
+			}
 		}
-		return parts
 	}
-	if strings.HasPrefix(normalized, "(") && strings.HasSuffix(normalized, ")") {
-		return []string{strings.TrimSpace(normalized[1 : len(normalized)-1])}
+
+	tail := strings.TrimSpace(inner[start:])
+	tail = strings.TrimPrefix(tail, "(")
+	tail = strings.TrimSuffix(tail, ")")
+	tail = strings.TrimSpace(tail)
+	if tail != "" {
+		parts = append(parts, tail)
 	}
-	return []string{strings.TrimSpace(normalized)}
+
+	return parts
 }
 
 func parseSingSubRule(ctx context.Context, resolver *asn.ASNResolver, ruleType, ruleValue string) *option.HeadlessRule {
@@ -628,7 +664,7 @@ func parseSingSubRule(ctx context.Context, resolver *asn.ASNResolver, ruleType, 
 	case "PROTOCOL":
 		ruleValueUpper := strings.ToUpper(ruleValue)
 		if ruleValueUpper == "TCP" || ruleValueUpper == "UDP" {
-			rule.Network = badoption.Listable[string]{ruleValueUpper}
+			rule.Network = badoption.Listable[string]{strings.ToLower(ruleValueUpper)}
 		}
 	default:
 		return nil
@@ -816,12 +852,15 @@ func normalizeCIDR(entry string) string {
 		return ""
 	}
 	if strings.Contains(entry, "/") {
-		return entry
+		if _, _, err := net.ParseCIDR(entry); err == nil {
+			return entry
+		}
+		return ""
 	}
 
 	ip := net.ParseIP(entry)
 	if ip == nil {
-		return entry
+		return ""
 	}
 	if ip.To4() != nil {
 		return entry + "/32"
@@ -836,7 +875,11 @@ func normalizeCIDRs(entries []string) []string {
 		if entry == "" {
 			continue
 		}
-		result = append(result, normalizeCIDR(strings.TrimSuffix(entry, ",no-resolve")))
+		normalized := normalizeCIDR(strings.TrimSuffix(entry, ",no-resolve"))
+		if normalized == "" {
+			continue
+		}
+		result = append(result, normalized)
 	}
 	return result
 }
@@ -950,39 +993,39 @@ func processPorts(addresses []string) ([]uint16, []string) {
 				delimiter = '-'
 			}
 			if left, right, ok := strings.Cut(raw, string(delimiter)); ok {
-				start64, errStart := strconv.ParseUint(strings.TrimSpace(left), 10, 16)
-				end64, errEnd := strconv.ParseUint(strings.TrimSpace(right), 10, 16)
+				start64, errStart := strconv.ParseUint(strings.TrimSpace(left), 10, 32)
+				end64, errEnd := strconv.ParseUint(strings.TrimSpace(right), 10, 32)
 				if errStart == nil && errEnd == nil {
-					start := int(start64)
-					end := int(end64)
-					if !isValidPort(start) || !isValidPort(end) {
+					if !isValidPort(start64) || !isValidPort(end64) {
 						continue
 					}
+					start := uint16(start64)
+					end := uint16(end64)
 					if start > end {
 						start, end = end, start
 					}
-					ranges = append(ranges, fmt.Sprintf("%d:%d", start, end))
+					ranges = append(ranges, fmt.Sprintf("%d:%d", uint32(start), uint32(end)))
 					continue
 				}
 			}
 		}
 
-		port64, err := strconv.ParseUint(raw, 10, 16)
+		port64, err := strconv.ParseUint(raw, 10, 32)
 		if err != nil {
 			continue
 		}
-		port := int(port64)
-		if !isValidPort(port) {
+		if !isValidPort(port64) {
 			continue
 		}
-		ports = append(ports, uint16(port))
+		port := uint16(port64)
+		ports = append(ports, port)
 	}
 
 	return dedupeUint16(ports), dedupe(ranges)
 }
 
-func isValidPort(port int) bool {
-	return port >= 0 && port <= 65535
+func isValidPort[T ~uint16 | ~uint32 | ~uint64](port T) bool {
+	return port <= 65535
 }
 
 func dedupeUint16(values []uint16) []uint16 {
