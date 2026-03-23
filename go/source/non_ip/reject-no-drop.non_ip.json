@@ -6,6 +6,9 @@
       "mode": "and",
       "rules": [
         {
+          "network": "UDP"
+        },
+        {
           "domain_suffix": "googlevideo.com"
         }
       ]
