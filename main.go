@@ -625,6 +625,11 @@ func parseSingSubRule(ctx context.Context, resolver *asn.ASNResolver, ruleType, 
 		}
 	case "SRC-IP":
 		rule.SourceIPCIDR = badoption.Listable[string](normalizeCIDRs([]string{ruleValue}))
+	case "PROTOCOL":
+		ruleValueUpper := strings.ToUpper(ruleValue)
+		if ruleValueUpper == "TCP" || ruleValueUpper == "UDP" {
+			rule.Network = badoption.Listable[string]{ruleValueUpper}
+		}
 	default:
 		return nil
 	}
