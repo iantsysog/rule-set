@@ -4,7 +4,7 @@ go 1.25.4
 
 require (
 	github.com/bmatcuk/doublestar/v4 v4.10.0
-	github.com/coregx/coregex v0.12.14
+	github.com/coregx/coregex v0.12.17
 	github.com/iantsysog/sing-rule v0.0.0-20260323181928-6946a27eb5b6
 	github.com/sagernet/sing v0.8.3-0.20260315153529-ed51f65fbfde
 	github.com/sagernet/sing-box v1.14.0-alpha.4
