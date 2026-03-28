@@ -7,7 +7,7 @@ require (
 	github.com/coregx/coregex v0.12.14
 	github.com/iantsysog/sing-rule v0.0.0-20260323181928-6946a27eb5b6
 	github.com/sagernet/sing v0.8.3-0.20260315153529-ed51f65fbfde
-	github.com/sagernet/sing-box v1.14.0-alpha.4
+	github.com/sagernet/sing-box v1.14.0-alpha.7
 	golang.org/x/sys v0.42.0
 )
 
