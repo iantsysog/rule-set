@@ -1,6 +1,6 @@
 module github.com/iantsysog/rule-set
 
-go 1.25.4
+go 1.26.1
 
 require (
 	github.com/bmatcuk/doublestar/v4 v4.10.0

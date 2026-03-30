@@ -80,8 +80,7 @@ type ruleEntry struct {
 }
 
 type ruleFrame struct {
-	entries []ruleEntry
-	groups  map[string][]string
+	groups map[string][]string
 }
 
 type fileInfo struct {
@@ -102,13 +101,11 @@ func main() {
 
 func run(ctx context.Context) error {
 	listDir := findDirectory("List", "../List")
-	modulesDir := findDirectory(
-		"Modules/Rules/sukka_local_dns_mapping",
-		"../Modules/Rules/sukka_local_dns_mapping",
-	)
 	if listDir == "" {
 		return E.New("list directory not found")
 	}
+
+	modulesDir := findDirectory("Modules/Rules/sukka_local_dns_mapping", "../Modules/Rules/sukka_local_dns_mapping")
 
 	client := newHTTPClient()
 	defer client.CloseIdleConnections()
@@ -129,8 +126,7 @@ func run(ctx context.Context) error {
 		return E.Cause(err, "collect files")
 	}
 	if modulesDir != "" {
-		dnsFiles, err := collectFiles(modulesDir, []string{"dns"})
-		if err == nil {
+		if dnsFiles, err := collectFiles(modulesDir, []string{"dns"}); err == nil {
 			confFiles = append(confFiles, dnsFiles...)
 		}
 	}
@@ -142,7 +138,6 @@ func run(ctx context.Context) error {
 	}
 
 	for _, file := range confFiles {
-		file := file
 		b.Go(file.path, func() (struct{}, error) {
 			return struct{}{}, processFile(bctx, client, resolver, file, sourceDir, binaryDir)
 		})
@@ -229,15 +224,25 @@ func collectFiles(dir string, categories []string) ([]fileInfo, error) {
 }
 
 func newHTTPClient() *http.Client {
+	dialer := &net.Dialer{
+		Timeout:   httpTimeout,
+		KeepAlive: httpPoolTimeout,
+	}
 	return &http.Client{
 		Timeout: httpTimeout,
 		Transport: &http.Transport{
-			MaxIdleConns:        maxKeepalive,
-			MaxConnsPerHost:     maxConnections,
-			IdleConnTimeout:     httpPoolTimeout,
-			DisableCompression:  false,
-			ForceAttemptHTTP2:   true,
-			MaxIdleConnsPerHost: maxKeepalive,
+			Proxy:                  http.ProxyFromEnvironment,
+			DialContext:            dialer.DialContext,
+			TLSHandshakeTimeout:    httpTimeout,
+			ResponseHeaderTimeout:  httpTimeout,
+			ExpectContinueTimeout:  httpTimeout / 2,
+			MaxResponseHeaderBytes: 1 << 20,
+			MaxIdleConns:           maxKeepalive,
+			MaxConnsPerHost:        maxConnections,
+			IdleConnTimeout:        httpPoolTimeout,
+			DisableCompression:     false,
+			ForceAttemptHTTP2:      true,
+			MaxIdleConnsPerHost:    maxKeepalive,
 		},
 	}
 }
@@ -258,7 +263,7 @@ func prepareFrame(ctx context.Context, client *http.Client, source string) (*rul
 	scanner := bufio.NewScanner(reader)
 	scanner.Buffer(*bufPtr, scannerMaxSize)
 
-	entries := make([]ruleEntry, 0, 256)
+	groups := make(map[string][]string, 256)
 	seen := make(map[ruleEntry]struct{}, 256)
 
 	for scanner.Scan() {
@@ -281,21 +286,16 @@ func prepareFrame(ctx context.Context, client *http.Client, source string) (*rul
 			continue
 		}
 		seen[entry] = struct{}{}
-		entries = append(entries, entry)
+		groups[entry.pattern] = append(groups[entry.pattern], entry.address)
 	}
 	if err := scanner.Err(); err != nil {
 		return nil, err
 	}
-	if len(entries) == 0 {
+	if len(groups) == 0 {
 		return nil, nil
 	}
 
-	groups := make(map[string][]string, len(entries))
-	for _, entry := range entries {
-		groups[entry.pattern] = append(groups[entry.pattern], entry.address)
-	}
-
-	return &ruleFrame{entries: entries, groups: groups}, nil
+	return &ruleFrame{groups: groups}, nil
 }
 
 func openSource(ctx context.Context, client *http.Client, source string) (io.ReadCloser, error) {
@@ -443,11 +443,17 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 			}
 		case "DOMAIN-WILDCARD":
 			if wildcardPatterns := maskWildcards(addresses); len(wildcardPatterns) > 0 {
-				defaultRule.DomainRegex = badoption.Listable[string](dedupe(append([]string(defaultRule.DomainRegex), wildcardPatterns...)))
+				merged := make([]string, 0, len(defaultRule.DomainRegex)+len(wildcardPatterns))
+				merged = append(merged, defaultRule.DomainRegex...)
+				merged = append(merged, wildcardPatterns...)
+				defaultRule.DomainRegex = badoption.Listable[string](dedupe(merged))
 			}
 		case "IP-ASN":
 			if cidrList, err := resolver.ResolveASNs(ctx, normalizeASNs(addresses)); err == nil && len(cidrList) > 0 {
-				defaultRule.IPCIDR = badoption.Listable[string](dedupe(append([]string(defaultRule.IPCIDR), cidrList...)))
+				merged := make([]string, 0, len(defaultRule.IPCIDR)+len(cidrList))
+				merged = append(merged, defaultRule.IPCIDR...)
+				merged = append(merged, cidrList...)
+				defaultRule.IPCIDR = badoption.Listable[string](dedupe(merged))
 			}
 		case "SUBNET":
 			for _, addr := range addresses {
@@ -458,7 +464,13 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 				defaultRule.NetworkType = append(defaultRule.NetworkType, networkType)
 			}
 		case "IP-CIDR", "IP-CIDR6":
-			defaultRule.IPCIDR = badoption.Listable[string](dedupe(append([]string(defaultRule.IPCIDR), normalizeCIDRs(addresses)...)))
+			normalized := normalizeCIDRs(addresses)
+			if len(normalized) > 0 {
+				merged := make([]string, 0, len(defaultRule.IPCIDR)+len(normalized))
+				merged = append(merged, defaultRule.IPCIDR...)
+				merged = append(merged, normalized...)
+				defaultRule.IPCIDR = badoption.Listable[string](dedupe(merged))
+			}
 		case "SRC-IP":
 			defaultRule.SourceIPCIDR = badoption.Listable[string](dedupe(normalizeCIDRs(addresses)))
 		case "DEST-PORT", "IN-PORT":
@@ -1025,7 +1037,7 @@ func processPorts(addresses []string) ([]uint16, []string) {
 }
 
 func isValidPort[T ~uint16 | ~uint32 | ~uint64](port T) bool {
-	return port <= 65535
+	return port > 0 && port <= 65535
 }
 
 func dedupeUint16(values []uint16) []uint16 {

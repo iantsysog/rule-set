@@ -125,7 +125,8 @@ jobs:
       - name: Set Up Go for ${{ matrix.target }}
         uses: actions/setup-go@v6
         with:
-          go-version: ^1.25
+          go-version-file: go.mod
+          cache: true
       - name: Install Dependencies for ${{ matrix.target }}
         run: |
           python -Im pip install --upgrade pip
