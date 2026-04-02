@@ -52,6 +52,12 @@ var (
 		"7h1s_rul35et_i5_mad3_by_5ukk4w-ruleset.skk.moe": {},
 	}
 
+	logicalRuleKeys = map[string]struct{}{
+		"AND": {},
+		"OR":  {},
+		"NOT": {},
+	}
+
 	bufferPool = sync.Pool{
 		New: func() any {
 			return new(bytes.Buffer)
@@ -67,12 +73,6 @@ var (
 
 	regexValidationCache sync.Map
 )
-
-var logicalRuleKeys = map[string]struct{}{
-	"AND": {},
-	"OR":  {},
-	"NOT": {},
-}
 
 type ruleEntry struct {
 	pattern string
@@ -111,8 +111,8 @@ func run(ctx context.Context) error {
 	defer client.CloseIdleConnections()
 
 	subdirs := []string{"domainset", "ip", "non_ip", "dns"}
-	sourceDir := "sing-box/go/source"
-	binaryDir := "sing-box/go/binary"
+	sourceDir := filepath.Join("sing-box", "go", "source")
+	binaryDir := filepath.Join("sing-box", "go", "binary")
 
 	if err := ensureDirectories(sourceDir, subdirs); err != nil {
 		return E.Cause(err, "create source directories")
@@ -126,27 +126,26 @@ func run(ctx context.Context) error {
 		return E.Cause(err, "collect files")
 	}
 	if modulesDir != "" {
-		if dnsFiles, err := collectFiles(modulesDir, []string{"dns"}); err == nil {
+		dnsFiles, dnsErr := collectFiles(modulesDir, []string{"dns"})
+		if dnsErr == nil {
 			confFiles = append(confFiles, dnsFiles...)
 		}
 	}
 
-	b, bctx := batch.New(ctx, batch.WithConcurrencyNum[struct{}](maxConnections))
 	resolver, err := asn.NewASNResolver()
 	if err != nil {
 		return E.Cause(err, "create ASN resolver")
 	}
 
-	for _, file := range confFiles {
-		b.Go(file.path, func() (struct{}, error) {
-			return struct{}{}, processFile(bctx, client, resolver, file, sourceDir, binaryDir)
+	worker, workerCtx := batch.New(ctx, batch.WithConcurrencyNum[struct{}](maxConnections))
+	for _, f := range confFiles {
+		file := f
+		worker.Go(file.path, func() (struct{}, error) {
+			return struct{}{}, processFile(workerCtx, client, resolver, file, sourceDir, binaryDir)
 		})
 	}
 
-	if err := b.Wait(); err != nil {
-		return err
-	}
-	return nil
+	return worker.Wait()
 }
 
 func processFile(ctx context.Context, client *http.Client, resolver *asn.ASNResolver, file fileInfo, sourceDir, binaryDir string) error {
@@ -162,7 +161,8 @@ func processFile(ctx context.Context, client *http.Client, resolver *asn.ASNReso
 
 func findDirectory(paths ...string) string {
 	for _, p := range paths {
-		if info, err := os.Stat(p); err == nil && info.IsDir() {
+		info, err := os.Stat(p)
+		if err == nil && info.IsDir() {
 			return p
 		}
 	}
@@ -182,52 +182,55 @@ func collectFiles(dir string, categories []string) ([]fileInfo, error) {
 	files := make([]fileInfo, 0, 64)
 
 	for _, category := range categories {
-		pattern := filepath.Join(dir, category, "*.conf")
+		searchDir := filepath.Join(dir, category)
 		if category == "dns" {
-			pattern = filepath.Join(dir, "*.conf")
+			searchDir = dir
 		}
 
-		matches, err := filepath.Glob(pattern)
+		entries, err := os.ReadDir(searchDir)
 		if err != nil {
-			return nil, err
-		}
-		sort.Strings(matches)
-
-		for _, match := range matches {
-			base := filepath.Base(match)
-			if filepath.Ext(base) != ".conf" {
+			if os.IsNotExist(err) {
 				continue
 			}
-			name := strings.TrimSuffix(base, ".conf")
-			if name == "" {
+			return nil, err
+		}
+
+		for _, entry := range entries {
+			if entry.IsDir() {
+				continue
+			}
+			name := entry.Name()
+			if filepath.Ext(name) != ".conf" {
+				continue
+			}
+			base := strings.TrimSuffix(name, ".conf")
+			if base == "" {
 				continue
 			}
 			files = append(files, fileInfo{
-				path:     match,
+				path:     filepath.Join(searchDir, name),
 				category: category,
-				name:     name,
+				name:     base,
 			})
 		}
 	}
 
 	sort.Slice(files, func(i, j int) bool {
-		if files[i].category != files[j].category {
-			return files[i].category < files[j].category
+		a, b := files[i], files[j]
+		if a.category != b.category {
+			return a.category < b.category
 		}
-		if files[i].name != files[j].name {
-			return files[i].name < files[j].name
+		if a.name != b.name {
+			return a.name < b.name
 		}
-		return files[i].path < files[j].path
+		return a.path < b.path
 	})
 
 	return files, nil
 }
 
 func newHTTPClient() *http.Client {
-	dialer := &net.Dialer{
-		Timeout:   httpTimeout,
-		KeepAlive: httpPoolTimeout,
-	}
+	dialer := &net.Dialer{Timeout: httpTimeout, KeepAlive: httpPoolTimeout}
 	return &http.Client{
 		Timeout: httpTimeout,
 		Transport: &http.Transport{
@@ -240,7 +243,6 @@ func newHTTPClient() *http.Client {
 			MaxIdleConns:           maxKeepalive,
 			MaxConnsPerHost:        maxConnections,
 			IdleConnTimeout:        httpPoolTimeout,
-			DisableCompression:     false,
 			ForceAttemptHTTP2:      true,
 			MaxIdleConnsPerHost:    maxKeepalive,
 		},
@@ -261,7 +263,7 @@ func prepareFrame(ctx context.Context, client *http.Client, source string) (*rul
 	defer scannerBufPool.Put(bufPtr)
 
 	scanner := bufio.NewScanner(reader)
-	scanner.Buffer(*bufPtr, scannerMaxSize)
+	scanner.Buffer((*bufPtr)[:0], scannerMaxSize)
 
 	groups := make(map[string][]string, 256)
 	seen := make(map[ruleEntry]struct{}, 256)
@@ -300,7 +302,7 @@ func prepareFrame(ctx context.Context, client *http.Client, source string) (*rul
 
 func openSource(ctx context.Context, client *http.Client, source string) (io.ReadCloser, error) {
 	if after, ok := strings.CutPrefix(source, "file://"); ok {
-		return os.Open(after)
+		return os.Open(filepath.Clean(after))
 	}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, source, nil)
@@ -320,26 +322,26 @@ func openSource(ctx context.Context, client *http.Client, source string) (io.Rea
 }
 
 func parseLine(line string) ruleEntry {
-	pattern, rest, ok := strings.Cut(line, ",")
-	if ok {
+	if pattern, rest, ok := strings.Cut(line, ","); ok {
 		pattern = strings.TrimSpace(pattern)
 		rest = strings.TrimSpace(rest)
 		if pattern == "" || rest == "" {
 			return ruleEntry{}
 		}
 
-		addr, suffix, hasSuffix := strings.Cut(rest, ",")
-		addr = strings.TrimSpace(addr)
-		if addr == "" {
-			return ruleEntry{}
-		}
-		if hasSuffix {
+		if addr, suffix, hasSuffix := strings.Cut(rest, ","); hasSuffix {
+			addr = strings.TrimSpace(addr)
 			suffix = strings.TrimSpace(suffix)
-			if suffix != "" {
-				return ruleEntry{pattern: pattern, address: addr + "," + suffix}
+			if addr == "" {
+				return ruleEntry{}
 			}
+			if suffix == "" {
+				return ruleEntry{pattern: pattern, address: addr}
+			}
+			return ruleEntry{pattern: pattern, address: addr + "," + suffix}
 		}
-		return ruleEntry{pattern: pattern, address: addr}
+
+		return ruleEntry{pattern: pattern, address: strings.TrimSpace(rest)}
 	}
 
 	entry := strings.Trim(strings.TrimSpace(line), `"'`)
@@ -353,7 +355,7 @@ func parseLine(line string) ruleEntry {
 	if net.ParseIP(entry) != nil {
 		return ruleEntry{pattern: "IP-CIDR", address: entry}
 	}
-	if after, ok0 := strings.CutPrefix(entry, "+"); ok0 {
+	if after, ok := strings.CutPrefix(entry, "+"); ok {
 		return ruleEntry{pattern: "DOMAIN-SUFFIX", address: strings.TrimPrefix(after, ".")}
 	}
 	return ruleEntry{pattern: "DOMAIN", address: entry}
@@ -376,10 +378,7 @@ func emitFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFrame, 
 
 	encoder := json.NewEncoder(buf)
 	encoder.SetIndent("", "  ")
-	if err := encoder.Encode(option.PlainRuleSetCompat{
-		Version: C.RuleSetVersion4,
-		Options: *ruleSet,
-	}); err != nil {
+	if err := encoder.Encode(option.PlainRuleSetCompat{Version: C.RuleSetVersion4, Options: *ruleSet}); err != nil {
 		return E.Cause(err, "encode json")
 	}
 	if err := os.WriteFile(filepath.Join(sourceDir, filename+".json"), buf.Bytes(), filePerm); err != nil {
@@ -400,7 +399,7 @@ func emitFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFrame, 
 func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFrame) (*option.PlainRuleSet, error) {
 	rules := make([]option.HeadlessRule, 0, len(frame.groups)+1)
 
-	for _, spec := range []struct {
+	for _, spec := range [...]struct {
 		key    string
 		mode   string
 		invert bool
@@ -432,36 +431,35 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 		addresses := frame.groups[pattern]
 		switch pattern {
 		case "DOMAIN":
-			defaultRule.Domain = badoption.Listable[string](dedupe(addresses))
+			defaultRule.Domain = badoption.Listable[string](dedupeStrings(addresses))
 		case "DOMAIN-SUFFIX":
-			defaultRule.DomainSuffix = badoption.Listable[string](dedupe(addresses))
+			defaultRule.DomainSuffix = badoption.Listable[string](dedupeStrings(addresses))
 		case "DOMAIN-KEYWORD":
-			defaultRule.DomainKeyword = badoption.Listable[string](dedupe(addresses))
+			defaultRule.DomainKeyword = badoption.Listable[string](dedupeStrings(addresses))
 		case "DOMAIN-REGEX":
 			if valid := filterValidRegex(addresses); len(valid) > 0 {
-				defaultRule.DomainRegex = badoption.Listable[string](dedupe(valid))
+				defaultRule.DomainRegex = badoption.Listable[string](dedupeStrings(valid))
 			}
 		case "DOMAIN-WILDCARD":
 			if wildcardPatterns := maskWildcards(addresses); len(wildcardPatterns) > 0 {
 				merged := make([]string, 0, len(defaultRule.DomainRegex)+len(wildcardPatterns))
 				merged = append(merged, defaultRule.DomainRegex...)
 				merged = append(merged, wildcardPatterns...)
-				defaultRule.DomainRegex = badoption.Listable[string](dedupe(merged))
+				defaultRule.DomainRegex = badoption.Listable[string](dedupeStrings(merged))
 			}
 		case "IP-ASN":
 			if cidrList, err := resolver.ResolveASNs(ctx, normalizeASNs(addresses)); err == nil && len(cidrList) > 0 {
 				merged := make([]string, 0, len(defaultRule.IPCIDR)+len(cidrList))
 				merged = append(merged, defaultRule.IPCIDR...)
 				merged = append(merged, cidrList...)
-				defaultRule.IPCIDR = badoption.Listable[string](dedupe(merged))
+				defaultRule.IPCIDR = badoption.Listable[string](dedupeStrings(merged))
 			}
 		case "SUBNET":
 			for _, addr := range addresses {
 				networkType, ok := parseNetworkType(addr)
-				if !ok {
-					continue
+				if ok {
+					defaultRule.NetworkType = append(defaultRule.NetworkType, networkType)
 				}
-				defaultRule.NetworkType = append(defaultRule.NetworkType, networkType)
 			}
 		case "IP-CIDR", "IP-CIDR6":
 			normalized := normalizeCIDRs(addresses)
@@ -469,17 +467,17 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 				merged := make([]string, 0, len(defaultRule.IPCIDR)+len(normalized))
 				merged = append(merged, defaultRule.IPCIDR...)
 				merged = append(merged, normalized...)
-				defaultRule.IPCIDR = badoption.Listable[string](dedupe(merged))
+				defaultRule.IPCIDR = badoption.Listable[string](dedupeStrings(merged))
 			}
 		case "SRC-IP":
-			defaultRule.SourceIPCIDR = badoption.Listable[string](dedupe(normalizeCIDRs(addresses)))
+			defaultRule.SourceIPCIDR = badoption.Listable[string](dedupeStrings(normalizeCIDRs(addresses)))
 		case "DEST-PORT", "IN-PORT":
 			ports, ranges := processPorts(addresses)
 			if len(ports) > 0 {
 				defaultRule.Port = badoption.Listable[uint16](ports)
 			}
 			if len(ranges) > 0 {
-				defaultRule.PortRange = badoption.Listable[string](dedupe(ranges))
+				defaultRule.PortRange = badoption.Listable[string](dedupeStrings(ranges))
 			}
 		case "SRC-PORT":
 			ports, ranges := processPorts(addresses)
@@ -487,22 +485,22 @@ func composeFile(ctx context.Context, resolver *asn.ASNResolver, frame *ruleFram
 				defaultRule.SourcePort = badoption.Listable[uint16](ports)
 			}
 			if len(ranges) > 0 {
-				defaultRule.SourcePortRange = badoption.Listable[string](dedupe(ranges))
+				defaultRule.SourcePortRange = badoption.Listable[string](dedupeStrings(ranges))
 			}
 		case "PROCESS-NAME":
 			for _, addr := range addresses {
 				processRule(&defaultRule, addr)
 			}
 		case "PROTOCOL":
-			var protocols []string
+			protocols := make([]string, 0, len(addresses))
 			for _, addr := range addresses {
-				addrUpper := strings.ToUpper(addr)
+				addrUpper := strings.ToUpper(strings.TrimSpace(addr))
 				if addrUpper == "TCP" || addrUpper == "UDP" {
 					protocols = append(protocols, strings.ToLower(addrUpper))
 				}
 			}
 			if len(protocols) > 0 {
-				defaultRule.Network = badoption.Listable[string](dedupe(protocols))
+				defaultRule.Network = badoption.Listable[string](dedupeStrings(protocols))
 			}
 		}
 	}
@@ -548,12 +546,10 @@ func singLogicalRules(ctx context.Context, resolver *asn.ASNResolver, addresses 
 
 		subRules := make([]option.HeadlessRule, 0, len(parts))
 		for _, raw := range parts {
-			stripped := strings.TrimSpace(raw)
-			ruleType, ruleValue, ok := strings.Cut(stripped, ",")
+			ruleType, ruleValue, ok := strings.Cut(strings.TrimSpace(raw), ",")
 			if !ok {
 				continue
 			}
-
 			ruleType = strings.TrimSpace(ruleType)
 			ruleValue = strings.TrimSpace(ruleValue)
 			if ruleType == "" || ruleValue == "" {
@@ -587,10 +583,9 @@ func splitLogicalParts(inner string) []string {
 	}
 
 	parts := make([]string, 0, 4)
-	start := 0
-	depth := 0
+	start, depth := 0, 0
 
-	for i := 0; i < len(inner); i++ {
+	for i := range len(inner) {
 		switch inner[i] {
 		case '(':
 			depth++
@@ -686,10 +681,7 @@ func parseSingSubRule(ctx context.Context, resolver *asn.ASNResolver, ruleType, 
 		return nil
 	}
 
-	return &option.HeadlessRule{
-		Type:           C.RuleTypeDefault,
-		DefaultOptions: rule,
-	}
+	return &option.HeadlessRule{Type: C.RuleTypeDefault, DefaultOptions: rule}
 }
 
 func processRule(rule *option.DefaultHeadlessRule, address string) {
@@ -699,18 +691,17 @@ func processRule(rule *option.DefaultHeadlessRule, address string) {
 	}
 
 	if isPathLike(address) {
-		if isWildcardLike(address) {
+		switch {
+		case isWildcardLike(address):
 			masked := maskRegex(address)
 			if validateRegex(masked) {
 				rule.ProcessPathRegex = append(rule.ProcessPathRegex, masked)
 			}
-			return
-		}
-		if isRegexLike(address) {
+		case isRegexLike(address):
 			rule.ProcessPathRegex = append(rule.ProcessPathRegex, address)
-			return
+		default:
+			rule.ProcessPath = append(rule.ProcessPath, address)
 		}
-		rule.ProcessPath = append(rule.ProcessPath, address)
 		return
 	}
 
@@ -721,7 +712,6 @@ func processRule(rule *option.DefaultHeadlessRule, address string) {
 		}
 		if prefix, company, options, ok := parseProcessRegexSimple(address); ok {
 			rule.ProcessName = appendProcessOptionsSimple(rule.ProcessName, prefix, company, options)
-			return
 		}
 		return
 	}
@@ -731,32 +721,25 @@ func processRule(rule *option.DefaultHeadlessRule, address string) {
 
 func appendProcessOptions(existing []string, prefix, company, app, options string) []string {
 	for opt := range strings.SplitSeq(options, "|") {
-		opt = strings.TrimSpace(opt)
-		if opt == "" {
-			continue
+		if opt = strings.TrimSpace(opt); opt != "" {
+			existing = append(existing, fmt.Sprintf("%s.%s.%s.%s", prefix, company, app, opt))
 		}
-		existing = append(existing, fmt.Sprintf("%s.%s.%s.%s", prefix, company, app, opt))
 	}
 	return existing
 }
 
 func appendProcessOptionsSimple(existing []string, prefix, company, options string) []string {
 	for opt := range strings.SplitSeq(options, "|") {
-		opt = strings.TrimSpace(opt)
-		if opt == "" {
-			continue
+		if opt = strings.TrimSpace(opt); opt != "" {
+			existing = append(existing, fmt.Sprintf("%s.%s.%s", prefix, company, opt))
 		}
-		existing = append(existing, fmt.Sprintf("%s.%s.%s", prefix, company, opt))
 	}
 	return existing
 }
 
 func parseProcessRegexComplex(value string) (prefix, company, app, options string, ok bool) {
 	parts := parseProcessRegexPattern(value)
-	if len(parts) != 4 {
-		return "", "", "", "", false
-	}
-	if parts[0] == "" || parts[1] == "" || parts[2] == "" || parts[3] == "" {
+	if len(parts) != 4 || parts[0] == "" || parts[1] == "" || parts[2] == "" || parts[3] == "" {
 		return "", "", "", "", false
 	}
 	return parts[0], parts[1], parts[2], parts[3], true
@@ -764,10 +747,7 @@ func parseProcessRegexComplex(value string) (prefix, company, app, options strin
 
 func parseProcessRegexSimple(value string) (prefix, company, options string, ok bool) {
 	parts := parseProcessRegexPattern(value)
-	if len(parts) != 3 {
-		return "", "", "", false
-	}
-	if parts[0] == "" || parts[1] == "" || parts[2] == "" {
+	if len(parts) != 3 || parts[0] == "" || parts[1] == "" || parts[2] == "" {
 		return "", "", "", false
 	}
 	return parts[0], parts[1], parts[2], true
@@ -778,59 +758,47 @@ func parseProcessRegexPattern(value string) []string {
 	if !strings.HasSuffix(value, ")") {
 		return nil
 	}
+
 	openIdx := strings.LastIndex(value, ".(")
 	if openIdx <= 0 || openIdx+2 >= len(value)-1 {
 		return nil
 	}
+
 	head := value[:openIdx]
 	options := value[openIdx+2 : len(value)-1]
 	if strings.Contains(options, ")") {
 		return nil
 	}
+
 	parts := strings.Split(head, ".")
 	for _, p := range parts {
-		if p == "" || strings.Contains(p, "(") || strings.Contains(p, ")") {
+		if p == "" || strings.ContainsAny(p, "()") {
 			return nil
 		}
 	}
+
 	parts = append(parts, options)
 	return parts
 }
 
 func deduplicateDefaultRule(rule option.DefaultHeadlessRule) option.DefaultHeadlessRule {
-	rule.Domain = badoption.Listable[string](dedupe(rule.Domain))
-	rule.DomainSuffix = badoption.Listable[string](dedupe(rule.DomainSuffix))
-	rule.DomainKeyword = badoption.Listable[string](dedupe(rule.DomainKeyword))
-	rule.DomainRegex = badoption.Listable[string](dedupe(rule.DomainRegex))
-	rule.IPCIDR = badoption.Listable[string](dedupe(rule.IPCIDR))
-	rule.ProcessName = badoption.Listable[string](dedupe(rule.ProcessName))
-	rule.ProcessPathRegex = badoption.Listable[string](dedupe(rule.ProcessPathRegex))
-	rule.ProcessPath = badoption.Listable[string](dedupe(rule.ProcessPath))
-	rule.WIFISSID = badoption.Listable[string](dedupe(rule.WIFISSID))
-	rule.WIFIBSSID = badoption.Listable[string](dedupe(rule.WIFIBSSID))
-	rule.PortRange = badoption.Listable[string](dedupe(rule.PortRange))
-	rule.SourcePortRange = badoption.Listable[string](dedupe(rule.SourcePortRange))
-	rule.SourceIPCIDR = badoption.Listable[string](dedupe(rule.SourceIPCIDR))
-	rule.NetworkType = dedupeNetworkTypes(rule.NetworkType)
-	rule.Port = dedupeUint16(rule.Port)
-	rule.SourcePort = dedupeUint16(rule.SourcePort)
+	rule.Domain = badoption.Listable[string](dedupeStrings(rule.Domain))
+	rule.DomainSuffix = badoption.Listable[string](dedupeStrings(rule.DomainSuffix))
+	rule.DomainKeyword = badoption.Listable[string](dedupeStrings(rule.DomainKeyword))
+	rule.DomainRegex = badoption.Listable[string](dedupeStrings(rule.DomainRegex))
+	rule.IPCIDR = badoption.Listable[string](dedupeStrings(rule.IPCIDR))
+	rule.ProcessName = badoption.Listable[string](dedupeStrings(rule.ProcessName))
+	rule.ProcessPathRegex = badoption.Listable[string](dedupeStrings(rule.ProcessPathRegex))
+	rule.ProcessPath = badoption.Listable[string](dedupeStrings(rule.ProcessPath))
+	rule.WIFISSID = badoption.Listable[string](dedupeStrings(rule.WIFISSID))
+	rule.WIFIBSSID = badoption.Listable[string](dedupeStrings(rule.WIFIBSSID))
+	rule.PortRange = badoption.Listable[string](dedupeStrings(rule.PortRange))
+	rule.SourcePortRange = badoption.Listable[string](dedupeStrings(rule.SourcePortRange))
+	rule.SourceIPCIDR = badoption.Listable[string](dedupeStrings(rule.SourceIPCIDR))
+	rule.NetworkType = dedupe(rule.NetworkType)
+	rule.Port = dedupe(rule.Port)
+	rule.SourcePort = dedupe(rule.SourcePort)
 	return rule
-}
-
-func dedupeNetworkTypes(values []option.InterfaceType) []option.InterfaceType {
-	if len(values) == 0 {
-		return nil
-	}
-	seen := make(map[option.InterfaceType]struct{}, len(values))
-	out := make([]option.InterfaceType, 0, len(values))
-	for _, v := range values {
-		if _, ok := seen[v]; ok {
-			continue
-		}
-		seen[v] = struct{}{}
-		out = append(out, v)
-	}
-	return out
 }
 
 func validateRegex(pattern string) bool {
@@ -863,6 +831,7 @@ func normalizeCIDR(entry string) string {
 	if entry == "" {
 		return ""
 	}
+
 	if strings.Contains(entry, "/") {
 		if _, _, err := net.ParseCIDR(entry); err == nil {
 			return entry
@@ -883,15 +852,10 @@ func normalizeCIDR(entry string) string {
 func normalizeCIDRs(entries []string) []string {
 	result := make([]string, 0, len(entries))
 	for _, entry := range entries {
-		entry = strings.TrimSpace(entry)
-		if entry == "" {
-			continue
+		normalized := normalizeCIDR(strings.TrimSuffix(strings.TrimSpace(entry), ",no-resolve"))
+		if normalized != "" {
+			result = append(result, normalized)
 		}
-		normalized := normalizeCIDR(strings.TrimSuffix(entry, ",no-resolve"))
-		if normalized == "" {
-			continue
-		}
-		result = append(result, normalized)
 	}
 	return result
 }
@@ -921,17 +885,17 @@ func isPathLike(value string) bool {
 	if strings.ContainsAny(value, `/\`) {
 		return true
 	}
-	return path.Clean(value) != "." && strings.Contains(path.Clean(value), "/")
+	cleaned := path.Clean(value)
+	return cleaned != "." && strings.Contains(cleaned, "/")
 }
 
 func filterValidRegex(addresses []string) []string {
 	valid := make([]string, 0, len(addresses))
 	for _, address := range addresses {
 		address = strings.TrimSpace(address)
-		if address == "" || !validateRegex(address) {
-			continue
+		if address != "" && validateRegex(address) {
+			valid = append(valid, address)
 		}
-		valid = append(valid, address)
 	}
 	return valid
 }
@@ -940,10 +904,7 @@ func maskWildcards(addresses []string) []string {
 	patterns := make([]string, 0, len(addresses))
 	for _, address := range addresses {
 		address = strings.TrimSpace(address)
-		if address == "" {
-			continue
-		}
-		if !doublestar.ValidatePattern(address) {
+		if address == "" || !doublestar.ValidatePattern(address) {
 			continue
 		}
 		masked := maskRegex(address)
@@ -954,24 +915,37 @@ func maskWildcards(addresses []string) []string {
 	return patterns
 }
 
-func dedupe[S ~[]string](items S) []string {
+func dedupe[S ~[]E, E comparable](items S) []E {
 	if len(items) == 0 {
 		return nil
 	}
 
-	seen := make(map[string]struct{}, len(items))
-	result := make([]string, 0, len(items))
+	seen := make(map[E]struct{}, len(items))
+	out := make([]E, 0, len(items))
 	for _, item := range items {
-		if item == "" {
-			continue
-		}
-		if _, exists := seen[item]; exists {
+		if _, ok := seen[item]; ok {
 			continue
 		}
 		seen[item] = struct{}{}
-		result = append(result, item)
+		out = append(out, item)
 	}
-	return result
+	return out
+}
+
+func dedupeStrings[S ~[]string](items S) []string {
+	if len(items) == 0 {
+		return nil
+	}
+	filtered := make([]string, 0, len(items))
+	for _, item := range items {
+		if item != "" {
+			filtered = append(filtered, item)
+		}
+	}
+	if len(filtered) == 0 {
+		return nil
+	}
+	return dedupe(filtered)
 }
 
 func normalizeASNs(addresses []string) []string {
@@ -986,7 +960,7 @@ func normalizeASNs(addresses []string) []string {
 		}
 		asns = append(asns, address)
 	}
-	return asns
+	return dedupeStrings(asns)
 }
 
 func processPorts(addresses []string) ([]uint16, []string) {
@@ -1005,54 +979,31 @@ func processPorts(addresses []string) ([]uint16, []string) {
 				delimiter = '-'
 			}
 			if left, right, ok := strings.Cut(raw, string(delimiter)); ok {
-				start64, errStart := strconv.ParseUint(strings.TrimSpace(left), 10, 32)
-				end64, errEnd := strconv.ParseUint(strings.TrimSpace(right), 10, 32)
+				start, errStart := parsePort(left)
+				end, errEnd := parsePort(right)
 				if errStart == nil && errEnd == nil {
-					if !isValidPort(start64) || !isValidPort(end64) {
-						continue
-					}
-					start := uint16(start64)
-					end := uint16(end64)
 					if start > end {
 						start, end = end, start
 					}
-					ranges = append(ranges, fmt.Sprintf("%d:%d", uint32(start), uint32(end)))
+					ranges = append(ranges, fmt.Sprintf("%d:%d", start, end))
 					continue
 				}
 			}
 		}
 
-		port64, err := strconv.ParseUint(raw, 10, 32)
-		if err != nil {
-			continue
+		port, err := parsePort(raw)
+		if err == nil {
+			ports = append(ports, port)
 		}
-		if !isValidPort(port64) {
-			continue
-		}
-		port := uint16(port64)
-		ports = append(ports, port)
 	}
 
-	return dedupeUint16(ports), dedupe(ranges)
+	return dedupe(ports), dedupeStrings(ranges)
 }
 
-func isValidPort[T ~uint16 | ~uint32 | ~uint64](port T) bool {
-	return port > 0 && port <= 65535
-}
-
-func dedupeUint16(values []uint16) []uint16 {
-	if len(values) == 0 {
-		return nil
+func parsePort(raw string) (uint16, error) {
+	v, err := strconv.ParseUint(strings.TrimSpace(raw), 10, 16)
+	if err != nil || v == 0 {
+		return 0, strconv.ErrSyntax
 	}
-
-	seen := make(map[uint16]struct{}, len(values))
-	out := make([]uint16, 0, len(values))
-	for _, value := range values {
-		if _, ok := seen[value]; ok {
-			continue
-		}
-		seen[value] = struct{}{}
-		out = append(out, value)
-	}
-	return out
+	return uint16(v), nil
 }
