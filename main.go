@@ -145,7 +145,10 @@ func run(ctx context.Context) error {
 		})
 	}
 
-	return worker.Wait()
+	if batchErr := worker.Wait(); batchErr != nil {
+		return batchErr
+	}
+	return nil
 }
 
 func processFile(ctx context.Context, client *http.Client, resolver *asn.ASNResolver, file fileInfo, sourceDir, binaryDir string) error {
