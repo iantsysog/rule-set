@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - Reject (REJECT-DROP)
-# Last Updated: 2026-04-01T13:55:57.725Z
-# Size: 50
+# Last Updated: 2026-04-02T14:18:36.819Z
+# Size: 51
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -24,6 +24,7 @@ DOMAIN-SUFFIX,logan.sankuai.com
 DOMAIN-SUFFIX,expenses-fe.meituan.com
 DOMAIN,contents.meituan.com
 DOMAIN-SUFFIX,video.goofish.com
+DOMAIN-SUFFIX,hybrid.xiaomi.com
 DOMAIN-SUFFIX,mibi.xiaomi.com
 DOMAIN-SUFFIX,ulecdn.com
 DOMAIN-SUFFIX,video-zb.cloudvideocdn.taobao.com
