@@ -319,7 +319,7 @@ func openSource(ctx context.Context, client *http.Client, source string) (io.Rea
 	}
 	if resp.StatusCode != http.StatusOK {
 		resp.Body.Close()
-		return nil, nil
+		return nil, fmt.Errorf("unexpected status code %d from %s", resp.StatusCode, source)
 	}
 	return resp.Body, nil
 }
@@ -599,9 +599,7 @@ func splitLogicalParts(inner string) []string {
 		case ',':
 			if depth == 0 {
 				part := strings.TrimSpace(inner[start:i])
-				part = strings.TrimPrefix(part, "(")
-				part = strings.TrimSuffix(part, ")")
-				part = strings.TrimSpace(part)
+				part = unwrapOuterParentheses(part)
 				if part != "" {
 					parts = append(parts, part)
 				}
@@ -611,14 +609,37 @@ func splitLogicalParts(inner string) []string {
 	}
 
 	tail := strings.TrimSpace(inner[start:])
-	tail = strings.TrimPrefix(tail, "(")
-	tail = strings.TrimSuffix(tail, ")")
-	tail = strings.TrimSpace(tail)
+	tail = unwrapOuterParentheses(tail)
 	if tail != "" {
 		parts = append(parts, tail)
 	}
 
 	return parts
+}
+
+func unwrapOuterParentheses(value string) string {
+	value = strings.TrimSpace(value)
+	if len(value) < 2 || value[0] != '(' || value[len(value)-1] != ')' {
+		return value
+	}
+
+	depth := 0
+	for i := range len(value) {
+		switch value[i] {
+		case '(':
+			depth++
+		case ')':
+			depth--
+			if depth == 0 && i != len(value)-1 {
+				return value
+			}
+		}
+	}
+	if depth != 0 {
+		return value
+	}
+
+	return strings.TrimSpace(value[1 : len(value)-1])
 }
 
 func parseSingSubRule(ctx context.Context, resolver *asn.ASNResolver, ruleType, ruleValue string) *option.HeadlessRule {
@@ -696,7 +717,7 @@ func processRule(rule *option.DefaultHeadlessRule, address string) {
 	if isPathLike(address) {
 		switch {
 		case isWildcardLike(address):
-			masked := maskRegex(address)
+			masked := maskPathRegex(address)
 			if validateRegex(masked) {
 				rule.ProcessPathRegex = append(rule.ProcessPathRegex, masked)
 			}
@@ -720,6 +741,18 @@ func processRule(rule *option.DefaultHeadlessRule, address string) {
 	}
 
 	rule.ProcessName = append(rule.ProcessName, address)
+}
+
+func maskPathRegex(pattern string) string {
+	masked := strings.TrimSpace(pattern)
+	if masked == "" {
+		return "^$"
+	}
+
+	quoted := regexp.QuoteMeta(masked)
+	quoted = strings.ReplaceAll(quoted, `\*`, `.*?`)
+	quoted = strings.ReplaceAll(quoted, `\?`, `.`)
+	return "^" + quoted + "$"
 }
 
 func appendProcessOptions(existing []string, prefix, company, app, options string) []string {
