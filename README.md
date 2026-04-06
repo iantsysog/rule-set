@@ -10,7 +10,7 @@ This project is provided solely for the author's personal use. You may clone or 
 
 - [SukkaW/Surge](https://github.com/SukkaW/Surge) (AGPL-3.0; `List/ip/china_ip.conf` _excluded_: CC BY-SA 2.0)
 - [SukkaLab/ruleset.skk.moe](https://github.com/SukkaLab/ruleset.skk.moe) (AGPL-3.0)
-- [CaptainGod/sing-box-rule-set-transform](https://github.com/CaptainGod/sing-box-rule-set-transform)
+- [Toperlock/sing-box-geosite](https://github.com/Toperlock/sing-box-geosite)
 - [SagerNet/srsc](https://github.com/SagerNet/srsc) (GPL-3.0)
 
 ## License
