@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"net/netip"
-	"strings"
 	"testing"
 
 	"github.com/sagernet/sing-box/adapter"
@@ -15,7 +14,7 @@ import (
 	M "github.com/sagernet/sing/common/metadata"
 )
 
-func TestValidate(t *testing.T) {
+func TestValidateRuleSet(t *testing.T) {
 	t.Parallel()
 
 	t.Run("ok", func(t *testing.T) {
@@ -35,7 +34,7 @@ func TestValidate(t *testing.T) {
 		}
 	})
 
-	t.Run("bad_regex", func(t *testing.T) {
+	t.Run("invalid_regex", func(t *testing.T) {
 		t.Parallel()
 		rs := &option.PlainRuleSet{
 			Rules: []option.HeadlessRule{
@@ -47,13 +46,13 @@ func TestValidate(t *testing.T) {
 				},
 			},
 		}
-		if err := validateRuleSet(context.Background(), "bad_regex", rs); err == nil {
+		if err := validateRuleSet(context.Background(), "invalid_regex", rs); err == nil {
 			t.Fatalf("expected error, got nil")
 		}
 	})
 }
 
-func TestComposeFile(t *testing.T) {
+func TestBuildRuleSet(t *testing.T) {
 	t.Parallel()
 
 	lines := []string{
@@ -78,14 +77,17 @@ func TestComposeFile(t *testing.T) {
 		"NOT,((PROCESS-NAME,example),(PROTOCOL,udp))",
 	}
 
-	frame := frameFromLines(lines)
+	frame := &ruleFrame{groups: collectFrameGroups(lines)}
 	if frame == nil {
 		t.Fatal("expected non-nil frame")
 	}
+	if len(frame.groups) == 0 {
+		t.Fatal("expected non-empty frame groups")
+	}
 
-	rs, err := composeFile(context.Background(), nil, frame)
+	rs, err := (builder{resolver: nil}).buildRuleSet(context.Background(), frame)
 	if err != nil {
-		t.Fatalf("composeFile: %v", err)
+		t.Fatalf("buildRuleSet: %v", err)
 	}
 	if err := validateRuleSet(context.Background(), "representative", rs); err != nil {
 		t.Fatalf("validateRuleSet: %v", err)
@@ -146,6 +148,62 @@ func TestComposeFile(t *testing.T) {
 	}
 	if len(got.Network) == 0 {
 		t.Fatalf("expected PROTOCOL coverage, got %#v", got.Network)
+	}
+}
+
+func TestParseRuleLine(t *testing.T) {
+	t.Parallel()
+
+	cases := []struct {
+		name    string
+		in      string
+		pattern string
+		address string
+	}{
+		{name: "explicit", in: "DOMAIN, example.com", pattern: "DOMAIN", address: "example.com"},
+		{name: "explicit_suffix", in: "IP-CIDR,1.2.3.4/32,no-resolve", pattern: "IP-CIDR", address: "1.2.3.4/32,no-resolve"},
+		{name: "bare_domain", in: "example.com", pattern: "DOMAIN", address: "example.com"},
+		{name: "bare_suffix", in: "+.example.com", pattern: "DOMAIN-SUFFIX", address: "example.com"},
+		{name: "bare_ip", in: "192.0.2.1", pattern: "IP-CIDR", address: "192.0.2.1"},
+	}
+
+	for _, tc := range cases {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			got := parseRuleLine(tc.in)
+			if got.pattern != tc.pattern || got.address != tc.address {
+				t.Fatalf("parseRuleLine(%q) = %#v, want pattern=%q address=%q", tc.in, got, tc.pattern, tc.address)
+			}
+		})
+	}
+}
+
+func TestSplitLogicalParts(t *testing.T) {
+	t.Parallel()
+
+	inner := "(DOMAIN,example.org),(IP-CIDR,198.51.100.0/24)"
+	parts := splitLogicalParts(inner)
+	if len(parts) != 2 {
+		t.Fatalf("expected 2 parts, got %#v", parts)
+	}
+	if parts[0] != "DOMAIN,example.org" {
+		t.Fatalf("unexpected parts[0]=%q", parts[0])
+	}
+	if parts[1] != "IP-CIDR,198.51.100.0/24" {
+		t.Fatalf("unexpected parts[1]=%q", parts[1])
+	}
+}
+
+func TestProcessPorts(t *testing.T) {
+	t.Parallel()
+
+	ports, ranges := processPorts([]string{"443", "80-81", "1000:1002", "0", "abc"})
+	if len(ports) != 1 || ports[0] != 443 {
+		t.Fatalf("unexpected ports %#v", ports)
+	}
+	if len(ranges) != 2 {
+		t.Fatalf("unexpected ranges %#v", ranges)
 	}
 }
 
@@ -264,31 +322,4 @@ func anyRuleMatches(t *testing.T, ctx context.Context, rs *option.PlainRuleSet, 
 		}
 	}
 	return false
-}
-
-func frameFromLines(lines []string) *ruleFrame {
-	groups := make(map[string][]string, 32)
-	seen := make(map[ruleEntry]struct{}, len(lines))
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "" || line[0] == '#' {
-			continue
-		}
-		entry := parseLine(line)
-		if entry.pattern == "" || entry.address == "" {
-			continue
-		}
-		if _, excluded := excludedAddresses[entry.address]; excluded {
-			continue
-		}
-		if _, ok := seen[entry]; ok {
-			continue
-		}
-		seen[entry] = struct{}{}
-		groups[entry.pattern] = append(groups[entry.pattern], entry.address)
-	}
-	if len(groups) == 0 {
-		return nil
-	}
-	return &ruleFrame{groups: groups}
 }
