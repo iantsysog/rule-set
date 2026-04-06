@@ -9,7 +9,7 @@
           "domain_suffix": "sharepoint.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -57,7 +57,7 @@
           "domain_suffix": "graph.microsoft.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -105,7 +105,7 @@
           "domain": "www.googleapis.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -153,7 +153,7 @@
           "domain": "api.onedrive.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -201,7 +201,7 @@
           "domain_suffix": "storage.live.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -249,7 +249,7 @@
           "domain_suffix": "files.1drv.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -297,7 +297,7 @@
           "domain_suffix": "my.microsoftpersonalcontent.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -345,7 +345,7 @@
           "domain_regex": "^[\\w.-]*?-medi[\\w.-]*?\\.svc\\.ms$"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -393,7 +393,7 @@
           "domain_suffix": "upload.box.com"
         },
         {
-          "process_name": "*CloudMounter"
+          "process_path_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -432,6 +432,7 @@
           "source_ip_cidr": "192.168.0.0/16"
         }
       ]
-    }
+    },
+    {}
   ]
 }

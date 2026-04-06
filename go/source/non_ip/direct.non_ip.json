@@ -224,7 +224,8 @@
         "BaiduNetdisk_mac",
         "Logi Options",
         "Logi Options Daemon"
-      ]
+      ],
+      "process_path_regex": "^qbittorrent.*?$"
     }
   ]
 }
