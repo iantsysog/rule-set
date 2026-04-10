@@ -78,9 +78,6 @@ func TestBuildRuleSet(t *testing.T) {
 	}
 
 	frame := &ruleFrame{groups: collectFrameGroups(lines)}
-	if frame == nil {
-		t.Fatal("expected non-nil frame")
-	}
 	if len(frame.groups) == 0 {
 		t.Fatal("expected non-empty frame groups")
 	}

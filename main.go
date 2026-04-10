@@ -111,7 +111,7 @@ func (o httpSourceOpener) Open(ctx context.Context, source string) (io.ReadClose
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		resp.Body.Close()
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected status code %d from %s", resp.StatusCode, source)
 	}
 	return resp.Body, nil
@@ -288,7 +288,7 @@ func prepareFrame(ctx context.Context, opener sourceOpener, source string) (*rul
 	if reader == nil {
 		return nil, nil
 	}
-	defer reader.Close()
+	defer func() { _ = reader.Close() }()
 
 	bufPtr := scannerBufPool.Get().(*[]byte)
 	defer scannerBufPool.Put(bufPtr)
