@@ -6,7 +6,7 @@ require (
 	github.com/iantsysog/sing-rule v0.0.0-20260403023715-a3d669a4673a
 	github.com/sagernet/sing v0.8.5-0.20260404181712-947827ec3849
 	github.com/sagernet/sing-box v1.14.0-alpha.11
-	golang.org/x/sys v0.42.0
+	golang.org/x/sys v0.43.0
 )
 
 require (
