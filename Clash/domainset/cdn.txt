@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - CDN Domains
-# Last Updated: 2026-04-18T13:19:31.266Z
-# Size: 4449
+# Last Updated: 2026-04-19T13:19:40.270Z
+# Size: 4451
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -123,6 +123,7 @@ placeholder.pics
 +.am-cdn.pics
 +.codeberg.page
 +.instant.page
+images.status.page
 +.kinsta.page
 statics-prod.mirrordaily.news
 assets-next.matters.news
@@ -2148,6 +2149,7 @@ pm1.aninoapps.com
 pa1.aninoapps.com
 images.anandtech.com
 ip-ranges.amazonaws.com
+sdk.amazonaws.com
 +.assets.as2.amazonaws.com
 +.abcnewsfe.com
 +.52netflix.com
