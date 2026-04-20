@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in AdGuard (but exist in uBO)
-! Last modified: Sun, 19 Apr 2026 13:19:56 GMT
+! Last modified: Mon, 20 Apr 2026 14:03:46 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,16 +8,16 @@
 ! Included filters:
 ! * uBlock filters
 !   - URL: https://ublockorigin.pages.dev/filters/filters.min.txt
-!   - Last modified: Sun, 19 Apr 2026 05:42:41 +0000
+!   - Last modified: Mon, 20 Apr 2026 06:31:36 +0000
 ! * uBlock filters – Badware risks
 !   - URL: https://ublockorigin.pages.dev/filters/badware.min.txt
-!   - Last modified: Thu, 16 Apr 2026 15:06:16 +0000
+!   - Last modified: Sun, 19 Apr 2026 15:24:53 +0000
 ! * uBlock filters – Privacy
 !   - URL: https://ublockorigin.pages.dev/filters/privacy.min.txt
-!   - Last modified: Sun, 19 Apr 2026 06:28:21 +0000
+!   - Last modified: Sun, 19 Apr 2026 11:13:49 +0000
 ! * uBlock filters – Unbreak
 !   - URL: https://ublockorigin.pages.dev/filters/unbreak.min.txt
-!   - Last modified: Fri, 17 Apr 2026 09:06:06 +0000
+!   - Last modified: Mon, 20 Apr 2026 03:44:38 +0000
 ! * uBlock filters – Quick fixes
 !   - URL: https://ublockorigin.pages.dev/filters/quick-fixes.min.txt
 !   - Last modified: Sun, 19 Apr 2026 01:26:13 +0000
@@ -30,7 +30,7 @@
 !   - Last modified: Sat, 18 Apr 2026 06:30:27 +0000
 ! * uBlock filters – Annoyances
 !   - URL: https://ublockorigin.pages.dev/filters/annoyances.min.txt
-!   - Last modified: Tue, 14 Apr 2026 15:01:27 +0000
+!   - Last modified: Sun, 19 Apr 2026 10:52:39 +0000
 ! --------------------------------------------------------------
 ! uBlock filters https://ublockorigin.pages.dev/filters/filters.min.txt
 *_ad_$media,domain=youtube.com,3p
@@ -7417,6 +7417,9 @@ vikingf1le.us.to##+js(aopr, atob)
 ||cloudfront.net^$script,domain=vik1ngfile.site
 vik1ngfile.site##a[href="/fast-download"]
 vik1ngfile.site##+js(acs, String.fromCharCode, atob)
+vik1ngfile.site##+js(rmnt, script, function(h,n,e,w,t))
+vik1ngfile.site##+js(aeld, click, appendChild)
+vik1ngfile.site##+js(acs, setTimeout, decodeURIComponent(escape)
 file-upload.*##+js(nowoif)
 file-upload.*##+js(acs, document.getElementById, undefined)
 file-up.org##+js(acs, getCookie, setCookie)
@@ -9467,6 +9470,7 @@ filmizip.com##+js(nowoif)
 filmizip.com##+js(no-fetch-if, mode:no-cors)
 ||widgets.outbrain.com/outbrain.js$xhr,redirect=noopjs,domain=filmizip.com
 filmizip.com##+js(no-fetch-if, outbrain)
+filmizip.com##+js(rmnt, script, zIndex)
 filmizip.com##.video-inside-overlay
 ||filmifen.com/templates/filmi/js/adb.js
 filmifen.com##+js(aeld, DOMContentLoaded, adb)
@@ -9828,6 +9832,8 @@ storage.googleapiscdn.com,stream.googleapiscdn.com##+js(rmnt, script, /bait/i)
 @@||googleapiscdn.com/player/*animevietsub.$ghide
 ||googleapiscdn.com/admin/api/ads/
 /static/jwplayer/vast.js
+motphimr.io##+js(aeld, click, document.createElement)
+motphimr.io##+js(trusted-set-session-storage-item, popup-ads-last-shown, $now$)
 /^https:\/\/[a-z0-9]{6,10}\.[a-z]{2,3}\/js\d?\/noadblocker\.js(?:\?v=\d)?$/$script,1p,match-case
 /^https:\/\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?[a-z0-9]?[a-z0-9]?\.[a-z][a-z][a-z]?\/js[0-9]?\/noadblocker\.js(\?v=[0-9])?$/$script,1p,match-case
 *$script,redirect-rule=noopjs,domain=arcai.com
@@ -19392,7 +19398,7 @@ asia.5ivttv.vip##+js(acs, document.readyState, mdpDeblocker)
 @@||imasdk.googleapis.com/js/sdkloader/ima3_dai.js$script,domain=sbt.com.br
 ||dai.google.com/ssai/event/*/streams$xhr,domain=sbt.com.br
 ||pubads.g.doubleclick.net/ssai/event/*/streams$xhr,domain=sbtnews.sbt.com.br,important
-||dai.google.com/linear/pods/$xhr,from=sbt.com.br
+||dai.google.com/linear/pods/$xhr,from=sbtnews.sbt.com.br
 ||khantv.live/ad2.php^
 mp3y.info##+js(nowoif)
 ||mp3y.info/*.php^$frame
@@ -21740,6 +21746,7 @@ tube.shegods.com##+js(nowoif)
 tube.shegods.com##.main-gal > .right-gallery
 fileq.games##+js(nowoif, _blank)
 animekai.*##+js(nowoif, _blank)
+animekai.*##body > [href="#"][target="_blank"]
 1moviesz.to,flixzone.co,moontv.to,sflix.fi##+js(nowoif)
 ||animekai.*/sw.js^
 velo.outsideonline.com##main:style(margin-top: 10px !important)
@@ -21978,6 +21985,7 @@ app.simracing.gp##+js(nostif, .getComputedStyle)
 ||audiocircuit.dk/wp-content/plugins/awiftysw/
 blogspot.com,web.app##img[onclick="kemana()"]
 anikai.to##+js(nowoif, _blank)
+anikai.to##+js(nosiif, ;if(!()
 ||anikai.to/sw.js^
 filesq.net##+js(nowoif, _blank)
 filesq.net##._button-now
@@ -22546,6 +22554,8 @@ tophostdeal.com##+js(no-xhr-if, googlesyndication)
 /registerSW.js$script,domain=miruro.*|miruro.to|miruro.bz|miruro.online|miruro.tv
 /api/events$xhr,domain=miruro.*|miruro.to|miruro.bz|miruro.online|miruro.tv
 /promo/*$image,domain=miruro.*|miruro.to|miruro.bz|miruro.online|miruro.tv
+/api/monkey$ping,domain=miruro.*|miruro.to|miruro.bz|miruro.online|miruro.tv
+miruro.*##[href*="getdirectbonus.com"]
 math-aids.com##+js(set, __revCatchInitialized, true)
 math-aids.com##+js(nostif, En(e-1))
 math-aids.com##.footer__ads
@@ -22589,6 +22599,15 @@ ottplay.com##.infinite-scroll-component > div[style^="min-height:"]:not([class])
 ottplay.com##.lazy-loaded
 ottplay.com##div[class^="MastHead_ad"]
 fileditchfiles.me##+js(rmnt, script, "'show'")
+ntv.cx##+js(set, initializePopupAd, noopFunc)
+ntv.cx##.watch-ad-banner
+livetv.moviebite.cc##+js(nostif, getComputedStyle)
+livetv.moviebite.cc##+js(nosiif, getComputedStyle)
+livetv.moviebite.cc##div[data-ad-container]
+livetv.moviebite.cc##div.w-full:has(> div[data-ad-container])
+guessthemovie.name##+js(no-fetch-if, method:/head/i)
+guessthemovie.name##.fallback-side-ad
+||guessthemovie.name/ads/
 ! uBlock filters – Badware risks https://ublockorigin.pages.dev/filters/badware.min.txt
 ||01net.com/telecharger/$doc
 ||flexytalk.net^
@@ -24561,6 +24580,124 @@ cracksmid.com##div[style=""] > center > center
 ||juku-ai-club.fun^$doc
 ||juku-ai-club.pics^$doc
 ||jp24tv.live^$all
+||0spot.online^$doc
+||lovespot.online^$doc
+||assetmalnutrition.com^$doc
+||ballet-bandage.com^$doc
+||beloved.noemi-mia.com^$doc
+||boundarynight.com^$doc
+||caller-calculus.com^$doc
+||chatoxygen.com^$doc
+||dangle-daring.com^$doc
+||earnest-economist.com^$doc
+||faintly-fairness.com^$doc
+||habitantvillage.com^$doc
+||ignorezest.net^$doc
+||color10color.com^$doc
+||color10color.jp^$doc
+||elegance-love.net^$doc
+||elegance.spryest.com^$doc
+||sabito.kamadonezuko.com^$doc
+||fortune-gate-open.com^$doc
+||kibou-no-hane.com^$doc
+||z52r-hm7c3-e8qx.com^$doc
+||riundoor.com^$doc
+||supirichua.com^$doc
+||zeroclu6.com^$doc
+||njkgrwk-37hgw.com^$doc
+||esrzqibdfpah-xeb.com^$doc
+||xcvk.connectiamay-naat.com^$doc
+||fanforus.com^$doc
+||nhqueen.com^$doc
+||asiavibe.com^$doc
+||callyourdate.com^$doc
+||japansdates.com^$doc
+||kikon-link.com^$doc
+||air-look-send.com^$doc
+||air-we4.com^$doc
+||care-rtu.com^$doc
+||yus-air.com^$doc
+||anatomicallylaborer.com^$doc
+||anthemlazy.com^$doc
+||approximatelylimitation.com^$doc
+||capricious-chosen.com^$doc
+||cowardprotest.com^$doc
+||externalsuffice.com^$doc
+||fervortactic.com^$doc
+||forever.luna-malina.com^$doc
+||fortunatetransformation.com^$doc
+||fragranttransport.com^$doc
+||hypocrisyyard.com^$doc
+||michibiki-mori.com^$doc
+||rainbow-road.com^$doc
+||ritz-club.net^$doc
+||sakura-fund.com^$doc
+||m.midamarkets.cc^$doc
+||mpy.thesun-messa.com^$doc
+||sukimadate.com^$doc
+||dating4lover.com^$doc
+||datewhirl.com^$doc
+||meetheage.com^$doc
+||miaromance.com^$doc
+||wingtalks.com^$doc
+||shinpisaido.com^$doc
+||suzuri.jp/kinunhado^$doc
+||tokujiro.base.shop^$doc
+||tokujirou.stores.jp^$doc
+||uranai1111.base.shop^$doc
+||youtube.com/@kinun-ryujin^$doc
+||youtube.com/@kinunhadou^$doc
+||youtube.com/@ryujin_miko^$doc
+||youtube.com/@tokujiro7kinun^$doc
+||youtube.com/@%E7%99%BD%E8%9B%87%E5%BC%81%E8%B2%A1%E5%A4%A9%E7%A5%9E%E5%B7%AB^$doc
+||youtube.com/@%E9%87%91%E9%81%8B%E5%BC%81%E8%B2%A1%E5%A4%A9^$doc
+||lvluvlabo.jp^$doc
+||luvlabo.jp^$doc
+||revju.jp^$doc
+||yumemoba.jp^$doc
+||hapiapplp.com^$doc
+||happylapp.com^$doc
+||k-cobain.com^$doc
+||lilac-fortune.com^$doc
+||senshinsu.com^$doc
+||sonshinus.com^$doc
+||etrna.jp^$doc
+||permanan.com^$doc
+||rebetrna.jp^$doc
+||lux-the-destiny.com^$doc
+||misstooth456central.com^$doc
+||whitenoise554popular.com^$doc
+||worldwide012mental.com^$doc
+||plan-smlp.com^$doc
+||fortune-dojo.com^$doc
+||fortunedojo.net^$doc
+||kaiun-dojo.com^$doc
+||ogamiya.info^$doc
+||ogamiya.stores.jp^$doc
+||ballot-vivid.com^$doc
+||build-exert.com^$doc
+||caress-fussy.com^$doc
+||decade-orbit.com^$doc
+||exceed-curio.com^$doc
+||fable-smile.com^$doc
+||glad-uplifting.com^$doc
+||grace-achieve.jp^$doc
+||inborn-awash.com^$doc
+||namely-evoke.com^$doc
+||nimble-synth.com^$doc
+||ethics-whisk.com^$doc
+||please-zebra.com^$doc
+||rating-shave.com^$doc
+||saving-guard.com^$doc
+||thrive-one.jp^$doc
+||viewer-howdy.com^$doc
+||k1nd-talk.com^$doc
+||m1xm1x-real.com^$doc
+||mixmix-real.com^$doc
+||matchingitv.com^$doc
+||ialoop.net^$doc
+||amo.topescort.jp^$doc
+||swlife.jp^$doc
 ||webogram.ru^$all
 ||xn--80affa3aj0al.xn--80asehdb^$all
 ||telegr.am/user_mgt/login$all
@@ -28465,6 +28602,7 @@ lnk.to,smarturl.it##+js(set, linkfire.tracking, {})
 ||garryslist.org/device_fingerprints
 ||fileditchfiles.me/api/plausible
 ||pik.opendesktop.org/pik.js
+||timeanddate.*/scripts/logperf.php
 /edgemesh.*.js$script,domain=~edgemesh.com|~edgeno.de
 ||safelinkconverter.com^$script,3p
 /adsensebase.js$script
@@ -31042,7 +31180,6 @@ alltransistors.com###reklama:style(display: block !important;)
 conceptoweb-studio.com##+js(set, initJWPlayerMux, {})
 conceptoweb-studio.com##+js(set, initJWPlayerMux.utils, {})
 conceptoweb-studio.com##+js(set, initJWPlayerMux.utils.now, noopFunc)
-||www.yodobashi.com^$badfilter
 ||adman.gr^$media,domain=antenna.gr,redirect=noopmp3-0.1s
 ! uBlock filters – Quick fixes https://ublockorigin.pages.dev/filters/quick-fixes.min.txt
 @@||hb.vntsm.com/v4/live/vms/sites/aternos.org/index.js$script,domain=aternos.org
@@ -35596,8 +35733,6 @@ elahmad.com##+js(ra, oncontextmenu|ondragstart|onselectstart)
 elahmad.com##*:style(-webkit-touch-callout: default !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;)
 adpres.ro##*:style(-webkit-touch-callout: default !important; -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;)
 adpres.ro##+js(aopw, stopPrntScr)
-@@||timeanddate.com^$ghide
-timeanddate.com###ad300
 racevpn.com##+js(aopw, document.onkeydown)
 messitv.net##.sharepost
 playpilot.com##.takeover.modals
@@ -36744,7 +36879,9 @@ noicetranslations.blogspot.com##+js(rmnt, script, disableselect)
 ||ren.tv/video/embed/*#autoplay=$subdocument,uritransform=/#autoplay=.*//
 bloomberglinea.com,bloomberglinea.com.br##+js(aeld, copy)
 ||jsdelivr.net/npm/ad-compass@latest/dist/ad-compass.umd.js
-timeanddate.com##+js(aeld, load, ad-wrap)
+@@||timeanddate.com^$ghide
+timeanddate.com###ad300
+timeanddate.com,timeanddate.de,timeanddate.no##+js(aeld, load, ad-wrap)
 wear.jp##+js(trusted-set-session-storage-item, status_of_app_redirect_half_modal_on_coordinate_list, {"displayed":true})
 xossipy.com##+js(ra, oncopy|oncut)
 xossipy.com##style:has-text(user-select):remove()
