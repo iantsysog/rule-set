@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - CDN Domains
-# Last Updated: 2026-04-23T14:04:16.807Z
-# Size: 4452
+# Last Updated: 2026-04-24T13:57:35.617Z
+# Size: 4453
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -3053,6 +3053,7 @@ static.oklink.com
 assets.nypost.com
 pbc.nypost.com
 images.nvidia.com
+brand-assets.cne.ngc.nvidia.com
 +.npmcdn.com
 images.now-tv.com
 i.niupic.com
