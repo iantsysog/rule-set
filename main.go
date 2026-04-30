@@ -17,6 +17,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -64,13 +65,37 @@ func (e staticError) Error() string {
 	return string(e)
 }
 
+type RuleKind string
+
+const (
+	RuleKindUnknown        RuleKind = ""
+	RuleKindDomain         RuleKind = "DOMAIN"
+	RuleKindDomainSuffix   RuleKind = "DOMAIN-SUFFIX"
+	RuleKindDomainKeyword  RuleKind = "DOMAIN-KEYWORD"
+	RuleKindDomainRegex    RuleKind = "DOMAIN-REGEX"
+	RuleKindDomainWildcard RuleKind = "DOMAIN-WILDCARD"
+	RuleKindIPASN          RuleKind = "IP-ASN"
+	RuleKindIPCIDR         RuleKind = "IP-CIDR"
+	RuleKindIPCIDR6        RuleKind = "IP-CIDR6"
+	RuleKindSourceIP       RuleKind = "SRC-IP"
+	RuleKindDestPort       RuleKind = "DEST-PORT"
+	RuleKindInPort         RuleKind = "IN-PORT"
+	RuleKindSourcePort     RuleKind = "SRC-PORT"
+	RuleKindProcessName    RuleKind = "PROCESS-NAME"
+	RuleKindProtocol       RuleKind = "PROTOCOL"
+	RuleKindSubnet         RuleKind = "SUBNET"
+	RuleKindLogicalAnd     RuleKind = "AND"
+	RuleKindLogicalOr      RuleKind = "OR"
+	RuleKindLogicalNot     RuleKind = "NOT"
+)
+
 type ruleEntry struct {
-	pattern string
+	kind    RuleKind
 	address string
 }
 
 type ruleFrame struct {
-	groups map[string][]string
+	groups map[RuleKind][]string
 }
 
 type ruleFile struct {
@@ -118,6 +143,23 @@ func (o httpSourceOpener) Open(ctx context.Context, source string) (io.ReadClose
 
 type builder struct {
 	resolver *asn.ASNResolver
+}
+
+type ruleHandler func(
+	ctx context.Context,
+	resolver *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+)
+
+type ruleAccumulator struct {
+	rule option.DefaultHeadlessRule
+}
+
+type logicalRuleSpec struct {
+	kind   RuleKind
+	mode   string
+	invert bool
 }
 
 type resettableHTTPTransport struct {
@@ -390,8 +432,8 @@ func prepareFrame(ctx context.Context, opener sourceOpener, source string) (*rul
 	return &ruleFrame{groups: groups}, nil
 }
 
-func collectFrameGroups(lines []string) map[string][]string {
-	groups := make(map[string][]string, len(lines))
+func collectFrameGroups(lines []string) map[RuleKind][]string {
+	groups := make(map[RuleKind][]string, len(lines))
 	seen := make(map[ruleEntry]struct{}, len(lines))
 
 	for _, raw := range lines {
@@ -401,7 +443,7 @@ func collectFrameGroups(lines []string) map[string][]string {
 		}
 
 		entry := parseRuleLine(line)
-		if entry.pattern == "" || entry.address == "" || strings.Contains(entry.pattern, "#") {
+		if entry.kind == RuleKindUnknown || entry.address == "" {
 			continue
 		}
 
@@ -414,7 +456,7 @@ func collectFrameGroups(lines []string) map[string][]string {
 		}
 
 		seen[entry] = struct{}{}
-		groups[entry.pattern] = append(groups[entry.pattern], entry.address)
+		groups[entry.kind] = append(groups[entry.kind], entry.address)
 	}
 
 	return groups
@@ -434,14 +476,17 @@ func parseExplicitRuleLine(line string) (ruleEntry, bool) {
 		return ruleEntry{}, false
 	}
 
-	pattern = strings.TrimSpace(pattern)
-
-	address := joinRuleAddress(rest)
-	if pattern == "" || address == "" {
+	kind, ok := parseRuleKind(strings.TrimSpace(pattern))
+	if !ok {
 		return ruleEntry{}, true
 	}
 
-	return ruleEntry{pattern: pattern, address: address}, true
+	address := joinRuleAddress(rest)
+	if address == "" {
+		return ruleEntry{}, true
+	}
+
+	return ruleEntry{kind: kind, address: address}, true
 }
 
 func joinRuleAddress(rest string) string {
@@ -467,14 +512,44 @@ func parseImplicitRuleLine(line string) ruleEntry {
 	}
 
 	if isCIDREntry(entry) {
-		return ruleEntry{pattern: "IP-CIDR", address: entry}
+		return ruleEntry{kind: RuleKindIPCIDR, address: entry}
 	}
 
 	if after, ok := strings.CutPrefix(entry, "+"); ok {
-		return ruleEntry{pattern: "DOMAIN-SUFFIX", address: strings.TrimPrefix(after, ".")}
+		return ruleEntry{kind: RuleKindDomainSuffix, address: strings.TrimPrefix(after, ".")}
 	}
 
-	return ruleEntry{pattern: "DOMAIN", address: entry}
+	return ruleEntry{kind: RuleKindDomain, address: entry}
+}
+
+func parseRuleKind(raw string) (RuleKind, bool) {
+	normalized := strings.ToUpper(strings.TrimSpace(raw))
+
+	kind, ok := map[string]RuleKind{
+		string(RuleKindDomain):         RuleKindDomain,
+		string(RuleKindDomainSuffix):   RuleKindDomainSuffix,
+		string(RuleKindDomainKeyword):  RuleKindDomainKeyword,
+		string(RuleKindDomainRegex):    RuleKindDomainRegex,
+		string(RuleKindDomainWildcard): RuleKindDomainWildcard,
+		string(RuleKindIPASN):          RuleKindIPASN,
+		string(RuleKindIPCIDR):         RuleKindIPCIDR,
+		string(RuleKindIPCIDR6):        RuleKindIPCIDR6,
+		string(RuleKindSourceIP):       RuleKindSourceIP,
+		string(RuleKindDestPort):       RuleKindDestPort,
+		string(RuleKindInPort):         RuleKindInPort,
+		string(RuleKindSourcePort):     RuleKindSourcePort,
+		string(RuleKindProcessName):    RuleKindProcessName,
+		string(RuleKindProtocol):       RuleKindProtocol,
+		string(RuleKindSubnet):         RuleKindSubnet,
+		string(RuleKindLogicalAnd):     RuleKindLogicalAnd,
+		string(RuleKindLogicalOr):      RuleKindLogicalOr,
+		string(RuleKindLogicalNot):     RuleKindLogicalNot,
+	}[normalized]
+	if !ok {
+		return RuleKindUnknown, false
+	}
+
+	return kind, true
 }
 
 func isCIDREntry(entry string) bool {
@@ -572,8 +647,6 @@ func (b builder) buildRuleSet(ctx context.Context, frame *ruleFrame) *option.Pla
 	rules := b.buildLogicalHeadlessRules(ctx, frame.groups)
 	defaultRule := b.buildDefaultRule(ctx, frame.groups)
 
-	finalizeDefaultRule(&defaultRule)
-
 	if defaultRule.IsValid() {
 		rules = append(rules, option.HeadlessRule{
 			Type:           C.RuleTypeDefault,
@@ -586,11 +659,11 @@ func (b builder) buildRuleSet(ctx context.Context, frame *ruleFrame) *option.Pla
 
 func (b builder) buildLogicalHeadlessRules(
 	ctx context.Context,
-	groups map[string][]string,
+	groups map[RuleKind][]string,
 ) []option.HeadlessRule {
 	rules := make([]option.HeadlessRule, 0, len(groups))
 	for _, spec := range logicalRuleSpecs() {
-		addresses := groups[spec.key]
+		addresses := groups[spec.kind]
 		if len(addresses) == 0 {
 			continue
 		}
@@ -604,171 +677,228 @@ func (b builder) buildLogicalHeadlessRules(
 
 func (b builder) buildDefaultRule(
 	ctx context.Context,
-	groups map[string][]string,
+	groups map[RuleKind][]string,
 ) option.DefaultHeadlessRule {
-	defaultRule := option.DefaultHeadlessRule{}
-	for _, pattern := range sortedDefaultPatterns(groups) {
-		b.applyDefaultPattern(ctx, &defaultRule, pattern, groups[pattern])
+	acc := newRuleAccumulator()
+	for _, kind := range sortedDefaultKinds(groups) {
+		acc.apply(ctx, b.resolver, kind, groups[kind])
 	}
 
-	return defaultRule
+	return acc.export()
 }
 
-func (b builder) applyDefaultPattern(
+func newRuleAccumulator() *ruleAccumulator {
+	return &ruleAccumulator{}
+}
+
+func (a *ruleAccumulator) apply(
 	ctx context.Context,
-	defaultRule *option.DefaultHeadlessRule,
-	pattern string,
+	resolver *asn.ASNResolver,
+	kind RuleKind,
 	addresses []string,
-) {
-	if applyStringPattern(defaultRule, pattern, addresses) {
-		return
+) bool {
+	handler, ok := ruleHandlerRegistry()[kind]
+	if !ok {
+		return false
 	}
 
-	if applyIPPattern(ctx, b.resolver, defaultRule, pattern, addresses) {
-		return
-	}
+	handler(ctx, resolver, a, addresses)
 
-	if applyPortPattern(defaultRule, pattern, addresses) {
-		return
-	}
-
-	applyAttributePattern(defaultRule, pattern, addresses)
+	return true
 }
 
-func logicalRuleSpecs() []struct {
-	key    string
-	mode   string
-	invert bool
-} {
-	return []struct {
-		key    string
-		mode   string
-		invert bool
-	}{
-		{key: "AND", mode: C.LogicalTypeAnd},
-		{key: "OR", mode: C.LogicalTypeOr},
-		{key: "NOT", mode: C.LogicalTypeAnd, invert: true},
+func (a *ruleAccumulator) export() option.DefaultHeadlessRule {
+	finalizeDefaultRule(&a.rule)
+
+	return a.rule
+}
+
+func logicalRuleSpecs() []logicalRuleSpec {
+	return []logicalRuleSpec{
+		{kind: RuleKindLogicalAnd, mode: C.LogicalTypeAnd},
+		{kind: RuleKindLogicalOr, mode: C.LogicalTypeOr},
+		{kind: RuleKindLogicalNot, mode: C.LogicalTypeAnd, invert: true},
 	}
 }
 
-func sortedDefaultPatterns(groups map[string][]string) []string {
-	patterns := make([]string, 0, len(groups))
-	for pattern := range groups {
-		if isLogicalPattern(pattern) {
+func sortedDefaultKinds(groups map[RuleKind][]string) []RuleKind {
+	kinds := make([]RuleKind, 0, len(groups))
+	for kind := range groups {
+		if isLogicalKind(kind) {
 			continue
 		}
 
-		patterns = append(patterns, pattern)
+		kinds = append(kinds, kind)
 	}
 
-	sort.Strings(patterns)
+	slices.Sort(kinds)
 
-	return patterns
+	return kinds
 }
 
-func isLogicalPattern(pattern string) bool {
-	switch pattern {
-	case "AND", "OR", "NOT":
-		return true
-	default:
-		return false
+func isLogicalKind(kind RuleKind) bool {
+	return kind == RuleKindLogicalAnd || kind == RuleKindLogicalOr || kind == RuleKindLogicalNot
+}
+
+func ruleHandlerRegistry() map[RuleKind]ruleHandler {
+	return map[RuleKind]ruleHandler{
+		RuleKindDomain:         applyDomainRule,
+		RuleKindDomainSuffix:   applyDomainSuffixRule,
+		RuleKindDomainKeyword:  applyDomainKeywordRule,
+		RuleKindDomainRegex:    applyDomainRegexRule,
+		RuleKindDomainWildcard: applyDomainWildcardRule,
+		RuleKindIPASN:          applyIPASNRule,
+		RuleKindIPCIDR:         applyIPCIDRRule,
+		RuleKindIPCIDR6:        applyIPCIDRRule,
+		RuleKindSourceIP:       applySourceIPRule,
+		RuleKindDestPort:       applyDestPortRule,
+		RuleKindInPort:         applyDestPortRule,
+		RuleKindSourcePort:     applySourcePortRule,
+		RuleKindProcessName:    applyProcessNameRule,
+		RuleKindProtocol:       applyProtocolRule,
+		RuleKindSubnet:         applySubnetRule,
 	}
 }
 
-func applyStringPattern(rule *option.DefaultHeadlessRule, pattern string, addresses []string) bool {
-	switch pattern {
-	case "DOMAIN":
-		setStringList(&rule.Domain, addresses)
-	case "DOMAIN-SUFFIX":
-		setStringList(&rule.DomainSuffix, addresses)
-	case "DOMAIN-KEYWORD":
-		setStringList(&rule.DomainKeyword, addresses)
-	case "DOMAIN-REGEX":
-		setStringList(&rule.DomainRegex, filterValidRegex(addresses))
-	case "DOMAIN-WILDCARD":
-		mergeIntoStringList(&rule.DomainRegex, maskWildcards(addresses))
-	default:
-		return false
-	}
-
-	return true
+func applyDomainRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	setStringList(&acc.rule.Domain, addresses)
 }
 
-func applyIPPattern(
+func applyDomainSuffixRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	setStringList(&acc.rule.DomainSuffix, addresses)
+}
+
+func applyDomainKeywordRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	setStringList(&acc.rule.DomainKeyword, addresses)
+}
+
+func applyDomainRegexRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	setStringList(&acc.rule.DomainRegex, filterValidRegex(addresses))
+}
+
+func applyDomainWildcardRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	mergeIntoStringList(&acc.rule.DomainRegex, maskWildcards(addresses))
+}
+
+func applyIPASNRule(
 	ctx context.Context,
 	resolver *asn.ASNResolver,
-	rule *option.DefaultHeadlessRule,
-	pattern string,
+	acc *ruleAccumulator,
 	addresses []string,
-) bool {
-	switch pattern {
-	case "IP-ASN":
-		if resolver == nil {
-			return true
-		}
-
-		cidrList, err := resolver.ResolveASNs(ctx, normalizeASNs(addresses))
-		if err == nil {
-			mergeIntoStringList(&rule.IPCIDR, cidrList)
-		}
-	case "IP-CIDR", "IP-CIDR6":
-		mergeIntoStringList(&rule.IPCIDR, normalizeCIDRs(addresses))
-	case "SRC-IP":
-		setStringList(&rule.SourceIPCIDR, normalizeCIDRs(addresses))
-	default:
-		return false
+) {
+	if resolver == nil {
+		return
 	}
 
-	return true
+	cidrList, err := resolver.ResolveASNs(ctx, normalizeASNs(addresses))
+	if err == nil {
+		mergeIntoStringList(&acc.rule.IPCIDR, cidrList)
+	}
 }
 
-func applyPortPattern(rule *option.DefaultHeadlessRule, pattern string, addresses []string) bool {
+func applyIPCIDRRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	mergeIntoStringList(&acc.rule.IPCIDR, normalizeCIDRs(addresses))
+}
+
+func applySourceIPRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	setStringList(&acc.rule.SourceIPCIDR, normalizeCIDRs(addresses))
+}
+
+func applyDestPortRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
 	ports, ranges := processPorts(addresses)
-
-	switch pattern {
-	case "DEST-PORT", "IN-PORT":
-		if len(ports) > 0 {
-			rule.Port = badoption.Listable[uint16](ports)
-		}
-
-		setStringList(&rule.PortRange, ranges)
-	case "SRC-PORT":
-		if len(ports) > 0 {
-			rule.SourcePort = badoption.Listable[uint16](ports)
-		}
-
-		setStringList(&rule.SourcePortRange, ranges)
-	default:
-		return false
+	if len(ports) > 0 {
+		acc.rule.Port = badoption.Listable[uint16](ports)
 	}
 
-	return true
+	setStringList(&acc.rule.PortRange, ranges)
 }
 
-func applyAttributePattern(
-	rule *option.DefaultHeadlessRule,
-	pattern string,
+func applySourcePortRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
 	addresses []string,
-) bool {
-	switch pattern {
-	case "SUBNET":
-		for _, addr := range addresses {
-			networkType, ok := parseNetworkType(addr)
-			if ok {
-				rule.NetworkType = append(rule.NetworkType, networkType)
-			}
-		}
-	case "PROCESS-NAME":
-		for _, addr := range addresses {
-			processRule(rule, addr)
-		}
-	case "PROTOCOL":
-		setStringList(&rule.Network, normalizeProtocols(addresses))
-	default:
-		return false
+) {
+	ports, ranges := processPorts(addresses)
+	if len(ports) > 0 {
+		acc.rule.SourcePort = badoption.Listable[uint16](ports)
 	}
 
-	return true
+	setStringList(&acc.rule.SourcePortRange, ranges)
+}
+
+func applyProcessNameRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	for _, addr := range addresses {
+		processRule(&acc.rule, addr)
+	}
+}
+
+func applyProtocolRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	setStringList(&acc.rule.Network, normalizeProtocols(addresses))
+}
+
+func applySubnetRule(
+	_ context.Context,
+	_ *asn.ASNResolver,
+	acc *ruleAccumulator,
+	addresses []string,
+) {
+	for _, addr := range addresses {
+		networkType, ok := parseNetworkType(addr)
+		if ok {
+			acc.rule.NetworkType = append(acc.rule.NetworkType, networkType)
+		}
+	}
 }
 
 func normalizeProtocols(addresses []string) []string {
@@ -939,14 +1069,12 @@ func parseLogicalRuleGroup(
 		return nil
 	}
 
-	subRules := make([]option.HeadlessRule, 0, len(inner))
-	for _, raw := range splitLogicalParts(inner) {
-		ruleType, ruleValue, ok := parseLogicalPart(raw)
-		if !ok {
-			continue
-		}
+	parts := splitLogicalParts(inner)
 
-		if subRule := parseLogicalSubRule(ctx, resolver, ruleType, ruleValue); subRule != nil {
+	subRules := make([]option.HeadlessRule, 0, len(parts))
+	for _, raw := range parts {
+		entry := parseLogicalPart(raw)
+		if subRule := parseLogicalSubRule(ctx, resolver, entry); subRule != nil {
 			subRules = append(subRules, *subRule)
 		}
 	}
@@ -964,20 +1092,13 @@ func logicalGroupBody(address string) (string, bool) {
 	return inner, inner != ""
 }
 
-func parseLogicalPart(raw string) (string, string, bool) {
-	ruleType, ruleValue, ok := strings.Cut(strings.TrimSpace(raw), ",")
-	if !ok {
-		return "", "", false
+func parseLogicalPart(raw string) ruleEntry {
+	entry := parseRuleLine(strings.TrimSpace(raw))
+	if isLogicalKind(entry.kind) {
+		return ruleEntry{}
 	}
 
-	ruleType = strings.TrimSpace(ruleType)
-	ruleValue = strings.TrimSpace(ruleValue)
-
-	if ruleType == "" || ruleValue == "" {
-		return "", "", false
-	}
-
-	return ruleType, ruleValue, true
+	return entry
 }
 
 func newLogicalHeadlessRule(
@@ -998,146 +1119,23 @@ func newLogicalHeadlessRule(
 func parseLogicalSubRule(
 	ctx context.Context,
 	resolver *asn.ASNResolver,
-	ruleType, ruleValue string,
+	entry ruleEntry,
 ) *option.HeadlessRule {
-	typeUpper := strings.ToUpper(strings.TrimSpace(ruleType))
-
-	ruleValue = strings.TrimSpace(ruleValue)
-	if typeUpper == "" || ruleValue == "" {
+	if entry.kind == RuleKindUnknown || entry.address == "" {
 		return nil
 	}
 
-	rule, ok := buildLogicalDomainRule(typeUpper, ruleValue)
-	if !ok {
-		rule, ok = buildLogicalIPRule(ctx, resolver, typeUpper, ruleValue)
+	acc := newRuleAccumulator()
+	if !acc.apply(ctx, resolver, entry.kind, []string{entry.address}) {
+		return nil
 	}
 
-	if !ok {
-		rule, ok = buildLogicalPortRule(typeUpper, ruleValue)
-	}
-
-	if !ok {
-		rule, ok = buildLogicalAttributeRule(typeUpper, ruleValue)
-	}
-
-	if !ok || !rule.IsValid() {
+	rule := acc.export()
+	if !rule.IsValid() {
 		return nil
 	}
 
 	return &option.HeadlessRule{Type: C.RuleTypeDefault, DefaultOptions: rule}
-}
-
-func buildLogicalDomainRule(ruleType, ruleValue string) (option.DefaultHeadlessRule, bool) {
-	switch ruleType {
-	case "DOMAIN":
-		return option.DefaultHeadlessRule{
-			Domain: badoption.Listable[string]{ruleValue},
-		}, true
-	case "DOMAIN-SUFFIX":
-		return option.DefaultHeadlessRule{
-			DomainSuffix: badoption.Listable[string]{ruleValue},
-		}, true
-	case "DOMAIN-KEYWORD":
-		return option.DefaultHeadlessRule{
-			DomainKeyword: badoption.Listable[string]{ruleValue},
-		}, true
-	case "DOMAIN-WILDCARD":
-		patterns := maskWildcards([]string{ruleValue})
-		if len(patterns) == 0 {
-			return option.DefaultHeadlessRule{}, false
-		}
-
-		return option.DefaultHeadlessRule{
-			DomainRegex: badoption.Listable[string](patterns),
-		}, true
-	default:
-		return option.DefaultHeadlessRule{}, false
-	}
-}
-
-func buildLogicalIPRule(
-	ctx context.Context,
-	resolver *asn.ASNResolver,
-	ruleType, ruleValue string,
-) (option.DefaultHeadlessRule, bool) {
-	switch ruleType {
-	case "IP-CIDR", "IP-CIDR6":
-		return option.DefaultHeadlessRule{
-			IPCIDR: badoption.Listable[string](normalizeCIDRs([]string{ruleValue})),
-		}, true
-	case "IP-ASN":
-		cidrs := resolveLogicalASN(ctx, resolver, ruleValue)
-		if len(cidrs) == 0 {
-			return option.DefaultHeadlessRule{}, false
-		}
-
-		return option.DefaultHeadlessRule{
-			IPCIDR: badoption.Listable[string](cidrs),
-		}, true
-	case "SRC-IP":
-		return option.DefaultHeadlessRule{
-			SourceIPCIDR: badoption.Listable[string](normalizeCIDRs([]string{ruleValue})),
-		}, true
-	default:
-		return option.DefaultHeadlessRule{}, false
-	}
-}
-
-func resolveLogicalASN(
-	ctx context.Context,
-	resolver *asn.ASNResolver,
-	ruleValue string,
-) []string {
-	if resolver == nil {
-		return nil
-	}
-
-	cidrs, err := resolver.ResolveASNs(ctx, normalizeASNs([]string{ruleValue}))
-	if err != nil {
-		return nil
-	}
-
-	return cidrs
-}
-
-func buildLogicalPortRule(ruleType, ruleValue string) (option.DefaultHeadlessRule, bool) {
-	ports, ranges := processPorts([]string{ruleValue})
-
-	switch ruleType {
-	case "DEST-PORT", "IN-PORT":
-		return option.DefaultHeadlessRule{
-			Port:      badoption.Listable[uint16](ports),
-			PortRange: badoption.Listable[string](ranges),
-		}, true
-	case "SRC-PORT":
-		return option.DefaultHeadlessRule{
-			SourcePort:      badoption.Listable[uint16](ports),
-			SourcePortRange: badoption.Listable[string](ranges),
-		}, true
-	default:
-		return option.DefaultHeadlessRule{}, false
-	}
-}
-
-func buildLogicalAttributeRule(ruleType, ruleValue string) (option.DefaultHeadlessRule, bool) {
-	switch ruleType {
-	case "PROCESS-NAME":
-		rule := option.DefaultHeadlessRule{}
-		processRule(&rule, ruleValue)
-
-		return rule, true
-	case "PROTOCOL":
-		protocols := normalizeProtocols([]string{ruleValue})
-		if len(protocols) == 0 {
-			return option.DefaultHeadlessRule{}, false
-		}
-
-		return option.DefaultHeadlessRule{
-			Network: badoption.Listable[string](protocols),
-		}, true
-	default:
-		return option.DefaultHeadlessRule{}, false
-	}
 }
 
 func processRule(rule *option.DefaultHeadlessRule, address string) {

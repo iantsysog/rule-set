@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"net/netip"
+	"reflect"
 	"testing"
 
 	"github.com/sagernet/sing-box/adapter"
@@ -84,39 +85,71 @@ func TestParseRuleLine(t *testing.T) {
 	cases := []struct {
 		name    string
 		in      string
-		pattern string
+		kind    RuleKind
 		address string
 	}{
-		{name: "explicit", in: "DOMAIN, example.com", pattern: "DOMAIN", address: "example.com"},
+		{name: "explicit", in: "DOMAIN, example.com", kind: RuleKindDomain, address: "example.com"},
 		{
 			name:    "explicit_suffix",
 			in:      "IP-CIDR,1.2.3.4/32,no-resolve",
-			pattern: "IP-CIDR",
+			kind:    RuleKindIPCIDR,
 			address: "1.2.3.4/32,no-resolve",
 		},
-		{name: "bare_domain", in: "example.com", pattern: "DOMAIN", address: "example.com"},
+		{name: "bare_domain", in: "example.com", kind: RuleKindDomain, address: "example.com"},
 		{
 			name:    "bare_suffix",
 			in:      "+.example.com",
-			pattern: "DOMAIN-SUFFIX",
+			kind:    RuleKindDomainSuffix,
 			address: "example.com",
 		},
-		{name: "bare_ip", in: "192.0.2.1", pattern: "IP-CIDR", address: "192.0.2.1"},
+		{name: "bare_ip", in: "192.0.2.1", kind: RuleKindIPCIDR, address: "192.0.2.1"},
+		{name: "unknown", in: "FOO,bar", kind: RuleKindUnknown, address: ""},
 	}
 
-	for _, tc := range cases {
+	for i := range cases {
+		tc := cases[i]
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
 			got := parseRuleLine(tc.in)
-			if got.pattern != tc.pattern || got.address != tc.address {
+			if got.kind != tc.kind || got.address != tc.address {
 				t.Fatalf(
-					"parseRuleLine(%q) = %#v, want pattern=%q address=%q",
+					"parseRuleLine(%q) = %#v, want kind=%q address=%q",
 					tc.in,
 					got,
-					tc.pattern,
+					tc.kind,
 					tc.address,
 				)
+			}
+		})
+	}
+}
+
+func TestRuleKindHandlerConsistency(t *testing.T) {
+	t.Parallel()
+
+	cases := []struct {
+		name    string
+		kind    RuleKind
+		address string
+	}{
+		{name: "domain", kind: RuleKindDomain, address: "example.com"},
+		{name: "ip_cidr", kind: RuleKindIPCIDR, address: "192.0.2.1"},
+		{name: "src_port", kind: RuleKindSourcePort, address: "12345"},
+		{name: "process_name", kind: RuleKindProcessName, address: "example*"},
+		{name: "protocol", kind: RuleKindProtocol, address: "tcp"},
+	}
+
+	for i := range cases {
+		tc := cases[i]
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			want := buildSingleRule(t, tc.kind, tc.address)
+
+			got := buildLogicalSubRule(t, tc.kind, tc.address)
+			if !reflect.DeepEqual(got, want) {
+				t.Fatalf("logical rule mismatch for %s: got %#v want %#v", tc.kind, got, want)
 			}
 		})
 	}
@@ -144,6 +177,31 @@ func representativeRuleLines() []string {
 		"OR,((DOMAIN-SUFFIX,example.net),(DEST-PORT,80))",
 		"NOT,((PROCESS-NAME,example),(PROTOCOL,udp))",
 	}
+}
+
+func buildSingleRule(t *testing.T, kind RuleKind, address string) option.DefaultHeadlessRule {
+	t.Helper()
+
+	frame := &ruleFrame{
+		groups: map[RuleKind][]string{
+			kind: {address},
+		},
+	}
+
+	return (builder{resolver: nil}).buildDefaultRule(context.Background(), frame.groups)
+}
+
+func buildLogicalSubRule(t *testing.T, kind RuleKind, address string) option.DefaultHeadlessRule {
+	t.Helper()
+
+	entry := ruleEntry{kind: kind, address: address}
+
+	rule := parseLogicalSubRule(context.Background(), nil, entry)
+	if rule == nil {
+		t.Fatalf("expected logical sub rule for %s", kind)
+	}
+
+	return rule.DefaultOptions
 }
 
 func requireDefaultRule(t *testing.T, rs *option.PlainRuleSet) option.DefaultHeadlessRule {
