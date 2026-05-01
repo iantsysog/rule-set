@@ -1,5 +1,5 @@
 #!name=[Sukka] Always Real IP Plus
-#!desc=Last Updated: 2026-04-30T17:35:18.779Z
+#!desc=Last Updated: 2026-05-01T13:44:43.922Z
 
 [General]
 always-real-ip = %APPEND% dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, lancache.steamcontent.com
