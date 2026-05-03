@@ -136,15 +136,6 @@ jobs:
         run: |
           version=$(curl -sL https://api.github.com/repos/SagerNet/sing-box/releases | jq -r '.[0].tag_name[1:]')
           echo "version=$version" >> "$GITHUB_OUTPUT"
-      - name: Build srsc for ${{ matrix.target }}
-        run: |
-          git submodule add https://github.com/iantsysog/sing-rule.git srsc 2>/dev/null || true
-          git submodule update --init --recursive srsc
-          cd srsc
-          go clean -modcache
-          go get github.com/sagernet/sing-box@v${{ steps.version.outputs.version }}
-          go mod tidy
-          go build -o srsc ./cmd/srsc
       - name: Generate Base Outputs for ${{ matrix.target }}
         run: |
           ln -sfn "$PWD/build/List" "$PWD/List"
@@ -219,87 +210,6 @@ jobs:
             sing-box rule-set convert --type adguard --output "$output_file" "$filter_file"
             [[ -f "$output_file" && -s "$output_file" ]]
           done
-      - name: Start srsc API for sing-box
-        if: matrix.target == 'sing-box'
-        run: |
-          ./srsc/srsc run -c srsc.json &
-          sleep 5
-          curl -s http://127.0.0.1:8080/sing-box/ip/cdn/source
-      - name: Start srsc API for mihomo
-        if: matrix.target == 'mihomo'
-        run: |
-          ./srsc/srsc run -c srsc.json &
-          sleep 5
-          curl -s http://127.0.0.1:8080/mihomo/ip/cdn/text
-      - name: Export for sing-box
-        if: matrix.target == 'sing-box'
-        run: |
-          mkdir -p sing-box/srsc/{source,binary}/{domainset,ip,non_ip,dns}
-          for category in domainset non_ip; do
-            for file in build/List/$category/*.conf; do
-              [ -f "$file" ] || continue
-              name=$(basename "$file" .conf | sed 's/_/-/g')
-              api_name=$(basename "$file" .conf)
-              curl -s -H "User-Agent: sing-box ${{ steps.version.outputs.version }}" "http://127.0.0.1:8080/sing-box/$category/$api_name/source" > "sing-box/srsc/source/$category/$name.$category.json"
-              curl -s -H "User-Agent: sing-box ${{ steps.version.outputs.version }}" "http://127.0.0.1:8080/sing-box/$category/$api_name/binary" > "sing-box/srsc/binary/$category/$name.$category.srs"
-            done
-          done
-          for file in build/List/ip/*.conf; do
-            [ -f "$file" ] || continue
-            name=$(basename "$file" .conf | sed 's/_/-/g')
-            api_name=$(basename "$file" .conf)
-            curl -s -H "User-Agent: sing-box ${{ steps.version.outputs.version }}" "http://127.0.0.1:8080/sing-box/ip/$api_name/source" > "sing-box/srsc/source/ip/$name.ip.json"
-            curl -s -H "User-Agent: sing-box ${{ steps.version.outputs.version }}" "http://127.0.0.1:8080/sing-box/ip/$api_name/binary" > "sing-box/srsc/binary/ip/$name.ip.srs"
-          done
-          for file in build/Modules/Rules/sukka_local_dns_mapping/*.conf; do
-            [ -f "$file" ] || continue
-            name=$(basename "$file" .conf | sed 's/_/-/g')
-            api_name=$(basename "$file" .conf)
-            curl -s -H "User-Agent: sing-box ${{ steps.version.outputs.version }}" "http://127.0.0.1:8080/sing-box/dns/$api_name/source" > "sing-box/srsc/source/dns/$name.dns.json"
-            curl -s -H "User-Agent: sing-box ${{ steps.version.outputs.version }}" "http://127.0.0.1:8080/sing-box/dns/$api_name/binary" > "sing-box/srsc/binary/dns/$name.dns.srs"
-          done
-      - name: Export for mihomo
-        if: matrix.target == 'mihomo'
-        run: |
-          mkdir -p mihomo/srsc/text/{domainset,ip,non_ip,dns}
-          mkdir -p mihomo/srsc/mrs/{domain,ipcidr}
-          for category in domainset; do
-            for file in build/List/$category/*.conf; do
-              [ -f "$file" ] || continue
-              name=$(basename "$file" .conf | sed 's/_/-/g')
-              api_name=$(basename "$file" .conf)
-              curl -s "http://127.0.0.1:8080/mihomo/$category/$api_name/text" > "mihomo/srsc/text/$category/$name.$category.txt"
-              curl -s "http://127.0.0.1:8080/mihomo/$category/$api_name/mrs" > "mihomo/srsc/mrs/domain/$name.$category.mrs"
-            done
-          done
-          for file in build/List/ip/*.conf; do
-            [ -f "$file" ] || continue
-            name=$(basename "$file" .conf | sed 's/_/-/g')
-            api_name=$(basename "$file" .conf)
-            curl -s "http://127.0.0.1:8080/mihomo/ip/$api_name/text" > "mihomo/srsc/text/ip/$name.ip.txt"
-          done
-          for file in build/List/ip/china_ip.conf build/List/ip/china_ip_ipv6.conf; do
-            [ -f "$file" ] || continue
-            name=$(basename "$file" .conf | sed 's/_/-/g')
-            api_name=$(basename "$file" .conf)
-            curl -s "http://127.0.0.1:8080/mihomo/ip/$api_name/mrs" > "mihomo/srsc/mrs/ipcidr/$name.ipcidr.mrs"
-          done
-          for category in non_ip; do
-            for file in build/List/$category/*.conf; do
-              [ -f "$file" ] || continue
-              name=$(basename "$file" .conf | sed 's/_/-/g')
-              api_name=$(basename "$file" .conf)
-              curl -s "http://127.0.0.1:8080/mihomo/$category/$api_name/text" > "mihomo/srsc/text/$category/$name.$category.txt"
-            done
-          done
-          for file in build/Modules/Rules/sukka_local_dns_mapping/*.conf; do
-            [ -f "$file" ] || continue
-            name=$(basename "$file" .conf | sed 's/_/-/g')
-            api_name=$(basename "$file" .conf)
-            curl -s "http://127.0.0.1:8080/mihomo/dns/$api_name/text" > "mihomo/srsc/text/dns/$name.dns.txt"
-          done
-      - name: Stop srsc API for ${{ matrix.target }}
-        run: pkill -f "srsc run" || true
       - name: Compile Build for mihomo
         if: matrix.target == 'mihomo'
         run: |
