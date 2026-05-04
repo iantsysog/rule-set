@@ -23,7 +23,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iantsysog/sing-rule/convertor/asn"
 	"github.com/sagernet/sing-box/adapter"
 	"github.com/sagernet/sing-box/common/srs"
 	C "github.com/sagernet/sing-box/constant"
@@ -74,7 +73,6 @@ const (
 	RuleKindDomainKeyword  RuleKind = "DOMAIN-KEYWORD"
 	RuleKindDomainRegex    RuleKind = "DOMAIN-REGEX"
 	RuleKindDomainWildcard RuleKind = "DOMAIN-WILDCARD"
-	RuleKindIPASN          RuleKind = "IP-ASN"
 	RuleKindIPCIDR         RuleKind = "IP-CIDR"
 	RuleKindIPCIDR6        RuleKind = "IP-CIDR6"
 	RuleKindSourceIP       RuleKind = "SRC-IP"
@@ -141,13 +139,9 @@ func (o httpSourceOpener) Open(ctx context.Context, source string) (io.ReadClose
 	return resp.Body, nil
 }
 
-type builder struct {
-	resolver *asn.ASNResolver
-}
+type builder struct{}
 
 type ruleHandler func(
-	ctx context.Context,
-	resolver *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 )
@@ -247,13 +241,8 @@ func run(ctx context.Context) error {
 		}
 	}
 
-	resolver, err := asn.NewASNResolver()
-	if err != nil {
-		return fmt.Errorf("create ASN resolver: %w", err)
-	}
-
 	opener := httpSourceOpener{client: client}
-	b := builder{resolver: resolver}
+	b := builder{}
 
 	worker, workerCtx := batch.New(ctx, batch.WithConcurrencyNum[struct{}](maxConnections))
 
@@ -531,7 +520,6 @@ func parseRuleKind(raw string) (RuleKind, bool) {
 		string(RuleKindDomainKeyword):  RuleKindDomainKeyword,
 		string(RuleKindDomainRegex):    RuleKindDomainRegex,
 		string(RuleKindDomainWildcard): RuleKindDomainWildcard,
-		string(RuleKindIPASN):          RuleKindIPASN,
 		string(RuleKindIPCIDR):         RuleKindIPCIDR,
 		string(RuleKindIPCIDR6):        RuleKindIPCIDR6,
 		string(RuleKindSourceIP):       RuleKindSourceIP,
@@ -668,7 +656,7 @@ func (b builder) buildLogicalHeadlessRules(
 			continue
 		}
 
-		logicalRules := buildLogicalRules(ctx, b.resolver, addresses, spec.mode, spec.invert)
+		logicalRules := buildLogicalRules(ctx, addresses, spec.mode, spec.invert)
 		rules = append(rules, logicalRules...)
 	}
 
@@ -681,7 +669,7 @@ func (b builder) buildDefaultRule(
 ) option.DefaultHeadlessRule {
 	acc := newRuleAccumulator()
 	for _, kind := range sortedDefaultKinds(groups) {
-		acc.apply(ctx, b.resolver, kind, groups[kind])
+		acc.apply(ctx, kind, groups[kind])
 	}
 
 	return acc.export()
@@ -692,8 +680,7 @@ func newRuleAccumulator() *ruleAccumulator {
 }
 
 func (a *ruleAccumulator) apply(
-	ctx context.Context,
-	resolver *asn.ASNResolver,
+	_ context.Context,
 	kind RuleKind,
 	addresses []string,
 ) bool {
@@ -702,7 +689,7 @@ func (a *ruleAccumulator) apply(
 		return false
 	}
 
-	handler(ctx, resolver, a, addresses)
+	handler(a, addresses)
 
 	return true
 }
@@ -747,7 +734,6 @@ func ruleHandlerRegistry() map[RuleKind]ruleHandler {
 		RuleKindDomainKeyword:  applyDomainKeywordRule,
 		RuleKindDomainRegex:    applyDomainRegexRule,
 		RuleKindDomainWildcard: applyDomainWildcardRule,
-		RuleKindIPASN:          applyIPASNRule,
 		RuleKindIPCIDR:         applyIPCIDRRule,
 		RuleKindIPCIDR6:        applyIPCIDRRule,
 		RuleKindSourceIP:       applySourceIPRule,
@@ -761,8 +747,6 @@ func ruleHandlerRegistry() map[RuleKind]ruleHandler {
 }
 
 func applyDomainRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -770,8 +754,6 @@ func applyDomainRule(
 }
 
 func applyDomainSuffixRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -779,8 +761,6 @@ func applyDomainSuffixRule(
 }
 
 func applyDomainKeywordRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -788,8 +768,6 @@ func applyDomainKeywordRule(
 }
 
 func applyDomainRegexRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -797,33 +775,13 @@ func applyDomainRegexRule(
 }
 
 func applyDomainWildcardRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
 	mergeIntoStringList(&acc.rule.DomainRegex, maskWildcards(addresses))
 }
 
-func applyIPASNRule(
-	ctx context.Context,
-	resolver *asn.ASNResolver,
-	acc *ruleAccumulator,
-	addresses []string,
-) {
-	if resolver == nil {
-		return
-	}
-
-	cidrList, err := resolver.ResolveASNs(ctx, normalizeASNs(addresses))
-	if err == nil {
-		mergeIntoStringList(&acc.rule.IPCIDR, cidrList)
-	}
-}
-
 func applyIPCIDRRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -831,8 +789,6 @@ func applyIPCIDRRule(
 }
 
 func applySourceIPRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -840,8 +796,6 @@ func applySourceIPRule(
 }
 
 func applyDestPortRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -854,8 +808,6 @@ func applyDestPortRule(
 }
 
 func applySourcePortRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -868,8 +820,6 @@ func applySourcePortRule(
 }
 
 func applyProcessNameRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -879,8 +829,6 @@ func applyProcessNameRule(
 }
 
 func applyProtocolRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -888,8 +836,6 @@ func applyProtocolRule(
 }
 
 func applySubnetRule(
-	_ context.Context,
-	_ *asn.ASNResolver,
 	acc *ruleAccumulator,
 	addresses []string,
 ) {
@@ -974,7 +920,6 @@ func parseNetworkType(value string) (option.InterfaceType, bool) {
 
 func buildLogicalRules(
 	ctx context.Context,
-	resolver *asn.ASNResolver,
 	addresses []string,
 	mode string,
 	invert bool,
@@ -982,7 +927,7 @@ func buildLogicalRules(
 	rules := make([]option.HeadlessRule, 0, len(addresses))
 
 	for _, addr := range addresses {
-		subRules := parseLogicalRuleGroup(ctx, resolver, addr)
+		subRules := parseLogicalRuleGroup(ctx, addr)
 		if len(subRules) > 0 {
 			rules = append(rules, newLogicalHeadlessRule(subRules, mode, invert))
 		}
@@ -1061,7 +1006,6 @@ func unwrapOuterParentheses(value string) string {
 
 func parseLogicalRuleGroup(
 	ctx context.Context,
-	resolver *asn.ASNResolver,
 	address string,
 ) []option.HeadlessRule {
 	inner, ok := logicalGroupBody(address)
@@ -1074,7 +1018,7 @@ func parseLogicalRuleGroup(
 	subRules := make([]option.HeadlessRule, 0, len(parts))
 	for _, raw := range parts {
 		entry := parseLogicalPart(raw)
-		if subRule := parseLogicalSubRule(ctx, resolver, entry); subRule != nil {
+		if subRule := parseLogicalSubRule(ctx, entry); subRule != nil {
 			subRules = append(subRules, *subRule)
 		}
 	}
@@ -1118,7 +1062,6 @@ func newLogicalHeadlessRule(
 
 func parseLogicalSubRule(
 	ctx context.Context,
-	resolver *asn.ASNResolver,
 	entry ruleEntry,
 ) *option.HeadlessRule {
 	if entry.kind == RuleKindUnknown || entry.address == "" {
@@ -1126,7 +1069,7 @@ func parseLogicalSubRule(
 	}
 
 	acc := newRuleAccumulator()
-	if !acc.apply(ctx, resolver, entry.kind, []string{entry.address}) {
+	if !acc.apply(ctx, entry.kind, []string{entry.address}) {
 		return nil
 	}
 
@@ -1260,29 +1203,6 @@ func normalizeCIDRs(entries []string) []string {
 	}
 
 	return result
-}
-
-func normalizeASNs(addresses []string) []string {
-	asns := make([]string, 0, len(addresses))
-	for _, address := range addresses {
-		address = strings.ToUpper(strings.TrimSpace(address))
-		if address == "" {
-			continue
-		}
-
-		if !strings.HasPrefix(address, "AS") {
-			address = "AS" + address
-		}
-
-		asns = append(asns, address)
-	}
-
-	asns = common.FilterNotDefault(asns)
-	if len(asns) == 0 {
-		return nil
-	}
-
-	return common.Uniq(asns)
 }
 
 func isRegexLike(value string) bool {
