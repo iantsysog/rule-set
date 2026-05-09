@@ -20,8 +20,8 @@
         "appsto.re",
         "apple.co"
       ],
+      "ip_cidr": "17.0.0.0/8",
       "process_name": [
-        "netbiosd",
         "com.apple.geod",
         "mapspushd",
         "com.apple.Maps",
