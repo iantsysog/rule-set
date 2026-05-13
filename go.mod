@@ -4,7 +4,7 @@ go 1.26.2
 
 require (
 	github.com/sagernet/sing v0.8.10-0.20260428084616-2bc976d03e39
-	github.com/sagernet/sing-box v1.14.0-alpha.20
+	github.com/sagernet/sing-box v1.14.0-alpha.23
 	golang.org/x/sys v0.43.0
 )
 
@@ -25,7 +25,7 @@ require (
 	github.com/sagernet/gvisor v0.0.0-20250811-sing-box-mod.1 // indirect
 	github.com/sagernet/netlink v0.0.0-20240916134442-83396419aa8b // indirect
 	github.com/sagernet/nftables v0.3.0-mod.2 // indirect
-	github.com/sagernet/sing-tun v0.8.10-0.20260427231103-812b89ea042d // indirect
+	github.com/sagernet/sing-tun v0.8.10-0.20260502074200-87904db3a2c1 // indirect
 	github.com/vishvananda/netns v0.0.5 // indirect
 	go4.org/netipx v0.0.0-20231129151722-fdeea329fbba // indirect
 	golang.org/x/crypto v0.50.0 // indirect
