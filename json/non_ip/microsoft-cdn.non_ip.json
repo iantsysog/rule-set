@@ -56,8 +56,7 @@
         "vz.download.prss.microsoft.com",
         "sdx.microsoft.com",
         "dl.delivery.mp.microsoft.com",
-        "storeedgefd.dsx.mp.microsoft.com",
-        "fs.microsoft.com"
+        "storeedgefd.dsx.mp.microsoft.com"
       ],
       "domain_regex": [
         "^http://www\\.microsoft\\.com/pki/",
