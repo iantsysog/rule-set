@@ -23,7 +23,7 @@ jobs:
           git config --global core.fscache true
           git config --global gc.auto 0
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           submodules: false
@@ -103,7 +103,7 @@ jobs:
         target: [sing-box, mihomo]
     steps:
       - name: Checkout Repository for ${{ matrix.target }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           submodules: false
@@ -245,7 +245,7 @@ jobs:
     needs: compile
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
