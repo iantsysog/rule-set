@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - Domestic Domains
-# Last Updated: 2026-06-20T21:44:53.241Z
-# Size: 858
+# Last Updated: 2026-06-22T14:08:00.424Z
+# Size: 862
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -436,6 +436,10 @@ DOMAIN-SUFFIX,wegame.com
 DOMAIN-SUFFIX,webank.com
 DOMAIN-SUFFIX,wangsu.com
 DOMAIN-SUFFIX,volces.com
+DOMAIN,viayoo.com
+DOMAIN,www.viayoo.com
+DOMAIN,res.viayoo.com
+DOMAIN,app.viayoo.com
 DOMAIN-SUFFIX,udache.com
 DOMAIN-SUFFIX,tapimg.com
 DOMAIN-SUFFIX,taobao.com
