@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in AdGuard (but exist in uBO)
-! Last modified: Mon, 22 Jun 2026 14:08:19 GMT
+! Last modified: Tue, 23 Jun 2026 13:12:51 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,10 +8,10 @@
 ! Included filters:
 ! * uBlock filters
 !   - URL: https://ublockorigin.pages.dev/filters/filters.min.txt
-!   - Last modified: Mon, 22 Jun 2026 10:01:16 +0000
+!   - Last modified: Tue, 23 Jun 2026 11:23:42 +0000
 ! * uBlock filters – Badware risks
 !   - URL: https://ublockorigin.pages.dev/filters/badware.min.txt
-!   - Last modified: Mon, 22 Jun 2026 09:14:07 +0000
+!   - Last modified: Tue, 23 Jun 2026 04:26:55 +0000
 ! * uBlock filters – Privacy
 !   - URL: https://ublockorigin.pages.dev/filters/privacy.min.txt
 !   - Last modified: Mon, 22 Jun 2026 05:49:52 +0000
@@ -20,7 +20,7 @@
 !   - Last modified: Tue, 09 Jun 2026 09:41:27 +0000
 ! * uBlock filters – Quick fixes
 !   - URL: https://ublockorigin.pages.dev/filters/quick-fixes.min.txt
-!   - Last modified: Mon, 22 Jun 2026 06:56:47 +0000
+!   - Last modified: Tue, 23 Jun 2026 10:10:15 +0000
 ! * uBlock filters – Experimental
 !   - URL: https://ublockorigin.pages.dev/filters/experimental.min.txt
 !   - Last modified: Mon, 22 Jun 2026 09:26:49 +0000
@@ -6028,6 +6028,8 @@ mavanimes.co##+js(aopr, AaDetector)
 freegogpcgames.com##+js(nowoif)
 freegogpcgames.com##+js(no-xhr-if, googlesyndication)
 freegogpcgames.com##+js(nostif, show)
+@@||gdl.freegogpcgames.xyz^$ghide
+gdl.freegogpcgames.xyz##+js(nano-sib, secondsLeft)
 @@||rizaldi.web.id^$ghide
 smiechawatv.pl##+js(nowoif)
 smiechawatv.pl##[href^="http://smiechawatv.cupsell.pl/"]
@@ -7382,7 +7384,7 @@ vipshort.in##+js(set, blurred, false)
 *$script,xhr,redirect-rule=noopjs,domain=cloudfam.io
 *$image,redirect-rule=32x32.png,domain=cloudfam.io
 @@*$ghide,domain=cloudfam.io
-cloudfam.io##+js(nostif, /blocked|null|return/)
+cloudfam.io##+js(nostif, /blocked|null/)
 cloudfam.io##+js(nano-sib, /.?/, *)
 cloudfam.io##+js(nano-stb, /.?/, *)
 cloudfam.io##+js(nowoif, _blank)
@@ -15114,7 +15116,8 @@ komputerswiat.pl##+js(acs, $onet, adblock)
 vebo1.com##+js(aopr, adsRedirectPopups)
 ewrc-results.com##+js(set, canGetAds, true)
 ewrc-results.com##+js(no-fetch-if, method:/head/i)
-ewrc-results.com##+js(trusted-replace-argument, Array.prototype.includes, 0, json:"none", condition, /brave-api|script-content|bait|real/)
+ewrc-results.com##+js(set-local-storage-item, ewrc_ad_signal, $remove$)
+ewrc-results.com##+js(trusted-replace-argument, Storage.prototype.setItem, 1, , condition, bannerDismissed)
 ||media.ewrc-results.com/banners/
 ewrc-results.com##.rounded-lg.items-center.justify-center.h-full.w-full.flex:has(.adsbygoogle)
 ||cdn.ewrc-results.com/home-advertisements/
@@ -17983,7 +17986,7 @@ web1s.asia##+js(nano-sib, wait)
 sshkit.com,fastssh.com,howdy.id##+js(no-fetch-if, /adsbygoogle|doubleclick/)
 @@*$ghide,domain=sshkit.com|fastssh.com|howdy.id
 pluto.tv##+js(json-prune-fetch-response, adBreaks.[].startingOffset adBreaks.[].adBreakDuration adBreaks.[].ads adBreaks.[].startTime adBreak adBreakLocations, , propsToMatch, /session.json)
-pluto.tv##+js(xml-prune, 'xpath(//*[name()="Period"][.//*[name()="BaseURL" and contains(text(),"_ad")]] | //*[name()="MPD"]/@mediaPresentationDuration | //*[name()="Period"]/@start)', '', /\/episode\/.+?\.mpd\?/)
+pluto.tv##+js(xml-prune, 'xpath(//*[name()="Period"][.//*[name()="BaseURL" and contains(text(),"_ad") and contains(text(),"/mp4/")]] | //*[name()="MPD"]/@mediaPresentationDuration | //*[name()="Period"]/@start)', '', /\/episode\/.+?\.mpd\?/)
 @@||a-fds.youborafds01.com/data?$xhr,domain=pluto.tv
 @@||imasdk.googleapis.com^$script,domain=oqee.tv
 ymovies.vip##+js(aopr, mm)
@@ -19950,9 +19953,6 @@ myhindigk.com##+js(noeval-if, ads)
 ||imasdk.googleapis.com/js/sdkloader/ima3.js$script,redirect=google-ima.js,important,domain=androidpolice.com|babygaga.com|backyardboss.net|carbuzz.com|cbr.com|collider.com|dualshockers.com|footballfancast.com|footballleagueworld.co.uk|gamerant.com|givemesport.com|hardcoregamer.com|hotcars.com|howtogeek.com|makeuseof.com|moms.com|movieweb.com|pocket-lint.com|pocketnow.com|screenrant.com|simpleflying.com|thegamer.com|therichest.com|thesportster.com|thethings.com|thetravel.com|topspeed.com|xda-developers.com
 @@||googletagservices.com/tag/js/gpt.js^$script,redirect-rule,domain=androidpolice.com|babygaga.com|backyardboss.net|carbuzz.com|cbr.com|collider.com|dualshockers.com|footballfancast.com|footballleagueworld.co.uk|gamerant.com|givemesport.com|hardcoregamer.com|hotcars.com|howtogeek.com|makeuseof.com|moms.com|movieweb.com|pocket-lint.com|pocketnow.com|screenrant.com|simpleflying.com|thegamer.com|therichest.com|thesportster.com|thethings.com|thetravel.com|topspeed.com|xda-developers.com
 @@||adsninja.ca^$script,domain=androidpolice.com|babygaga.com|backyardboss.net|carbuzz.com|cbr.com|collider.com|dualshockers.com|footballfancast.com|footballleagueworld.co.uk|gamerant.com|givemesport.com|hardcoregamer.com|hotcars.com|howtogeek.com|makeuseof.com|moms.com|movieweb.com|pocket-lint.com|pocketnow.com|screenrant.com|simpleflying.com|thegamer.com|therichest.com|thesportster.com|thethings.com|thetravel.com|topspeed.com|xda-developers.com
-||cdn.adsninja.ca/an_sn.js^$important,domain=androidpolice.com|babygaga.com|backyardboss.net|carbuzz.com|cbr.com|collider.com|dualshockers.com|footballfancast.com|footballleagueworld.co.uk|gamerant.com|givemesport.com|hardcoregamer.com|hotcars.com|howtogeek.com|makeuseof.com|moms.com|movieweb.com|pocket-lint.com|pocketnow.com|screenrant.com|simpleflying.com|thegamer.com|therichest.com|thesportster.com|thethings.com|thetravel.com|topspeed.com|xda-developers.com
-||cdn.adsninja.ca/adsninja_worker.js^$important,domain=androidpolice.com|babygaga.com|backyardboss.net|carbuzz.com|cbr.com|collider.com|dualshockers.com|footballfancast.com|footballleagueworld.co.uk|gamerant.com|givemesport.com|hardcoregamer.com|hotcars.com|howtogeek.com|makeuseof.com|moms.com|movieweb.com|pocket-lint.com|pocketnow.com|screenrant.com|simpleflying.com|thegamer.com|therichest.com|thesportster.com|thethings.com|thetravel.com|topspeed.com|xda-developers.com
-||cdn.adsninja.ca/biddertypelibrary/$important,domain=androidpolice.com|babygaga.com|backyardboss.net|carbuzz.com|cbr.com|collider.com|dualshockers.com|footballfancast.com|footballleagueworld.co.uk|gamerant.com|givemesport.com|hardcoregamer.com|hotcars.com|howtogeek.com|makeuseof.com|moms.com|movieweb.com|pocket-lint.com|pocketnow.com|screenrant.com|simpleflying.com|thegamer.com|therichest.com|thesportster.com|thethings.com|thetravel.com|topspeed.com|xda-developers.com
 androidpolice.com,babygaga.com,backyardboss.net,carbuzz.com,cbr.com,collider.com,dualshockers.com,footballfancast.com,footballleagueworld.co.uk,gamerant.com,givemesport.com,hardcoregamer.com,hotcars.com,howtogeek.com,makeuseof.com,moms.com,movieweb.com,pocket-lint.com,pocketnow.com,screenrant.com,simpleflying.com,thegamer.com,therichest.com,thesportster.com,thethings.com,thetravel.com,topspeed.com,xda-developers.com##+js(set, Object.prototype.ads.nopreroll_, true)
 ||adsninja.ca^$media,3p,redirect=noopmp3-0.1s
 @@||video.adsninja.ca/*.mp4^$3p,media
@@ -22798,8 +22798,13 @@ livetv.moviebite.cc##div.w-full:has(> div[data-ad-container])
 guessthemovie.name,guessthephrase.xyz##+js(no-fetch-if, method:/head/i)
 guessthemovie.name,guessthephrase.xyz##.fallback-side-ad
 /ads/*$domain=guessthemovie.name|guessthephrase.xyz
+@@||cdn-media.brightline.tv/config/v*.json$domain=adultswim.com
 ||adultswim-vodlive.cdn.turner.com/csmp/live/$xhr,removeparam=caid,domain=adultswim.com
 ||adultswim-vodlive.cdn.turner.com/csm/extlive/$xhr,removeparam=yo.po,domain=adultswim.com
+||adultswim-vodlive.cdn.turner.com/csm/extlive/$xhr,removeparam=yo.asd,domain=adultswim.com
+||medium.ngtv.io/v2/media/$removeparam=ssaiProfile,domain=adultswim.com
+@@||medium.ngtv.io/v2/media/live*$removeparam=ssaiProfile,domain=adultswim.com
+@@||medium.ngtv.io/v2/media/live*$domain=adultswim.com
 viduro.top##+js(nowoif)
 ||viduro.top/api/heartbeat
 embedseek.xyz##+js(nowoif, _blank)
@@ -23033,6 +23038,9 @@ autoembed.app##section[aria-label="Sponsored content"]
 *$script,3p,denyallow=cloudflare.com,domain=empirenovel.com
 *$xhr,3p,denyallow=cloudflare.com|googleapis.com,domain=empirenovel.com
 ||empirenovel.com/po.js
+leakgallery.com##+js(aost, String.prototype.replace, decideForPlacement)
+scmp.com##+js(no-xhr-if, googlesyndication)
+scmp.com##+js(remove-cookie, __adblocker)
 ! uBlock filters – Badware risks https://ublockorigin.pages.dev/filters/badware.min.txt
 ||01net.com/telecharger/$doc
 ||flexytalk.net^
@@ -27210,6 +27218,7 @@ top##body > center + .A + .post
 ||daskljtitaskastvv.pro^$all,reason=malicious
 ||beroniw.com^$all,reason=malicious
 ||claudverification-id.beer/api.php
+||invites-tracker-app.com^$all
 ! uBlock filters – Privacy https://ublockorigin.pages.dev/filters/privacy.min.txt
 ||google-analytics.com/analytics.js$script,xhr,redirect=google-analytics_analytics.js:5
 ||google-analytics.com/cx/api.js$script,redirect=google-analytics.com/cx/api.js:5
@@ -31728,7 +31737,7 @@ getthispdf.com##+js(set, _adBlockState, undefined)
 getthispdf.com##+js(rmnt, script, /'onerror'|'offsetHe|'offsetWi/)
 gumtree.com#@#+js(trusted-set, experimentOverrides, json:"%5B%7B%20defaultValue%3A%20%22OFF%22%7D%5D")
 bus-location.1507t.xyz#@#.ad-area:not(.text-ad)
-bus-location.1507t.xyz##.ad-area:not(.text-ad):style(height: 1px !important; width 1px !important; position: fixed !important; z-index: 2147483647 !important;)
+bus-location.1507t.xyz##div[class^="ad-"]:style(height: 1px !important; width 1px !important; position: fixed !important; z-index: 2147483647 !important;)
 ||cloudfront.net/?$script,redirect=noopjs,domain=meuplayeronlinehd.com|multicanaistt.space
 meuplayeronlinehd.com##+js(rmnt, script, _0x, excludes, /source|URLSearchParams/)
 meuplayeronlinehd.com###player:style(display: block !important;)
