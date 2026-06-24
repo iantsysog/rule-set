@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in AdGuard (but exist in uBO)
-! Last modified: Tue, 23 Jun 2026 13:12:51 GMT
+! Last modified: Wed, 24 Jun 2026 12:58:47 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * uBlock filters
 !   - URL: https://ublockorigin.pages.dev/filters/filters.min.txt
-!   - Last modified: Tue, 23 Jun 2026 11:23:42 +0000
+!   - Last modified: Wed, 24 Jun 2026 05:19:56 +0000
 ! * uBlock filters – Badware risks
 !   - URL: https://ublockorigin.pages.dev/filters/badware.min.txt
 !   - Last modified: Tue, 23 Jun 2026 04:26:55 +0000
@@ -13831,7 +13831,6 @@ latinohentai.com##+js(acs, document.createElement, __htas)
 #@##ad_728
 #@##ad_area
 #@##ad_big
-#@##ad_box
 #@##ad_footer
 #@##ad_slot
 #@##ad_space
@@ -13848,8 +13847,6 @@ latinohentai.com##+js(acs, document.createElement, __htas)
 ###ad_728:not([style^="position: absolute; left: -5000px"])
 ###ad_area:not([style^="position: absolute; left: -5000px"])
 ###ad_big:not([style^="position: absolute; left: -5000px"])
-###ad_box:not([style^="position: absolute; left: -5000px"])
-zunda.site#@##ad_box:not([style^="position: absolute; left: -5000px"])
 ###ad_footer:not([style^="position: absolute; left: -5000px"])
 ###ad_slot:not([style^="position: absolute; left: -5000px"])
 ###ad_space:not([style^="position: absolute; left: -5000px"])
@@ -22948,7 +22945,7 @@ pilotsglobal.com##.banner
 ondebola.com##+js(nostif, utilAds)
 ondebola.com##.adslot_horizontal_big_desktop_extra
 ondebola.com##.solverde-affiliate-banner
-streamcash.to##+js(rmnt, script, /\.onerror|offsetHeight|Bait|getComputedStyle|dimCheck|getBoundingClientRect|x69|height===0|width===0|eval|banner-zone|no-store|\'flex\'|String\.fromCharCode|media-slot-bottom/)
+streamcash.to##+js(rmnt, script, /\.onerror|offsetHeight|Bait|getComputedStyle|dimCheck|getBoundingClientRect|x69|height===0|width===0|eval|banner-zone|no-store|\'flex\'|String\.fromCharCode|media-slot-bottom|String\.fromCodePoint|join\(''\)/)
 streamcash.to##+js(nowoif)
 streamcash.to##+js(trusted-replace-argument, document.createElement, 0, json:"div", condition, /^a$/)
 streamcash.to##+js(rpnt, script, player.pause();)
@@ -23041,6 +23038,7 @@ autoembed.app##section[aria-label="Sponsored content"]
 leakgallery.com##+js(aost, String.prototype.replace, decideForPlacement)
 scmp.com##+js(no-xhr-if, googlesyndication)
 scmp.com##+js(remove-cookie, __adblocker)
+opatil.com##+js(rmnt, script, offsetParent)
 ! uBlock filters – Badware risks https://ublockorigin.pages.dev/filters/badware.min.txt
 ||01net.com/telecharger/$doc
 ||flexytalk.net^
