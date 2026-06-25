@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - Speedtest Domains
-# Last Updated: 2026-06-24T12:58:29.069Z
-# Size: 2018
+# Last Updated: 2026-06-25T12:58:58.386Z
+# Size: 2024
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -470,6 +470,7 @@ speedtest54.turk.net
 speedtest33.turk.net
 speedtest31.turk.net
 speedtest25.turk.net
+ny3-speedtest.tier.net
 speedtest-fkt-eqx.retn.net
 speedtest-waw.retn.net
 speedtest-tpe.retn.net
@@ -512,6 +513,7 @@ speedtest-cbr.cdn.on.net
 speedtest.bellevueia.gov
 speedtest1.net.rochester.edu
 speedtest.clarkson.edu
+speedtest1.net.cornell.edu
 speedtest.taylor.edu
 speedtest.tcom.purdue.edu
 speedtest-coda.noc.gatech.edu
@@ -1162,6 +1164,7 @@ fetzl1.seed.net.tw
 fetyl1.seed.net.tw
 fetsz1.seed.net.tw
 fetnt1.seed.net.tw
+spt1.seed.net.tw
 +.speedtest.idv.tw
 speedtestookla.hya.tw
 speed.cable-giant.com.tw
@@ -1372,6 +1375,7 @@ srv-st08.arcolink.it
 srv-st04.arcolink.it
 speedtest7.windtre.it
 speedtest5.windtre.it
+speedtest-sanbonifacio.wifiweb.it
 speedtest-altavilla.wifiweb.it
 speedtest-valdagno.wifiweb.it
 speedtest-brendola.wifiweb.it
@@ -1379,6 +1383,7 @@ speedtest-sossano.wifiweb.it
 speedtest-bassano.wifiweb.it
 speedtest-schio.wifiweb.it
 speedtest-ronca.wifiweb.it
+speedtest-vr.wifiweb.it
 speedtest-vi.wifiweb.it
 speedtest-pd.wifiweb.it
 speedtest.unidata.it
@@ -1495,6 +1500,7 @@ speedtest.cdpalace.in
 str.seyfert.in
 sp2.realtel.in
 delhi.speedtest.railtel.in
+mum.speedtest.railtel.in
 gwh.speedtest.railtel.in
 speedtest02.radinet.in
 serv.qwistel.in
