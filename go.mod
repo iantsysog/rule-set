@@ -3,7 +3,7 @@ module github.com/iantsysog/rule-set
 go 1.26.4
 
 require (
-	github.com/sagernet/sing v0.8.11-0.20260514110501-905ad103a4df
+	github.com/sagernet/sing v0.8.11
 	github.com/sagernet/sing-box v1.14.0-alpha.33
 	golang.org/x/sys v0.46.0
 )
