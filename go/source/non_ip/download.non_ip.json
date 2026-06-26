@@ -10,7 +10,8 @@
         "^cdn-[\\w.-]*?\\.comaps\\.app$",
         "^cdn-[\\w.-]*?\\.comaps\\.tech$",
         "^cdn-[\\w.-]*?\\.organicmaps\\.app$"
-      ]
+      ],
+      "process_name": "NeatDownloadManager"
     }
   ]
 }
