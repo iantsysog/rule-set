@@ -60,7 +60,7 @@ jobs:
 
       - name: Install Dependencies for Ruleset
         working-directory: Ruleset
-        run: pnpm install
+        run: pnpm install --trust-lockfile
 
       - name: Build for Ruleset
         uses: nick-fields/retry@v4.0.0
@@ -87,7 +87,7 @@ jobs:
 
       - name: Install Dependencies for Filters
         working-directory: Filters
-        run: pnpm install
+        run: pnpm install --trust-lockfile
 
       - name: Build for Filters
         uses: nick-fields/retry@v4.0.0
