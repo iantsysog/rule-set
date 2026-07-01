@@ -3,10 +3,10 @@
   "rules": [
     {
       "domain_suffix": [
-        "localdomain",
+        "lan",
         "internal",
         "home.arpa",
-        "lan"
+        "localdomain"
       ]
     }
   ]

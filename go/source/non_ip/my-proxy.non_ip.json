@@ -3,23 +3,23 @@
   "rules": [
     {
       "domain": [
-        "sgminorshort.wechat.com",
-        "sgshort.wechat.com",
-        "sglong.wechat.com",
-        "fonts.googleapis.cn",
+        "ip.cn",
         "fonts.gstatic.cn",
-        "ip.cn"
+        "sglong.wechat.com",
+        "sgshort.wechat.com",
+        "fonts.googleapis.cn",
+        "sgminorshort.wechat.com"
       ],
       "domain_suffix": [
-        "ipstack.com",
-        "ip-api.com",
-        "db-ip.com",
         "ip.sb",
         "ipwho.is",
-        "ipgeolocation.io",
-        "nextdns.io",
-        "ipregistry.co",
+        "db-ip.com",
         "ipdata.co",
+        "ip-api.com",
+        "nextdns.io",
+        "ipstack.com",
+        "ipregistry.co",
+        "ipgeolocation.io",
         "services.googleapis.cn"
       ]
     }

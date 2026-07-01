@@ -3,8 +3,8 @@
   "rules": [
     {
       "domain": [
-        "hotspot.cslwifi.com",
-        "captive.apple.com"
+        "captive.apple.com",
+        "hotspot.cslwifi.com"
       ],
       "domain_suffix": "securelogin.com.cn"
     }

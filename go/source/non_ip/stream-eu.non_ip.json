@@ -3,14 +3,14 @@
   "rules": [
     {
       "domain": [
-        "itvpnpmobile-a.akamaihd.net",
-        "bbc.mp-pxcdn.com"
+        "bbc.mp-pxcdn.com",
+        "itvpnpmobile-a.akamaihd.net"
       ],
       "domain_suffix": [
         "itv.com",
-        "tvlicensing.co.uk",
+        "bbc.co.uk",
         "bbci.co.uk",
-        "bbc.co.uk"
+        "tvlicensing.co.uk"
       ],
       "domain_keyword": [
         "bbcfmt",

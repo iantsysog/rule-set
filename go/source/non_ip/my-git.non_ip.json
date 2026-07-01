@@ -3,15 +3,15 @@
   "rules": [
     {
       "domain": [
-        "github.dev",
-        "android.googlesource.com",
         "github.com",
+        "github.dev",
+        "api.github.com",
         "alive.github.com",
-        "api.github.com"
+        "android.googlesource.com"
       ],
       "domain_suffix": [
-        "githubcopilot.com",
-        "huggingface.co"
+        "huggingface.co",
+        "githubcopilot.com"
       ]
     }
   ]

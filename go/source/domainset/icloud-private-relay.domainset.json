@@ -3,12 +3,12 @@
   "rules": [
     {
       "domain": [
-        "mask.apple-dns.net",
-        "canary.mask.apple-dns.net",
-        "mask-canary.icloud.com",
-        "mask-api.icloud.com",
+        "mask.icloud.com",
         "mask-h2.icloud.com",
-        "mask.icloud.com"
+        "mask.apple-dns.net",
+        "mask-api.icloud.com",
+        "mask-canary.icloud.com",
+        "canary.mask.apple-dns.net"
       ]
     }
   ]

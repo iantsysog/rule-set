@@ -3,24 +3,24 @@
   "rules": [
     {
       "domain_suffix": [
-        "mijia.tech",
-        "gorouter.info",
-        "xiaomi.net",
-        "xiaomiyoupin.com",
-        "xiaomixiaoai.com",
-        "xiaoaisound.com",
-        "xiaomiev.com",
-        "xiaomi.com",
-        "miwifi.com",
-        "mi-img.com",
-        "mi-idc.com",
-        "mi-fds.com",
-        "duokan.com",
-        "mipay.com",
-        "miui.com",
         "mi.com",
+        "miui.com",
+        "mifile.cn",
+        "mipay.com",
         "xiaomi.cn",
-        "mifile.cn"
+        "duokan.com",
+        "mi-fds.com",
+        "mi-idc.com",
+        "mi-img.com",
+        "mijia.tech",
+        "miwifi.com",
+        "xiaomi.com",
+        "xiaomi.net",
+        "xiaomiev.com",
+        "gorouter.info",
+        "xiaoaisound.com",
+        "xiaomixiaoai.com",
+        "xiaomiyoupin.com"
       ]
     }
   ]

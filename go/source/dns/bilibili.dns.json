@@ -3,26 +3,26 @@
   "rules": [
     {
       "domain": [
-        "b23.tv",
-        "acg.tv"
+        "acg.tv",
+        "b23.tv"
       ],
       "domain_suffix": [
-        "bilivideo.net",
-        "biligame.net",
-        "biliapi.net",
-        "bilicomics.com",
-        "bilivideo.com",
-        "bilicomic.com",
-        "bulicdn2.com",
-        "biligame.com",
-        "bilicdn1.com",
-        "bilibili.com",
-        "acgvideo.com",
-        "biliimg.com",
-        "biliapi.com",
         "hdslb.com",
+        "biliapi.com",
+        "biliapi.net",
+        "bilibili.cn",
+        "biliimg.com",
+        "acgvideo.com",
+        "bilibili.com",
+        "bilicdn1.com",
+        "biligame.com",
+        "biligame.net",
         "bilivideo.cn",
-        "bilibili.cn"
+        "bulicdn2.com",
+        "bilicomic.com",
+        "bilivideo.com",
+        "bilivideo.net",
+        "bilicomics.com"
       ]
     }
   ]
