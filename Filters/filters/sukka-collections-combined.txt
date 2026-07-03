@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Collections Combined
-! Last modified: Thu, 02 Jul 2026 12:49:16 GMT
+! Last modified: Fri, 03 Jul 2026 14:26:01 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -18,10 +18,10 @@
 !   - URL: https://cdn.jsdelivr.net/gh/easylist/easylist@master/custom-lists/youtube-whatdoyoulikedoforfun.txt
 ! * Adblock Warning Removal List
 !   - URL: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
-!   - Version: 202607021241
+!   - Version: 202607031411
 !   - Homepage: https://github.com/easylist/antiadblockfilters
 !   - Licence: https://easylist.to/pages/licence.html
-!   - Last modified: 02 Jul 2026 12:41 UTC
+!   - Last modified: 03 Jul 2026 14:11 UTC
 ! * BarbBlock
 !   - URL: https://paulgb.github.io/BarbBlock/blacklists/ublock-origin.txt
 !   - Homepage: https://paulgb.github.io/
@@ -90,7 +90,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * 📱 Staying On The Phone Browser
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/stayingonbrowser/Staying%20On%20The%20Phone%20Browser
-!   - Version: 30May2026v1
+!   - Version: 03July2026v1
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#english
 ! * 🎫 Ad Removal List for Unusual Ads
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/AdRemovalListForUnusualAds.txt
@@ -17527,13 +17527,10 @@ ruedesampoules.com#?#.product-container:has-text(Halogène)
 ruedesampoules.com#?#.product-container:has-text(Incandesc)
 leroymerlin.fr#?#fieldset li:has-text(Halogèn)
 leroymerlin.fr#?#.container-product:has-text(halogèn)
-bol.com#?#form .category-tree-control .px_listpage_categoriesleft_click:has-text(/Haloge{2}nlampen|Gloeilampen/i):upward(1)
-bol.com##.wsp-search-form wsp-search-suggestions li[data-term*="halogeen"]
-bol.com##.wsp-search-form wsp-search-suggestions li[data-term*="gloeilamp"]
-bol.com#?#.wsp-search-form wsp-search-suggestions li.featured_suggestion:has-text(/haloge{2}n|gloeilamp/i)
-bol.com#?#.category-header .category-header__card:has-text(/Gloeilamp|Haloge{2}n/i):upward(li)
-bol.com#?#.product-item--column:has-text(/haloge{2}n|gloeilamp/i)
-bol.com#?#.object-to-object .object-tile:has-text(/haloge{2}n|gloeilamp/i)
+bol.com#?#[aria-label="zoeksuggesties"] [data-analytics-id="px_search_suggestion_click"]:has-text(/hal{1,2}oge{1,2}n(?! oven)|(?<!four )halogène|gloeilamp|incandescence/i):upward(li)
+bol.com#?#[aria-label="suggestions de recherche"] [data-analytics-id="px_search_suggestion_click"]:has-text(/hal{1,2}oge{1,2}n(?! oven)|(?<!four )halogène|gloeilamp|incandescence/i):upward(li)
+bol.com#?#span[role="heading"]:upward(1) a:has-text(/Haloge{1,2}n|Ampoules à incandescence|Gloeilamp|Ampoules halogènes/i):upward(li)
+bol.com#?##mainContent > div > div:has(h2:has-text(/hal{1,2}oge{1,2}n(?! oven)|(?<!four )halogène|gloeilamp|incandescence/i))
 ! 🔮 I Don't Want to Download Your Browser https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/I%20Don't%20Want%20to%20Download%20Your%20Browser.txt
 google.com##.gb_vd[aria-label*="Google Play"][aria-label*=Chrome]
 google.*##.gb_g.gb_ba:has(.gb_Ad)
@@ -21290,6 +21287,7 @@ foodora.*##.bds-c-sticky-banner
 novosti.rs##.mobile-app
 threads.com###has-finished-comet-page + div[class^=__fb-][class*="-mode "]
 zalando.*##div[style="display:contents"]:not([data-trckng-component]):has(> div[style="display:contents"] > div[style^="min-height:"]:last-child:only-of-type)
+duck.ai###app form[data-chat-footer] > div:has(a:is([href*="://play.google.com/"],[href*="://apps.apple.com/"]))
 @@/jquery.smartbanner.js^
 .smartbanner.js$domain=~mcpedl.com
 ##div[data-test-id$=InterstitialUpsell]
