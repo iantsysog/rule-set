@@ -1,0 +1,339 @@
+name: Build
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+env:
+  GIT_USER: github-actions[bot]
+  GIT_EMAIL: github-actions[bot]@users.noreply.github.com
+
+jobs:
+  build:
+    name: Build Inputs
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Tune Git
+        run: |
+          git config --global core.longpaths true
+          git config --global core.preloadindex true
+          git config --global core.fscache true
+          git config --global gc.auto 0
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: false
+          fetch-depth: 1
+
+      - name: Set Up Node for Build
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Set Up pnpm for Build
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.9.0
+
+      - name: Set Up Nushell for Artifact Restore
+        uses: hustcer/setup-nu@v3
+
+      - name: Restore Previous Build Artifact
+        run: |
+          nu .github/previous.nu --workflow-file build.yml --artifact-name build --build-dir build --zip-path /tmp/previous.zip
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Clone for Ruleset
+        run: |
+          rm -rf Ruleset
+          git clone --depth=1 --single-branch https://github.com/SukkaW/Surge.git Ruleset
+
+      - name: Pin pnpm Version for Ruleset
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const file = 'Ruleset/package.json';
+          const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
+          pkg.packageManager = 'pnpm@11.9.0';
+          fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + '\n');
+          NODE
+
+      - name: Install Dependencies for Ruleset
+        working-directory: Ruleset
+        run: pnpm install --trust-lockfile
+
+      - name: Build for Ruleset
+        uses: nick-fields/retry@v4.0.0
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: cd Ruleset && pnpm run build
+        env:
+          PUBLIC_DIR: ${{ github.workspace }}/build
+          NODE_ENV: production
+
+      - name: Patches for Ruleset
+        run: |
+          echo "updates.alma.now" >> build/List/domainset/download.conf
+          echo "us.aws.cdn.hf.co" >> build/List/domainset/download.conf
+          echo "download.calibre-ebook.com" >> build/List/domainset/download.conf
+          echo "PROCESS-NAME,NeatDownloadManager" >> build/List/non_ip/download.conf
+
+      - name: Clone for Filters
+        run: |
+          rm -rf Filters
+          git clone --depth=1 --single-branch https://github.com/SukkaW/Filters.git Filters
+
+      - name: Pin pnpm Version for Filters
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const file = 'Filters/package.json';
+          const pkg = JSON.parse(fs.readFileSync(file, 'utf8'));
+          pkg.packageManager = 'pnpm@11.9.0';
+          fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + '\n');
+          NODE
+
+      - name: Install Dependencies for Filters
+        working-directory: Filters
+        run: pnpm install --trust-lockfile
+
+      - name: Build for Filters
+        uses: nick-fields/retry@v4.0.0
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: cd Filters && pnpm run build && pnpm run build-3p-filters
+        env:
+          NODE_ENV: production
+
+      - name: Copy Filter Outputs Into Build Tree
+        run: cp -r Filters/public/* ./build/Filters/
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: build
+          path: build
+          retention-days: 7
+
+  compile:
+    name: Compile sing-box Outputs
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: false
+          fetch-depth: 1
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: build
+          path: build
+
+      - name: Configure Git Identity for Commits
+        run: |
+          git config user.name "${{ env.GIT_USER }}"
+          git config user.email "${{ env.GIT_EMAIL }}"
+
+      - name: Set Up Node for Compile
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Set Up pnpm for Compile
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.5.2
+
+      - name: Install Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Resolve Version for sing-box
+        id: version
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          curl_headers=(
+            -H "Accept: application/vnd.github+json"
+          )
+          if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+            curl_headers+=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
+          fi
+          version=$(
+            curl -sL "${curl_headers[@]}" \
+              https://api.github.com/repos/SagerNet/sing-box/releases?per_page=100 \
+            | jq -er '
+                if type != "array" then
+                  error("GitHub releases API returned " + type + ": " + (.message // .))
+                else
+                  [.[] | select(.prerelease == true)][0].tag_name | ltrimstr("v")
+                end
+              '
+          )
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Generate Base Outputs
+        run: |
+          ln -sfn "$PWD/build/List" "$PWD/List"
+          mkdir -p "$PWD/Modules/Rules"
+          ln -sfn "$PWD/build/Modules/Rules/sukka_local_dns_mapping" "$PWD/Modules/Rules/sukka_local_dns_mapping"
+
+      - name: Generate Go Outputs
+        run: go run main.go
+
+      - name: Install Binary
+        run: |
+          workdir=$(mktemp -d)
+          trap 'rm -rf "$workdir"' EXIT
+          archive="sing-box-${{ steps.version.outputs.version }}-linux-amd64.tar.gz"
+          uri="https://github.com/SagerNet/sing-box/releases/download/v${{ steps.version.outputs.version }}/${archive}"
+          curl --fail --location --retry 5 --retry-delay 5 --retry-all-errors -o "$workdir/pkg.tgz" "$uri"
+          tar -xzf "$workdir/pkg.tgz" -C "$workdir"
+          sudo install -m 0755 "$workdir/sing-box-${{ steps.version.outputs.version }}-linux-amd64/sing-box" /usr/local/bin/sing-box
+          sing-box version
+
+      - name: Compile Build for sing-box
+        run: |
+          cd sing-box
+          shopt -s nullglob
+          for category in domainset ip non_ip dns; do
+            json_path="json/$category"
+            srs_path="srs/$category"
+            [ -d "$json_path" ] || continue
+            mkdir -p "$srs_path"
+            while IFS= read -r -d '' src; do
+              base=$(basename "${src%.json}")
+              sing-box rule-set compile --output "$srs_path/${base}.srs" "$src"
+            done < <(find "$json_path" -type f -name '*.json' -print0)
+          done
+
+      - name: Compile AdGuard for sing-box
+        run: |
+          mkdir -p sing-box/srs/adguard
+          adult_file="build/Internal/adult.txt"
+          : > "$adult_file"
+          adult_sources=(
+            "https://raw.githubusercontent.com/easylist/easylist/refs/heads/master/easylist_adult/adult_specific_block.txt"
+            "https://raw.githubusercontent.com/easylist/easylist/refs/heads/master/easylist_adult/adult_adservers.txt"
+            "https://raw.githubusercontent.com/easylist/easylist/refs/heads/master/easylist_adult/adult_thirdparty.txt"
+            "https://raw.githubusercontent.com/easylist/easylist/refs/heads/master/easylist_adult/adult_adservers_popup.txt"
+          )
+          for source in "${adult_sources[@]}"; do
+            curl --fail --location --retry 5 --retry-delay 5 --retry-all-errors "$source" >> "$adult_file"
+            printf '\n' >> "$adult_file"
+          done
+          [[ -f "$adult_file" && -s "$adult_file" ]]
+          adguard_files=(
+            "build/Internal/reject-adguardhome.txt:reject.adguard"
+            "build/Internal/my-reject-adguardhome.txt:my-reject.adguard"
+            "build/Internal/adult.txt:adult.adguard"
+            "build/Filters/filters/sukka-adguard-missing.txt:adguard-missing.adguard"
+            "build/Filters/filters/sukka-collections-combined.txt:filter.adguard"
+            "build/Filters/filters/sukka-ubo-missing.txt:ubo-missing.adguard"
+            "build/Filters/filters/index.txt:index.adguard"
+          )
+          for entry in "${adguard_files[@]}"; do
+            filter_file="${entry%:*}"
+            output_name="${entry#*:}"
+            output_file="sing-box/srs/adguard/${output_name}.srs"
+            [[ -f "$filter_file" ]]
+            sing-box rule-set convert --type adguard --output "$output_file" "$filter_file"
+            [[ -f "$output_file" && -s "$output_file" ]]
+          done
+          # rm -f "$adult_file"
+
+      - name: Upload sing-box Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: sing-box
+          path: sing-box
+          retention-days: 1
+
+  publish:
+    name: Publish Artifacts
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git Identity for Commits
+        run: |
+          git config user.name "${{ env.GIT_USER }}"
+          git config user.email "${{ env.GIT_EMAIL }}"
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: build
+          path: artifacts/build
+
+      - name: Download sing-box Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: sing-box
+          path: artifacts/sing-box
+
+      - name: Push
+        run: |
+          set -euo pipefail
+          resolve_source_dir() {
+            local path="$1"
+            local nested="$2"
+            if [ -d "$path/$nested" ]; then
+              echo "$path/$nested"
+            else
+              echo "$path"
+            fi
+          }
+          reconcile_branch() {
+            local branch="$1"
+            local source_dir="$2"
+            local message="$3"
+            local wt
+            wt="$(mktemp -d)"
+            git fetch origin "$branch"
+            git worktree add "$wt" "origin/$branch"
+            git -C "$wt" switch -c "$branch" --track "origin/$branch" || git -C "$wt" switch "$branch"
+            git -C "$wt" rm -r --ignore-unmatch . || true
+            find "$wt" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+            cp -a "$source_dir"/. "$wt"/
+            git -C "$wt" add -A
+            if git -C "$wt" diff --cached --quiet; then
+              echo "No changes for $branch"
+            else
+              git -C "$wt" commit -m "$message"
+              git -C "$wt" push origin "$branch"
+            fi
+            git worktree remove "$wt" --force
+          }
+          sing_box_src="$(resolve_source_dir artifacts/sing-box sing-box)"
+          sukka_src="$(mktemp -d)"
+          build_src="$(resolve_source_dir artifacts/build build)"
+          cp -a "$build_src"/. "$sukka_src"/
+          reconcile_branch "sing-box" "$sing_box_src" "feat(sing-box): bump [$(date -u +%FT%TZ)]"
+          reconcile_branch "Sukka" "$sukka_src" "feat(sukka): bump [$(date -u +%FT%TZ)]"
+          rm -rf "$sukka_src"
