@@ -35,7 +35,7 @@ jobs:
           fetch-depth: 1
 
       - name: Set Up Node for Build
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
 
@@ -153,7 +153,7 @@ jobs:
           git config user.email "${{ env.GIT_EMAIL }}"
 
       - name: Set Up Node for Compile
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
 
@@ -163,7 +163,7 @@ jobs:
           version: 11.5.2
 
       - name: Install Go
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
           cache: true
