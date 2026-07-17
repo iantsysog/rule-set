@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Collections Combined
-! Last modified: Thu, 16 Jul 2026 14:11:09 GMT
+! Last modified: Fri, 17 Jul 2026 13:55:04 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -18,10 +18,10 @@
 !   - URL: https://cdn.jsdelivr.net/gh/easylist/easylist@master/custom-lists/youtube-whatdoyoulikedoforfun.txt
 ! * Adblock Warning Removal List
 !   - URL: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
-!   - Version: 202607161352
+!   - Version: 202607171341
 !   - Homepage: https://github.com/easylist/antiadblockfilters
 !   - Licence: https://easylist.to/pages/licence.html
-!   - Last modified: 16 Jul 2026 13:52 UTC
+!   - Last modified: 17 Jul 2026 13:41 UTC
 ! * BarbBlock
 !   - URL: https://paulgb.github.io/BarbBlock/blacklists/ublock-origin.txt
 !   - Homepage: https://paulgb.github.io/
@@ -31,7 +31,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * 💊 Dandelion Sprout's Anti-Malware List
 !   - URL: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion%20Sprout's%20Anti-Malware%20List.txt
-!   - Version: 09July2026v2
+!   - Version: 17July2026v1
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * 🛃 Anti-'Adoptables and Artsite NFTs' List
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/AntiAdoptablesList.txt
@@ -74,7 +74,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * ➗ Actually Legitimate URL Shortener Tool
 !   - URL: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt
-!   - Version: 12July2026v2
+!   - Version: 16July2026v1
 !   - Homepage: https://github.com/DandelionSprout/adfilt/discussions/163
 ! * 🐊 Imgur: Pure Imagery Experience
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/ImgurPureImageryExperience.txt
@@ -15963,6 +15963,17 @@ drvhub.net##.driver-item__install
 -mac-install.github.io/.github/home.html|$doc,popup
 -windows-download.github.io/.github/home.html|$doc,popup
 .github.io/.github/?offer=$doc,popup
+||disk-director.github.io^$all
+||zaffersnouty.com^$all
+||sannapacewiczxgogi.github.io^$all
+||core-steady-pack.github.io^$all
+||cootercredit.com^$all
+||flowrdo.com^$all
+||softgot.net^$all
+||techrxv.com^$all
+-director-data-recovery.github.io/.github^$all
+||katukaposole.com^$all
+||fleecykobird.com^$all
 ||151.243.18.53^$all
 ||185.100.157.222^$all
 ||185.107.74.103^$all
@@ -17260,7 +17271,7 @@ delfi.lt##+js(aeld, copy)
 /plugins/wp-content-copy-protection^
 /plugins/wp-copy-protect-with-color-design^
 /secure-copy-content-protection-public.css^$css
-*,~tumblr.com,~deviantart.com,~facebook.com,~facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion##section:remove-class(image-copy-protection)
+*,~tumblr.com,~deviantart.com,~facebook.com,~facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion,~github.com,~qwant.com##section:remove-class(image-copy-protection)
 respublika.lt#?#[class^=com_]:style(user-select: unset !important; -webkit-user-select: unset !important; -moz-user-select: unset !important)
 hirunews.lk,ada.lk#?#body:style(user-select: unset !important; -webkit-user-select: unset !important; -moz-user-select: unset !important)
 ||laisvadienis.lt^$inline-script
@@ -20593,6 +20604,7 @@ buffalonews.com##+js(set, lee_trkLinkSrc, noopFunc)
 @@||startpage.com/sp/qi$removeparam=sc
 @@||flagpedia.net^$ping,xhr,removeparam=gtm
 @@/search.php$doc,removeparam=sid
+@@/search-redirection$doc,removeparam,domain=audible.*
 @@|wss://$removeparam
 @@||google.*/maps$doc,removeparam=utm_campaign
 @@/remote_interaction$doc,removeparam=ap_id
