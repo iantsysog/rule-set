@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - CDN Domains
-# Last Updated: 2026-07-19T13:40:37.145Z
-# Size: 4551
+# Last Updated: 2026-07-20T14:24:17.217Z
+# Size: 4552
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -2516,6 +2516,7 @@ cdnapi.kaltura.com
 cdni.iconscout.com
 cdnstatic.w1mp.com
 +.cms-cdn.linear.app
+code.trygravity.ai
 +.colliderimages.com
 content.arduino.cc
 content.gapinc.com
