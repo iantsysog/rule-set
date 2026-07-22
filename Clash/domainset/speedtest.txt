@@ -1,7 +1,7 @@
 #########################################
 # Sukka's Ruleset - Speedtest Domains
-# Last Updated: 2026-07-21T14:10:02.846Z
-# Size: 2198
+# Last Updated: 2026-07-22T14:13:30.854Z
+# Size: 2207
 # License: AGPL 3.0
 # Homepage: https://ruleset.skk.moe
 # GitHub: https://github.com/SukkaW/Surge
@@ -293,11 +293,13 @@ purtel39.purtel.com
 sp01.rbfibra.net.br
 sp1.denbroadband.in
 sp1.snsinternet.com
+sp2.clouddesktop.in
 speed.datahouse.net
 speed.malang.net.in
 speed.nutelecom.com
 speed.sdmnet.com.br
 speed.stgscloud.com
+speed.tritan-bb.net
 speed.udx.icscoe.jp
 speed01.lasotel.net
 speed2.fiberlink.pl
@@ -775,6 +777,7 @@ speedtest.frantic.link
 speedtest.ftmojave.net
 speedtest.galaxynet.in
 +.speedtest.gibir.net.tr
+speedtest.hostgrap.com
 speedtest.hynetwifi.it
 speedtest.il.mycci.net
 speedtest.imais.com.br
@@ -1367,6 +1370,7 @@ speedtest.de.senko.network
 speedtest.dsgroupmedia.com
 speedtest.ed.shawcable.net
 speedtest.embrasnet.com.br
+speedtest.fiberlink.com.pe
 speedtest.fiberlink.net.ua
 speedtest.gilarivertel.com
 speedtest.global-layer.com
@@ -1784,7 +1788,9 @@ speedtest018.telecomitalia.it
 speedtest019.telecomitalia.it
 speedtest020.telecomitalia.it
 speedtest021.telecomitalia.it
+speedtest1.atl1-us.gozfly.net
 speedtest1.atlantisnet.com.tr
+speedtest1.dfw1-us.gozfly.net
 speedtest1.indosatooredoo.com
 speedtest1.lax1-us.gozfly.net
 speedtestdelhi.digiwaynet.com
@@ -2067,10 +2073,12 @@ speedtestslg.alliancebroadband.in
 ststcatharineswireless.rogers.com
 velocidade.amazoniatelecom.com.br
 velocidade.newclicktelecom.com.br
+wrbg-speedtest-02.brightspeed.com
 wrsw-speedtest-02.brightspeed.com
 acrenettecnologia.brsserver.com.br
 east-speedtest.frontiernetworks.ca
 marseille3.d2m.c2d.liveservices.fr
+navi-mumbai-speedtest.wsnl-isp.net
 ookla.ber-01.testpub.telefonica.de
 ookla.cgn-01.testpub.telefonica.de
 ookla.dus-02.testpub.telefonica.de
@@ -2135,6 +2143,7 @@ t4y-toronto-ca-osts1.ser.tek4you.ca
 +.wifiman-stability-test.ubncloud.com
 duliajan-speedtest.arrowebonline.com
 santaclara-speedtest.utopiafiber.com
+speedtest-london-east.vodafone.co.uk
 speedtest-losangeles.ripplefiber.com
 speedtest-townsville.optusnet.com.au
 speedtest.sandiego.intrepidfiber.com
