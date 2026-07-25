@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in AdGuard (but exist in uBO)
-! Last modified: Fri, 24 Jul 2026 14:01:33 GMT
+! Last modified: Sat, 25 Jul 2026 13:51:45 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,10 +8,10 @@
 ! Included filters:
 ! * uBlock filters
 !   - URL: https://ublockorigin.pages.dev/filters/filters.min.txt
-!   - Last modified: Fri, 24 Jul 2026 05:57:17 +0000
+!   - Last modified: Fri, 24 Jul 2026 19:50:30 +0000
 ! * uBlock filters – Badware risks
 !   - URL: https://ublockorigin.pages.dev/filters/badware.min.txt
-!   - Last modified: Thu, 23 Jul 2026 06:40:23 +0000
+!   - Last modified: Fri, 24 Jul 2026 14:15:37 +0000
 ! * uBlock filters – Privacy
 !   - URL: https://ublockorigin.pages.dev/filters/privacy.min.txt
 !   - Last modified: Wed, 22 Jul 2026 15:23:12 +0000
@@ -20,17 +20,17 @@
 !   - Last modified: Wed, 22 Jul 2026 07:14:25 +0000
 ! * uBlock filters – Quick fixes
 !   - URL: https://ublockorigin.pages.dev/filters/quick-fixes.min.txt
-!   - Last modified: Thu, 23 Jul 2026 12:02:28 +0000
+!   - Last modified: Fri, 24 Jul 2026 19:06:10 +0000
 ! * uBlock filters – Experimental
 !   - URL: https://ublockorigin.pages.dev/filters/experimental.min.txt
 !   - Last modified: Tue, 07 Jul 2026 15:53:20 +0000
 ! * uBlock filters – Cookie Notices
 !   - URL: https://ublockorigin.pages.dev/filters/annoyances-cookies.txt
 !   - Homepage: https://github.com/uBlockOrigin/uAssets
-!   - Last modified: Thu, 23 Jul 2026 16:40:59 +0000
+!   - Last modified: Sat, 25 Jul 2026 04:47:50 +0000
 ! * uBlock filters – Annoyances
 !   - URL: https://ublockorigin.pages.dev/filters/annoyances.min.txt
-!   - Last modified: Fri, 24 Jul 2026 08:44:27 +0000
+!   - Last modified: Sat, 25 Jul 2026 02:08:27 +0000
 ! --------------------------------------------------------------
 ! uBlock filters https://ublockorigin.pages.dev/filters/filters.min.txt
 *_ad_$media,domain=youtube.com,3p
@@ -18129,30 +18129,32 @@ estudyme.com#@#ins.adsbygoogle[data-ad-client]
 estudyme.com##ins.adsbygoogle:style(height: 1px !important;)
 cctvwiki.com##+js(aost, setTimeout, ads)
 cimanow.cc##+js(aopr, navigator.brave)
-@@||cimanow.cc^$script,1p
 @@||deva.cnvids.com/dwcn/Assets/js/openads.js$script,domain=deva.cnvids.com
-cimanow.cc##+js(no-fetch-if, url:doubleclick.net, war:googletagservices_gpt.js)
+@@||cimanow.cc^$script,1p
+||rm.freex2line.online/*.js|$domain=cimanow.cc
 cimanow.cc##section[aria-label="details"] a[id][target="_blank"]
-cimanow.online##+js(ra, href, [target="_blank"], stay)
+cimanow.cc##[href*="blockID"]:style(clip-path: circle(0) !important;)
+cimanow.cc##+js(no-fetch-if, url:doubleclick.net, war:googletagservices_gpt.js)
+cimanow.cc##+js(no-xhr-if, criteo)
+cimanow.cc##+js(set, HTMLImageElement.prototype.onerror, undefined)
+cimanow.cc,freex2line.online##+js(norafif, ++)
+cimanow.cc,freex2line.onlinex##+js(no-fetch-if, googlesyndication)
 cimanow.cc,freex2line.online##+js(acs, document.createElement, globalThis)
 cimanow.cc,freex2line.online##+js(trusted-suppress-native-method, fetch, '"flashtalking"')
-cimanow.cc##+js(aost, document.querySelector, /(?=^(?!.*(cdn-cgi)))/)
-cimanow.cc##+js(no-xhr-if, criteo)
-@@||cimanow.cc^$ghide
-*.gif$image,domain=cimanow.cc,redirect=1x1.gif
-||freex2line.online/*/?redirect$doc,urlskip=?redirect -base64
 ||flashtalking.com^$image,redirect=2x2.png,domain=cimanow.cc|cimanow.online
 ||criteo.net^$image,redirect=2x2.png,domain=cimanow.cc|freex2line.online
-freex2line.online##body >a[id][href][target^="_blank"]
 @@*$ghide,domain=cimanow.cc|freex2line.online
-freex2line.online##a[href*="/jump/next.php?r="]
-freex2line.online##+js(no-fetch-if, url:doubleclick.net, war:googletagservices_gpt.js)
-||tpc.googlesyndication.com/pimgad/$image,redirect=32x32.png,domain=freex2line.online
-freex2line.online##+js(no-xhr-if, tpc.googlesyndication.com, war:32x32.png)
-cimanow.cc##+js(set, HTMLImageElement.prototype.onerror, undefined)
-cimanow.cc,freex2line.onlinex##+js(no-fetch-if, googlesyndication)
 @@||tpc.googlesyndication.com^$xhr,domain=freex2line.online
-cimanow.cc##[href*="blockID"]
+||freex2line.online/*/?redirect$doc,urlskip=?redirect -base64
+||tpc.googlesyndication.com/pimgad/$image,redirect=32x32.png,domain=freex2line.online
+freex2line.online##+js(no-fetch-if, url:doubleclick.net, war:googletagservices_gpt.js)
+freex2line.online##+js(no-xhr-if, tpc.googlesyndication.com, war:32x32.png)
+freex2line.online##a[href*="/jump/next.php?r="]:style(clip-path: circle(0) !important;)
+freex2line.online##body > a[id][href][target^="_blank"]:style(clip-path: circle(0) !important;)
+freex2line.online##+js(aeld, popstate)
+freex2line.online##+js(aeld, click, triggered)
+freex2line.online##.adsbygoogle
+||viiukuhe.com^
 ||rentry.co^frame,3p
 .pro/?u=*&m=$doc
 /ads.js?api_key=*&header=$all
@@ -25378,6 +25380,7 @@ cracksmid.com##div[style=""] > center > center
 ||web.core.windows.net/?111=$doc
 ||ondigitalocean.app/Win0codejInfouycinfcode/$doc
 azurefd.net,ondigitalocean.app##body#mycanvas.map[style="cursor:none"]
+||azurefd.net/Win20Errfb020/index.html$doc
 ||pages.dev/*/Fm7-alert.wav
 ||pages.dev/*/ai2.mp3
 ||pages.dev/*_Fm7-alert.mp3
@@ -25476,7 +25479,7 @@ azurefd.net,ondigitalocean.app##body#mycanvas.map[style="cursor:none"]
 ||azurewebsites.net/alertmicrosoft.mp3
 ||azureedge.net/*/esc.js
 ||azureedge.net/*/flscn.js
-/text_tel.js$domain=app|dev|fit|me|page|site|github.io|azurestaticapps.net
+/text_tel.js$domain=app|azurestaticapps.net|dev|fit|me|page|site|github.io|herokuapp.com
 ||netlify.app/text.js|$1p
 ||github.io/my-new-app/text.js$1p
 /a0ler0tm0s.mp3$domain=dev|online|shop
@@ -31999,8 +32002,6 @@ client.falixnodes.net##+js(nostif, ]/*)
 client.falixnodes.net##+js(nostif, }/*)
 client.falixnodes.net##^script:has-text(/\=arguments\;if\(typeof /)
 client.falixnodes.net##+js(rmnt, script, /\=arguments\;if\(typeof /)
-cimanow.cc,freex2line.online##+js(norafif, ++)
-||rm.freex2line.online/*.js|$domain=cimanow.cc
 ||global.novelpia.com/_nuxt/*.js|$script,replace=/if\(\w\.check_is_ad_free\(\)\)/if(true)/
 @@||global.novelpia.com^$ghide
 global.novelpia.com##+js(no-fetch-if, g.doubleclick.net, length:100000)
@@ -32767,6 +32768,7 @@ sogeti.com##+js(trusted-set-cookie, ConsentCookie, 'required:1,functional:1,anal
 transferxl.com##+js(trusted-set-cookie, txl_consent_status, functional, , , domain, transferxl.com)
 20min.ch##+js(trusted-set-cookie, OptanonConsent, groups=C0001%3A1%2CC0002%3A0%2CC0003%3A1%2CC0004%3A0%2CC0005%3A1%2CV2STACK42%3A0, , , domain, 20min.ch)
 20min.ch##+js(trusted-set-cookie, OptanonAlertBoxClosed, $currentDate$)
+20min.ch##+js(trusted-set-cookie, eupubconsent-v2, CQn0VdgQn0VdgAcABBDECoFgAAAAAEPgAAQ4L4JB_C7dbWFD-DZ3aLokeYwP99hBIsQhAAaAAmAFTBOQ4IQCw0EYBASAFCACGAIAo3RBIAJkEABEAUCAIIgFIQBEAAwQoBAKAABAgAERAgBACAgCCIAAUQAIAAANAkUAmAiAKYKEWEAgwIAACACBAAABAACAAQMACEAwBBAAAQIAQKBAgwJAuAKBAAEAARgAAAAAAAAAIAAAQAAAoACAACgABCAAEAAAAAAAAAAAAQAAAAAAAAACBAIAAAAAAEAEF5AATBQqIICiIBAgEBACBAAIKwgAgEAQAAJAAQAAJggIcAIAKKCJAAAAAAAAAAAAQYAAgAAEAAQiACAAAEAIEAAQAAYAEAAEAAAgAAAAoQAAAAQBAEAAIIAAAAACAKAAQIQAEAAALCAAIAAAFABAAEAAAABAAAAACAAQAAAAABAAQAAgQAEAXAFAAAAAAAAACAAAAAAAEAAgAAAAEAAAAAAAAgAAAAAAAAAAAEAAAAAAAAAAAAAAAgEAAAAAACACCAAgBNAA.YAAACHwAAAAA.IL4JB_C7dbWFH-DZ3aLokeYwf99hBIsQhAAaAAmAFTBOQ4IQC00EaBASAFCACGAIAo3RBIAJsEAhEAUCAIIgVIQBkAAwQoBAKAABAgAERQgBACAgCCIAAUQAIAAANA0UAmQiAKYKEWEAgwIAAKACBAIABAACAAQMAGEAwBBAAASIAwKBAgwJAuAKBAAEAARgAEAAAAAAAIABAQAAAoACAACgABCAAEAAAAAAAAIAAAQAAAAAAAAACBAIAAAAAAEAEAAA)
 allocine.fr,jeuxvideo.com,ozap.com,le10sport.com,ouest-france.fr,xataka.com##+js(trusted-click-element, button[onclick="Didomi.setUserAgreeToAll();"], , 1800)
 postnl.nl##+js(trusted-set-cookie, CookiePermissionInfo, '{"LastModifiedDate":"1","ExpirationDate":"1","Allow":true,"CategoryPermission":[{"Category":"Cat.8","Permission":true},{"Category":"Cat.9","Permission":true},{"Category":"Cat.10","Permission":false},{"Category":"Cat.12","Permission":false}]}')
 pharmacieauterive-ropars.mesoigner.fr##+js(trusted-set-cookie, userconsent, '{"analytics":false,"youtube":true}')
@@ -33269,6 +33271,7 @@ zitekick.dk,eltechno.dk##+js(trusted-click-element, button[data-dismiss="modal"]
 batteryempire.*##+js(trusted-click-element, button#js-agree-cookies-button, , 1000)
 maxi.rs##+js(trusted-click-element, button[data-testid="cookie-popup-reject"], , 1000)
 lepermislibre.fr##+js(trusted-click-element, button[aria-label="Close"], , 1000)
+metlifeeap.one.telushealth.com##+js(trusted-set-local-storage-item, lw-cookie-policy-preferences, '{"mandatory":true,"functional":false,"analytical":false,"lastModified":$now$}')
 garmin.com,invisalign.*,one4all.ie,osprey.com##+js(trusted-click-element, button#truste-consent-required, , 1000)
 estadao.com.br##+js(trusted-set-cookie, OESP_LGPD_ACEITE, VERDADEIRO)
 elavon.*##+js(trusted-set-cookie, cookiesPolicy, '{"analytics":false,"marketing":false,"functional":false,"essential":true}')
@@ -33644,7 +33647,6 @@ desktronic.*,dryrobe.com,hallmark.co.uk,hq-germany.com,tepedirect.com,loopearplu
 breeam.nl##+js(trusted-set-cookie, cookieConsent, '{"necessary":"1","statistics":"0","advertising":"0"}', , , reload, 1)
 letec.be##+js(trusted-set-cookie, GDPR_Consent, '{"essential":true,"functional":true,"analytical":false,"advertising":false}')
 smythstoys.com##+js(trusted-click-element, button.ios-modal-cookie, , 1000)
-cotswoldoutdoor.com##+js(trusted-set-cookie, consent_setting, analytics:0|functional:1|marketing:0, , ,reload, 1)
 neonet.pl##+js(trusted-set-local-storage-item, user_cookies_acceptance, '{"necessary":true,"analytics":false,"functional":false,"marketing":false}')
 universcine.com##+js(trusted-set-cookie, COOKIE_CONSENT, '{"technical-cookies":true,"analytics":false,"ads":false}')
 beam.co.uk##+js(trusted-click-element, div.privacy-more-information, , 600)
@@ -37990,3 +37992,4 @@ ing-sat.hu##+js(set, document.oncontextmenu, null)
 ing-sat.hu##+js(set, document.onmousedown, null)
 javx357.com##+js(rmnt, script, disableRightClick)
 primariasector2.ro##+js(rmnt, script, .blockContextMenu)
+posturi.gov.ro##:root:style(user-select:unset!important)
