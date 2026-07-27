@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Sun, 26 Jul 2026 13:44:36 GMT
+! Last modified: Mon, 27 Jul 2026 14:52:41 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.8.4
+!   - Version: 2.1.8.9
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202603110915
@@ -54920,6 +54920,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||analytics.sutochno.ru^
 ||athena.archive.org^
 ||s1.bss.2gis.com^
 ||stat.ip.sb^
@@ -153935,6 +153936,8 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 /prod/dfm/t8y9347t.min.js$redirect=noop.txt,important,domain=dailycamera.com,image,media,subdocument,stylesheet,script,xhr,other
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
+||api.housefeel.com.tw/api/collect
+||cdp.nrs.ai/api/ingest
 ||vsonic.click/api/views/track
 ||xcafe.com/track/impression?
 ||archive.org/includes/athena.js
@@ -160160,6 +160163,7 @@ d4?appid*type*
 ||directg.jp/js/fingerprint2.js$script,redirect=fingerprint2.js
 @@||googletagmanager.com/gtm.js$domain=gocomics.com
 @@||cdn.clerk.io/clerk.js$domain=jaktdepotet.no
+@@||api.clerk.io/v*/log/$domain=jaktdepotet.no
 @@||tesco.com/akam/13/$domain=tesco.com
 @@||tag.search.sensefuel.live/tag$domain=bricoman.pl
 @@||cdn.optimizely.com/datafiles/*.json$domain=bbc.com
@@ -160484,6 +160488,7 @@ larocheposay.co.kr##+js(set-constant, wptg_tagscript.exec, noopFunc)
 @@||googletagmanager.com/gtm.js?id=GTM-WMQ82P6$domain=excite.co.jp
 @@||api.sprig.com/sdk/$domain=paypal.com
 @@||cdn.clerk.io/clerk.js$domain=industrivarer.no
+@@||api.clerk.io/v*/log/$domain=industrivarer.no
 @@||cdn.clerk.io/clerk.js$domain=garmont.com
 @@||cdn.cxense.com/cx.cce.js$domain=i-voce.jp
 @@||cdn.cxense.com/cx.js$domain=i-voce.jp
@@ -160786,6 +160791,7 @@ abema.tv##+js(remove-node-text, script, NREUM)
 @@||adobe.tt.omtrdc.net/rest/v1/delivery?client=adobe&sessionId=$domain=acrobat.adobe.com
 ||ab.blogs.es/abtest.png?editorialRecommendations$image,redirect=2x2.png,domain=applesfera.com
 @@||cdn.clerk.io/clerk.js$domain=apotera.no
+@@||api.clerk.io/v*/log/$domain=apotera.no
 @@||miclaro.com.gt/assets/analytics$domain=miclaro.com.gt
 @@||tags.bkrtx.com/js/bk-coretag.js^$domain=miclaro.com.gt
 @@||nebula-cdn.kampyle.com^$domain=miclaro.com.gt
@@ -161455,8 +161461,8 @@ demae-can.com##+js(remove-attr, data-trm-action|data-trm-category|data-trm-label
 @@||a.klaviyo.com/media/js/onsite/onsite.js$domain=kravebeauty.com
 @@||a.klaviyo.com/onsite/api/*/modules?company_id=$domain=complyfoam.com
 @@||a.klaviyo.com/forms/api/*/full-forms?company_id=$domain=complyfoam.com
-@@||identity.mparticle.com/v*/identify$domain=nbc.com|amcplus.com
-@@||jssdkcdns.mparticle.com/js/v*/*/mparticle.js$domain=nbc.com|amcplus.com
+@@||identity.mparticle.com/v*/identify$domain=nbc.com|amcplus.com|ifc.com
+@@||jssdkcdns.mparticle.com/js/v*/*/mparticle.js$domain=nbc.com|amcplus.com|ifc.com
 @@||googletagmanager.com/gtm.js$domain=square-enix-games.com
 @@||google-analytics.com/analytics.js$domain=square-enix-games.com
 @@||google-analytics.com/plugins/ua/ec.js$domain=square-enix-games.com
