@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Tue, 28 Jul 2026 14:27:09 GMT
+! Last modified: Thu, 30 Jul 2026 14:22:39 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.8.19
+!   - Version: 2.1.8.38
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202603110915
@@ -120,7 +120,6 @@ fandom.com##+js(set-constant, optimizely.initialized, true)
 reddit.com##+js(set-constant, navigator.sendBeacon, noopFunc)
 kbjfree.com##+js(set-constant, plausible, noopFunc)
 tieba.baidu.com##+js(set-constant, passFingerPrint, noopFunc)
-secure1.comed.com##+js(set-constant, setupGoogleAnalytics, noopFunc)
 cerbahealthcare.it##+js(set-constant, pa, {})
 cerbahealthcare.it##+js(set-constant, pa.setConfigurations, noopFunc)
 lightrun.com##+js(set-constant, gtag, noopFunc)
@@ -220,7 +219,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
-||aladinia.app^
+||analytics.xxcontent.lol^
 ||cdp.customer.io^
 ||cloud.monolytics.app^
 ||snippet.affilimate.io^
@@ -593,7 +592,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||analytics.adjust.world^
 ||rakutenadvertising.io^$3p
 ||easytomessage.com^
-||aisiteanalytics.com^
 ||webpageviews.click^
 ||trafficsyncpro.com^
 ||mobuppsweb.online^
@@ -735,8 +733,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||cdn.defractal.com^
 ||api.publytics.net^$3p
 ||shoelace.com^$3p
-||pixel.nudgify.com^
-||t.mm-uxrv.com^
 ||sec.webeyez.com^$3p
 ||exacttarget.com^$~subdocument,3p
 ||analytics.launch.bz^
@@ -54923,6 +54919,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||faro.civitai.
 ||flow-control.profitroom.net^
 ||e2.sy-d.io^
 ||analytics.crewly.pl^
@@ -153943,6 +153940,22 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 /prod/dfm/t8y9347t.min.js$redirect=noop.txt,important,domain=dailycamera.com,image,media,subdocument,stylesheet,script,xhr,other
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
+@@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+theplayerstribune.com##+js(set-local-storage-item, userIdentifier, $remove$)
+||aladinia.app/tracking.js
+metacritic.com##+js(set-local-storage-item, uds_anon_id, $remove$)
+metacritic.com##+js(set-local-storage-item, ppid, $remove$)
+||api.btmessage.com/events/
+||api.btmessage.com/log?
+||boyplus.net/589n/
+||static.danawa.com/globaljs/static/logger_trackEvent.js
+||hentaihd.net/wp-content/plugins/animehub-insights/assets/js/track.js
+itmedia.co.jp##+js(set-local-storage-item, s_ubid, $remove$)
+online.tokyu-dept.co.jp##+js(set-constant, addProductClickEventToTemplate, '', , asFunction)
+online.tokyu-dept.co.jp##+js(set-constant, triggerGAEvent, noopFunc)
+||online.tokyu-dept.co.jp/assets/common/js/googleAnalyticsEvent.js
+||show.revico.jp/providejs/tagmanager.js
+||rbc.ru/info-service/api/v*/ev/?
 ||bnesim.com/js/trackers.js
 /e/*^ip=$domain=heygen.com
 ||api2.heygen.com/v1/movio.batch_track
@@ -154006,7 +154019,6 @@ candytm.pl,biznesenter.pl##+js(abort-current-script, document.createElement, /gt
 compo.de##+js(set-local-storage-item, rid, $remove$)
 ||tengrinews.kz/build/assets/analytic-
 ||cdn.eu.amplitude.com/libs/analytics-browser-
-search.naver.com##+js(set-cookie-reload, NNB, 1, /, .naver.com)
 ||trip.com/*/monitor/log
 ||tripcdn.com/modules/ibu/xtracker/
 ||emule-security.org/tracker.js
@@ -154196,7 +154208,6 @@ kbb.com##+js(set-local-storage-item, /^optimizely/, $remove$)
 ||247wallst.com/b66d/|$script
 ||247wallst.com/wp-content/plugins/fwp-247-analytics-old/js/dist/fwp-analytics-main.js
 ||player.kinoton.cc/api/events
-||podiums.link/event
 nhnieuws.nl##+js(set-local-storage-item, udid, $remove$)
 nhnieuws.nl##+js(set-local-storage-item, cs_fpid, $remove$)
 ||regfiles.net/0/|$script
@@ -155000,7 +155011,7 @@ adultportal.jp###custom_html-12
 ||kebhana.com/cont/common/js/tag_hana.js
 ||sstatic-rmcnmv.pstatic.net/resources/log/media-capable-log.js
 ||ssl.pstatic.net/static/coreplayer/mclog/media-capable-log.js
-||ntm.pstatic.net/scripts/ntm_*.js$domain=~smartstore.naver.com|~brand.naver.com|~flight.naver.com
+||ntm.pstatic.net/scripts/ntm_*.js$domain=~smartstore.naver.com|~brand.naver.com|~flight.naver.com|~search.naver.com|~www.naver.com
 ||chatgpt.com/ces/*/b|$xhr
 /facebook-pixel.js$domain=lit.link
 ||justwatch.com/appassets/js/sp-*.lite.min.js
