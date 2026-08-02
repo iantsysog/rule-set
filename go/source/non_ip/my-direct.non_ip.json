@@ -2,11 +2,12 @@
   "version": 5,
   "rules": [
     {
-      "domain_suffix": "engage.cloudflareclient.com",
+      "domain_suffix": "engage.cloudflareclient.com"
+    },
+    {
       "process_name": "nmap"
     },
     {
-      "domain_suffix": "engage.cloudflareclient.com",
       "package_name": "nmap"
     }
   ]
