@@ -21,6 +21,18 @@
           "domain_suffix": "sharepoint.com"
         },
         {
+          "package_name_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "sharepoint.com"
+        },
+        {
           "source_ip_cidr": "10.0.0.0/8"
         }
       ]
@@ -58,6 +70,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "graph.microsoft.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -106,6 +130,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain": "www.googleapis.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -154,6 +190,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain": "api.onedrive.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -202,6 +250,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "storage.live.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -250,6 +310,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "files.1drv.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -298,6 +370,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "my.microsoftpersonalcontent.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -346,6 +430,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_regex": "^[\\w.-]*?-medi[\\w.-]*?\\.svc\\.ms$"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },
@@ -394,6 +490,18 @@
         },
         {
           "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "upload.box.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
         }
       ]
     },

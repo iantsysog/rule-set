@@ -32,6 +32,38 @@
         "CoreLocationAgent",
         "WeatherWidget"
       ]
+    },
+    {
+      "domain": "7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe",
+      "domain_suffix": [
+        "me.com",
+        "apple.co",
+        "apple.com",
+        "appsto.re",
+        "apple.news",
+        "icloud.com",
+        "itunes.com",
+        "aaplimg.com",
+        "appstore.com",
+        "apple-dns.net",
+        "cdn-apple.com",
+        "apple-mapkit.com",
+        "apple-cloudkit.com",
+        "icloud-content.com",
+        "organicfruitapps.com",
+        "push-apple.com.akadns.net"
+      ],
+      "ip_cidr": "17.0.0.0/8",
+      "package_name": [
+        "com.apple.geod",
+        "mapspushd",
+        "com.apple.Maps",
+        "apsd",
+        "fmfd",
+        "findmydevice-user-agent",
+        "CoreLocationAgent",
+        "WeatherWidget"
+      ]
     }
   ]
 }

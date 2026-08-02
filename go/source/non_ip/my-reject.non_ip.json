@@ -74,6 +74,68 @@
         "LemonAgent",
         "LemonService"
       ]
+    },
+    {
+      "domain": [
+        "7h15_ru1353t_1s_m4d3_by_5ukk4w.skk.moe",
+        "ad.12306.cn",
+        "push.12306.cn",
+        "epay.10010.com",
+        "daisydiskapp.com",
+        "contents.meituan.com",
+        "fyb-2.cdn.bcebos.com",
+        "mpush-api.aliyun.com",
+        "userlocation.googleapis.com",
+        "loan-supermarket.faas.ele.me",
+        "locationhistory-pa.googleapis.com",
+        "locationhistoryaggregates-pa.googleapis.com",
+        "locationhistoryplacedetails-pa.googleapis.com"
+      ],
+      "domain_suffix": [
+        "pipi.cn",
+        "ule.com",
+        "adobe.io",
+        "jr.mi.com",
+        "cool3c.com",
+        "ulecdn.com",
+        "tongdun.net",
+        "look.163.com",
+        "adobestats.io",
+        "lmk.mipay.com",
+        "mall.10010.cn",
+        "api.miwifi.com",
+        "httpizza.ele.me",
+        "mibi.xiaomi.com",
+        "microfin.ele.me",
+        "xiaomimobile.com",
+        "easytomessage.com",
+        "hybrid.xiaomi.com",
+        "logan.sankuai.com",
+        "mtvod.meituan.net",
+        "unicompayment.com",
+        "video.goofish.com",
+        "0.0.198.in-addr.arpa",
+        "genuine.autodesk.com",
+        "jr.airstarfinance.net",
+        "mtvod-ali.meituan.net",
+        "newbuy.chinaunicom.cn",
+        "expenses-fe.meituan.com",
+        "video-zb.cloudvideocdn.taobao.com"
+      ],
+      "domain_keyword": [
+        "bahoom",
+        "-flv.meituan.net",
+        "-live.meituan.net",
+        "-fin.meituan.com"
+      ],
+      "port": 7680,
+      "package_name": [
+        "Tencent Lemon",
+        "LemonMonitor",
+        "LemonDaemon",
+        "LemonAgent",
+        "LemonService"
+      ]
     }
   ]
 }
