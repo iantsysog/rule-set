@@ -40,7 +40,7 @@ jobs:
           node-version: "24"
 
       - name: Set Up pnpm for Build
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v6.0.9
         with:
           version: 11.9.0
 
@@ -158,7 +158,7 @@ jobs:
           node-version: "24"
 
       - name: Set Up pnpm for Compile
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v6.0.9
         with:
           version: 11.5.2
 
