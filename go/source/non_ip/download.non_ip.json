@@ -10,7 +10,8 @@
         "^[\\w.-]*?\\.s3\\.[\\w.-]*?\\.backblazeb2\\.com$",
         "^cdn-[\\w.-]*?\\.comaps\\.app$",
         "^cdn-[\\w.-]*?\\.comaps\\.tech$",
-        "^cdn-[\\w.-]*?\\.organicmaps\\.app$"
+        "^cdn-[\\w.-]*?\\.organicmaps\\.app$",
+        "^dl-[\\w.-]*?\\.mypikpak\\.com$"
       ]
     },
     {
