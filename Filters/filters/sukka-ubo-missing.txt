@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Tue, 04 Aug 2026 14:32:36 GMT
+! Last modified: Wed, 05 Aug 2026 14:25:22 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.8.52
+!   - Version: 2.1.8.62
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202603110915
@@ -777,7 +777,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||cdn.mircheigeshoa.com^
 ||analytics-ingestion.pbpms.de^
 ||fpad.jp^$3p
-||palibzh.tech^
 ||mediaownerscloud.com^
 ||collector.lunalabs.io^
 ||greenbids.ai^$3p
@@ -56798,7 +56797,6 @@ prd.api.bleacherreport.com^
 ||p.vtracy.de^
 ||p0.raasnet.com^
 ||p2trc.emv2.com^
-||pa.pinpoll.com^
 ||pa.tns-ua.com^
 ||pac.the-sun.com^
 ||pac.thetimes.co.uk^
@@ -153938,7 +153936,11 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||ac.cnstrc.com/v2/behavioral_action/
+||openart.ai/4vu8/
+||stolicaonego.ru/ajax/stat/
 ||motoin.de/Scripts/emstrack.js
+||aichaoxing.com/res/cx_stat.js
 ||umommy.*/api/
 ||e.meloming.com/static/web-vitals.js
 ||e.meloming.com/i/v0/e
@@ -155408,7 +155410,6 @@ threads.net##+js(href-sanitizer, a[href*="?xmt="], [href], removeParam:xmt)
 ||m-chromadrone.prod.suno.com/metrics/
 ||cdn.surfside.io/sdk/*/wave.js
 ||edge.surfside.io/id/uid?
-://cnstrc.com/js/
 ||freyr.futurecdn.net/freyr.js
 ||meta.com/*/fl?*comet_req=*&__user=
 ||script.gmarket.co.kr/js/mobile/main/common/montelena.js
@@ -159150,6 +159151,7 @@ dlsdk.appsflyer.com^
 ||int.vlancaa.site^
 ||int.vlancaa.fun^
 ||tok.vaicore.xyz^
+||logs.profi.ru^
 ||w.inmobi.com^
 ||pbs.inmobi.com^
 ||stats-sdk.tange365.com^
@@ -160211,7 +160213,6 @@ d4?appid*type*
 @@||mpsnare.iesnare.com/script/logo.js$domain=aswbe.ana.co.jp
 @@||cdn.shopify.com/shopifycloud/arrive-server/pay/vite-pay/assets/AnalyticsProvider*.js$domain=shop.app
 @@||cdn.petametrics.com/*.js$domain=thestreet.com
-@@||cnstrc.com/js/cust/indigo_pAkokG.js$domain=indigo.ca
 @@||onlinestarten.net/assets/*sn1_dvt-prod.js$domain=247sports.com
 @@||onlinestarten.net^$xhr,domain=247sports.com
 pedalparts.co.kr##+js(set-constant, aCounterPageScriptGoodsView, noopFunc)
@@ -160438,7 +160439,6 @@ id.condenast.com##+js(set-constant, appInfo.snowplow.trackSelfDescribingEvent, n
 @@||a-fds.youborafds01.com/data?$xhr,domain=pluto.tv
 pluto.tv##+js(abort-on-stack-trace, Date.prototype.getTime, startSessionHeartBeat)
 item.gmarket.co.kr##+js(set-constant, pdsClickLog, noopFunc)
-@@||cnstrc.com/js/cust/swanson-health_*.js$domain=swansonvitamins.com
 @@||googletagmanager.com/gtm.js$domain=ybt.sapporobeer.jp
 @@||umeng.com/api/$domain=developer.umeng.com
 @@||umeng.com/college/$domain=developer.umeng.com
@@ -162546,6 +162546,7 @@ usatoday.com##+js(set, gnt.x.adm, )
 ||inventorycache.com^$redirect=noop.js,script
 ||kindhush.com^$redirect=noop.js,script
 ||oceancloudhosts.com^$redirect=noop.json,xhr
+||targetfax.com^$redirect=noop.js,script
 ||ubiquitoussea.com^$redirect=noop.js,script
 ||unloadyourself.com^$redirect=noop.js,script
 ||verybark.com^$redirect=noop.js,script
