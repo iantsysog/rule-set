@@ -4,7 +4,7 @@ go 1.26.5
 
 require (
 	github.com/sagernet/sing v0.8.12-0.20260731081310-cb3e09a281aa
-	github.com/sagernet/sing-box v1.14.0-beta.4
+	github.com/sagernet/sing-box v1.14.0-beta.5
 	golang.org/x/sys v0.47.0
 )
 
