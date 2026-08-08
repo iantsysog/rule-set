@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Filters
-! Last modified: Fri, 07 Aug 2026 13:19:28 GMT
+! Last modified: Sat, 08 Aug 2026 13:03:16 GMT
 ! Expires: 1 hours
 ! Description: The filters from Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -55,10 +55,7 @@ pairdrop.net#@#+js(sukka-defuse-service-worker)
 bolt.new#@#+js(sukka-defuse-service-worker)
 stackblitz.com#@#+js(sukka-defuse-service-worker)
 webcontainer.io#@#+js(sukka-defuse-service-worker)
-peer.as##+js(sukka-ephemeral-cache-storage)
-youtube.com##+js(sukka-ephemeral-cache-storage)
-unifi.ui.com##+js(sukka-ephemeral-cache-storage)
-labs.strava.com##+js(sukka-ephemeral-cache-storage)
+*##+js(sukka-ephemeral-cache-storage)
 fandom.com##+js(sukka-defuse-cache-storage)
 ||youtube.com/embed/$3p,frame,redirect=click2load.html
 ||youtube-nocookie.com/embed/$3p,frame,redirect=click2load.html
@@ -121,8 +118,8 @@ lingchenzi.com#@#.category-share
 .com/bn.js$3p,domain=~nr.staticblitz.com
 ||bad.third-party.site
 ||playground.oxc.rs$important
-||amap.com$3p,domain=~www.amap.com|~amap.com|~gaode.com|~bigdata.speedtest.cn|~cjia.com|~giant.com.cn|~cnix.cn
-||baidu.com$3p,domain=~map.baidu.com|~lecake.com|~58.com|~iguanyu.com|~iguanyu.com|~onelap.cn|~assets.nxtrace.org
+||amap.com$3p,domain=~www.amap.com|~amap.com|~gaode.com|~bigdata.speedtest.cn|~cjia.com|~giant.com.cn|~cnix.cn|~caiyunapp.com
+||baidu.com$3p,domain=~map.baidu.com|~lecake.com|~58.com|~iguanyu.com|~iguanyu.com|~onelap.cn
 ||map.qq.com$3p
 /ajax/libs/nosleep/*
 ||unpkg.com/orejime
@@ -133,8 +130,12 @@ lingchenzi.com#@#.category-share
 /*/dns_resolve_backup?*$all,important
 *://223.5.5.5^$important
 *://223.6.6.6^$important
+||223.5.5.5^$important
+||223.6.6.6^$important
 *://203.107.1.*^$important
+||203.107.1.$important
 *://180.76.76.*^$important
+||180.76.76.$important
 *://audio-ak-spotify-com.akamaized.net/*$header=content-range:/\/\d\d\d\d\d\d$/,redirect=noop-0.5s.mp3
 *://audio-akp-quic-spotify-com.akamaized.net/*$header=content-range:/\/\d\d\d\d\d\d$/,redirect=noop-0.5s.mp3
 *://audio-fa.scdn.co/*$header=content-range:/\/\d\d\d\d\d\d$/,redirect=noop-0.5s.mp3
@@ -169,13 +170,14 @@ www.speedtest.net##+js(set, dataLayer, [])
 ||api.ccsccorp.com/api/dlog/
 ||vercel.com/_stream/external/
 ||app.planhat.com/analytics/
-assets.alicdn.com/g/alilog*$redirect=noop.js
-g.alicdn.com/alilog/$script,redirect=noop.js
-g.alicdn.com/axdata/yunlog*$redirect=noop.js
-g.alicdn.com/dawn/user-tracker*$redirect=noop.js
-g.alicdn.com/sj/securesdk$redirect=noop.js
+||assets.alicdn.com/g/alilog*$redirect=noop.js
+||g.alicdn.com/alilog/$script,redirect=noop.js
+||g.alicdn.com/axdata/yunlog*$redirect=noop.js
+||g.alicdn.com/dawn/user-tracker*$redirect=noop.js
+||g.alicdn.com/sj/securesdk$redirect=noop.js
 ||railway.com/googletag/
 ||railway.com/graphql/internal?q=eventBatchTrack
+||developer.apple.com/assets/metrics/scripts/analytics.js
 ||render.com/pan/api/event
 ||r2cdn.perplexity.ai/js/count/
 www.dnsfilter.com##+js(aopw, window.analytics)
@@ -256,6 +258,7 @@ http://*$app=tv.danmaku.bili
 *:3478$app=tv.danmaku.bili
 /igd.xml$important
 ||biligame.com
+msn.cn##.consumption-river
 pornhub.com##+js(set, userClogTracking, noopFunc)
 strava.com###map-canvas:style(position: sticky!important; top: 0!important; z-index: 100;)
 strava.com###elevation-profile:style(position: sticky!important; top: 350px!important; z-index: 100; background-color: #fff;  border-bottom: 1px solid #dfdfe8 !important)
@@ -576,6 +579,7 @@ justauth.cn##+js(set, window._AdBlockInit, true)
 ||acquia.com/ct
 ||v.bytes.media/vs.js$redirect=noop.js
 ||ad*.on.cc^$important
+||accuweather.com/tags/common/body/ad-script
 ||app.moegirl.org.cn/insight-assets/images/20230413-moepad/800x300.png
 ||storage.moegirl.org.cn/console-plus/uploads/2024/02/01/a475bee2aa57da0e65f5341b78ccf551.png
 ||storage.moegirl.org.cn/console-plus/uploads/2024/01/16/b70a27db94200462fd06da4a5ab30b50.jpeg
