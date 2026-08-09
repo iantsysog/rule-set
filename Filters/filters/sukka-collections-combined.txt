@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Collections Combined
-! Last modified: Sat, 08 Aug 2026 13:03:18 GMT
+! Last modified: Sun, 09 Aug 2026 13:06:05 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -18,10 +18,10 @@
 !   - URL: https://cdn.jsdelivr.net/gh/easylist/easylist@master/custom-lists/youtube-whatdoyoulikedoforfun.txt
 ! * Adblock Warning Removal List
 !   - URL: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
-!   - Version: 202608081251
+!   - Version: 202608091251
 !   - Homepage: https://github.com/easylist/antiadblockfilters
 !   - Licence: https://easylist.to/pages/licence.html
-!   - Last modified: 08 Aug 2026 12:51 UTC
+!   - Last modified: 09 Aug 2026 12:51 UTC
 ! * BarbBlock
 !   - URL: https://paulgb.github.io/BarbBlock/blacklists/ublock-origin.txt
 !   - Homepage: https://paulgb.github.io/
@@ -74,7 +74,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * ➗ Actually Legitimate URL Shortener Tool
 !   - URL: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt
-!   - Version: 4August2026v1
+!   - Version: 8August2026v1
 !   - Homepage: https://github.com/DandelionSprout/adfilt/discussions/163
 ! * 🐊 Imgur: Pure Imagery Experience
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/ImgurPureImageryExperience.txt
@@ -120,7 +120,7 @@
 ! * uBlock filters – Mobile
 !   - URL: https://ublockorigin.github.io/uAssetsCDN/filters/filters-mobile.txt
 !   - Homepage: https://github.com/uBlockOrigin/uAssets
-!   - Last modified: Fri, 07 Aug 2026 06:56:23 +0000
+!   - Last modified: Sun, 09 Aug 2026 09:32:18 +0000
 ! * CJX's uBlock list
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-ublock.txt
 !   - Homepage: https://github.com/cjx82630/cjxlist
@@ -20012,6 +20012,7 @@ $removeparam=pk_vid,doc
 ||xiaohongshu.com^$removeparam=xhsshare,doc
 ||xiaohongshu.com^$removeparam=appuid,doc
 ||xiaohongshu.com^$removeparam=apptime,doc
+||xiaohongshu.com^$removeparam=share_channel,doc
 ||login.afreecatv.com^$removeparam=szFrom
 ||typeform.com^$removeparam=typeform-source
 $removeparam=clickedFromCategory,domain=objectci.com|pieces.com|selected.com|vila.com
@@ -20113,7 +20114,7 @@ $doc,removeparam=method,domain=peacocktv.com
 ||cartoonbrew.com^$removeparam=cbtr
 ||researchgate.net^$doc,removeparam=_tp
 ||bet.com^$removeparam=xrs
-$doc,removeparam=share_id,domain=reddit.com|reddittorjg6rue252oqsxryoxengawnmo46qy4kyii5wtqnwfj4ooad.onion|sky.it
+$doc,removeparam=share_id,domain=reddit.com|reddittorjg6rue252oqsxryoxengawnmo46qy4kyii5wtqnwfj4ooad.onion|sky.it|xiaohongshu.com|snapchat.com
 ||xvideos.$doc,removeparam=sxcaf
 $doc,removeparam=iId,domain=reddit.com|reddittorjg6rue252oqsxryoxengawnmo46qy4kyii5wtqnwfj4ooad.onion
 ||cmswire.com^$doc,removeparam=topic_id
@@ -20419,7 +20420,6 @@ $removeparam=/^ref=thediff\.co$/
 $removeparam=/^ref=underfl0w\.com$/
 ||blu-ray.com^$removeparam=retailerid
 $doc,removeparam=loclid
-||snapchat.com^$removeparam=share_id
 ||snapchat.com^$removeparam=/^timestamp=0$/
 ||ngfiles.com^$removeparam=/^f\d{4,}=$/
 $removeparam=/^has-promotion=$/
@@ -22703,7 +22703,7 @@ timesofindia.indiatimes.com##+js(set, Object.prototype.isAdActive, false)
 redd.tube##+js(set, Object.prototype.vastOptions, {})
 redd.tube###closeable_widget
 mdpr.jp##+js(trusted-set-attr, #gn-rwd-target-hidden, class, rewareded)
-outlook.live.com##main > div[style] .vPfg_:has(.wOYnU) ~ *:style(transform: translateY(-80px) !important)
+outlook.live.com##+js(set, Object.prototype.showNativeAdFormat, 0)
 ||googlevideo.com/videoplayback*ctier=L&*%2Cxpc%2Cctier%2C$xhr,3p,domain=m.youtube.com|music.youtube.com
 dailymotion.com##+js(json-prune-fetch-response, advertising, , propsToMatch, /player/metadata)
 dailymotion.com##+js(json-prune-xhr-response, advertising, , propsToMatch, .json)
@@ -22723,8 +22723,6 @@ britannica.com###game:style(height: 100% !important;)
 theverge.com##.duet--homepage--hero > div[class] > div[class] > div[class]:has(> div[data-concert="medrec_frontpage_hero_mobile"])
 temp-mail.io##main.mb-general > div[style="width:100%;height:50px;"]
 planefinder.net##+js(set, Object.prototype.showInterstitialModalIfRequired, noopFunc)
-||wpenginepowered.com/wp-json/api/advanced_placement/
-androidauthority.com##+js(json-edit, .props.pageProps.page.blocks.*[?..resource^="nc-ad"])
 ! CJX's uBlock list https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-ublock.txt
 youminggu.com,yemancomic.com,zkk78.com,jinbaodm.com##+js(acis,document.write,location.href)
 youminggu.com,yemancomic.com,zkk78.com,jinbaodm.com##+js(nostif, location.href)
