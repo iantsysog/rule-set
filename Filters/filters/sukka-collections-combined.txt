@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Collections Combined
-! Last modified: Thu, 13 Aug 2026 13:27:22 GMT
+! Last modified: Fri, 14 Aug 2026 13:21:51 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -18,10 +18,10 @@
 !   - URL: https://cdn.jsdelivr.net/gh/easylist/easylist@master/custom-lists/youtube-whatdoyoulikedoforfun.txt
 ! * Adblock Warning Removal List
 !   - URL: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
-!   - Version: 202608131312
+!   - Version: 202608141312
 !   - Homepage: https://github.com/easylist/antiadblockfilters
 !   - Licence: https://easylist.to/pages/licence.html
-!   - Last modified: 13 Aug 2026 13:12 UTC
+!   - Last modified: 14 Aug 2026 13:12 UTC
 ! * BarbBlock
 !   - URL: https://paulgb.github.io/BarbBlock/blacklists/ublock-origin.txt
 !   - Homepage: https://paulgb.github.io/
@@ -74,7 +74,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * ➗ Actually Legitimate URL Shortener Tool
 !   - URL: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt
-!   - Version: 11August2026v1
+!   - Version: 13August2026v2
 !   - Homepage: https://github.com/DandelionSprout/adfilt/discussions/163
 ! * 🐊 Imgur: Pure Imagery Experience
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/ImgurPureImageryExperience.txt
@@ -3033,7 +3033,7 @@ kinoafisha.ua##.turn-off-add-block-text
 stalkerportaal.ru##.video_adsense
 bookskeeper.ru,e-xecutive.ru##.warning
 forum.bestflowers.ru##.xenOverlay
-/^https?:\/\/pikabu\.ru\/ajax\/+[A-Za-z0-9_.-]{7,}\?[A-Za-z0-9]+=[0-9a-z_-]+/$xmlhttprequest,domain=pikabu.ru
+/^https?:\/\/pikabu\.ru\/ajax\/+[A-Za-z0-9_-]+(\.[A-Za-z0-9]{1,2})?\?[A-Za-z0-9]+=[0-9a-z_-]+/$xmlhttprequest,domain=pikabu.ru
 /cookie_check.min.js$domain=acetv.me
 /gogl_detector$script,domain=meddaily.ru|newsru.com
 @@||anidub.com/ads.js|$script,domain=anidub.com
@@ -3118,6 +3118,7 @@ bigpuzzle.ru##td[valign="top"][width="240px"][height="600"]
 ||kontrolnaya-rabota.ru^*/toastr.$script,stylesheet
 ||mobzon.ru/adbp/adbp.js
 ||nnm-club.ws/forum/docs/requests.js
+||pikabu.ru/ajax//$xmlhttprequest
 ||pwnews.net/des/antiblock.js$script
 ||rockstargame.su/adb_script$script
 ||rusnext.ru/advar.js$script
@@ -18876,6 +18877,7 @@ $removeparam=paipv,domain=facebook.*|facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3m
 ||instagram.com^$doc,removeparam=igsh
 $removeparam=rdid,domain=facebook.*|facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion
 $removeparam=_rdc
+||instagram.com^$doc,removeparam=igsi
 $removeparam=cp_ksver
 $removeparam=biw
 $removeparam=bih
@@ -20561,6 +20563,7 @@ ref=sqliteviewer.app$doc,removeparam=ref
 ||cricut.$removeparam=visitorId
 ||sonarsource.com^$doc,removeparam=tidelift
 ||msn.com^$removeparam=bv
+||store.epicgames.com^$doc,removeparam=epic_creator_id
 $removeparam=w,domain=files.wordpress.com|store.playstation.com|s-microsoft.com|store-images.microsoft.com|dr.dk|if.com.au
 $removeparam=h,domain=files.wordpress.com|store.playstation.com|s-microsoft.com|store-images.microsoft.com|dr.dk
 $removeparam=width,domain=i-viaplay.com.akamaized.net|media.discordapp.net|tvno.nu
