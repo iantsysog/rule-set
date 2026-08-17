@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Sun, 16 Aug 2026 12:52:47 GMT
+! Last modified: Mon, 17 Aug 2026 12:57:22 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.9.23
+!   - Version: 2.1.9.27
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202603110915
@@ -219,6 +219,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
+||whoas.xyz^$3p
 ||api.firwinds.site^
 ||geniuslinkcdn.com^
 ||opendatastats.net^$3p
@@ -54921,6 +54922,8 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||cat.pexels.com^
+||affiliate.unisender.com^
 ||ling.willowmovies.com^
 ||stats.jerkmotion.com^
 ||v.voltmail.io^
@@ -56232,7 +56235,6 @@ prd.api.bleacherreport.com^
 ||log.haberturk.com^
 ||analytics.helpukrainewinwidget.org^
 ||statsapi.tiendeo.com.tr^
-||stat.kwikmotion.com^
 ||analytics.vpplayer.tech^
 ||t.xoom.com^
 ||pixel.dmdi.pl^
@@ -153948,6 +153950,7 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||api.redgifs.com/v*/events/
 ||statics.cedscdn.it/utils/src/js/shopalytics.js
 ||d26yk4zpyhjeeq.cloudfront.net/*/tracking/
 ||xullys.xyz/~api/analytics|
@@ -160231,8 +160234,8 @@ d4?appid*type*
 @@||static.cloudflareinsights.com^$domain=quasarzone.com,script
 @@||feliz.data.tm-awx.com^$domain=football.london
 @@||feliz-web.data.tm-awx.com^$domain=football.london
-@@||cdn.clerk.io/clerk.js$domain=avxperten.at|avxperten.be|avxperten.com|avxperten.cy|avxperten.cz|avxperten.de|avxperten.dk|avxperten.ee|avxperten.es|avxperten.fi|avxperten.fr|avxperten.gr|avxperten.hr|avxperten.hu|avxperten.it|avxperten.lt|avxperten.lu|avxperten.lv|avxperten.nl|avxperten.no|avxperten.pl|avxperten.pt|avxperten.ro|avxperten.se|avxperten.si|avxperten.sk
-@@||api.clerk.io/v*/log/$domain=avxperten.at|avxperten.be|avxperten.com|avxperten.cy|avxperten.cz|avxperten.de|avxperten.dk|avxperten.ee|avxperten.es|avxperten.fi|avxperten.fr|avxperten.gr|avxperten.hr|avxperten.hu|avxperten.it|avxperten.lt|avxperten.lu|avxperten.lv|avxperten.nl|avxperten.no|avxperten.pl|avxperten.pt|avxperten.ro|avxperten.se|avxperten.si|avxperten.sk
+@@||cdn.clerk.io/clerk.js$domain=avxperten.at|avxperten.be|avxperten.com|avxperten.cy|avxperten.cz|avxperten.de|avxperten.dk|avxperten.ee|avxperten.es|avxperten.fi|avxperten.fr|avxperten.gr|avxperten.hr|avxperten.hu|avxperten.it|avxperten.lt|avxperten.lu|avxperten.lv|avxperten.nl|avxperten.no|avxperten.pl|avxperten.pt|avxperten.ro|avxperten.se|avxperten.si|avxperten.sk|brukas.no
+@@||api.clerk.io/v*/log/$domain=avxperten.at|avxperten.be|avxperten.com|avxperten.cy|avxperten.cz|avxperten.de|avxperten.dk|avxperten.ee|avxperten.es|avxperten.fi|avxperten.fr|avxperten.gr|avxperten.hr|avxperten.hu|avxperten.it|avxperten.lt|avxperten.lu|avxperten.lv|avxperten.nl|avxperten.no|avxperten.pl|avxperten.pt|avxperten.ro|avxperten.se|avxperten.si|avxperten.sk|brukas.no
 @@||st.top100.ru/top100/top100.js$domain=gazeta.ru|lenta.ru
 @@||duckduckgo.com/local.js?tg=$~3p
 ||directg.jp/js/fingerprint2.js$script,redirect=fingerprint2.js
