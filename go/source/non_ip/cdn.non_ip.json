@@ -28,8 +28,6 @@
         "-thumbs.worldsex.com",
         "99avcdn",
         "-images.disco-api.com",
-        "vdownload.hanime1",
-        "fonts.hanime1",
         "static.grammarly.com"
       ],
       "domain_regex": [
@@ -84,7 +82,6 @@
         "^[\\w.-]*?\\.img\\.[\\w.-]*?\\.sendibm[\\w.-]\\.com$",
         "^cdn[\\w.-]\\.18girlssex\\.com$",
         "^uploads-[\\w.-]*?\\.insided\\.com$",
-        "^s[\\w.-]*?\\.hanime1$",
         "^img-[\\w.-]*?\\.now\\.com$",
         "^assets\\.[\\w.-]*?\\.imaga\\.co$",
         "^cdn[\\w.-]*?\\.pigav\\.com$",
