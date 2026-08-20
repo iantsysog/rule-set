@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Wed, 19 Aug 2026 12:59:47 GMT
+! Last modified: Thu, 20 Aug 2026 13:02:17 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.9.50
+!   - Version: 2.1.9.61
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202603110915
@@ -219,6 +219,8 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
+||fml-x.com^$3p
+||analytics.talentegy.com^
 ||cdn.mgln.ai^
 ||whoas.xyz^$3p
 ||api.firwinds.site^
@@ -74630,6 +74632,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||scollect.17173.com^
 ||analytics.byub.org^
 ||analytics-api.byub.org^
 ||analytics.netronline.dev^
@@ -281707,6 +281710,7 @@ zmail.mtrl.me$image
 /_static/deliver.js?nonce=$script,~3p
 /sxp/i/*$script,3p
 /munin/a/ls?t=$xhr
+&pload=*&eclog=
 /solid.gif?z=
 /web-pixel-*/pixel.modern.js
 /wpm@*/web-pixel-
@@ -282126,6 +282130,9 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||thehealthy.com/wp-content/plugins/tmbi-amazon-affiliate/
+||thehealthy.com/wp-content/plugins/tmbi-permutive/
+||thehealthy.com/wp-content/plugins/tmbi-data-analytics/
 ||kantan.news/api/track/$xhr,redirect=noop.json
 ||cdn.2way.app/prod2/tracking.js
 ||d3rsy74zmigk0i.cloudfront.net/linkExtractorKineticHarbor.js
@@ -283011,6 +283018,7 @@ dominos.jp###_vis_opt_path_hides
 ||static.danawa.com/globaljs/static/bdl/dsac.min.js
 ||americantourister.co.kr/on/demandware.static/Sites-AmericanTouristerKR-Site/*/internal/jscript/dwac-*.js
 ||leboncoin.fr/piano-analytics/
+/web-stats$domain=softonic.com|softonic-ar.com|softonic-id.com|softonic-id.com|softonic.jp|softonic.kr|softonic.nl|softonic.pl|softonic.com.br|softonic.ru|softonic.se|softonic-th.com|softonic.com.tr|softonic.cn
 ||chatgpt.com/ces/v1/i^
 ||holistic.news/3unw/
 ||sp-cdn.linux-magazin.de/wrapper/metrics/
@@ -288405,6 +288413,7 @@ d4?appid*type*
 @@||googletagmanager.com/gtm.js$domain=saturn.de
 @@||metrics.us.playstation.com/b/ss/
 @@||st-*.dynamicyield.com/st*&inHead=true&id=*&jsession=*scriptVersion=*&noConsent=
+@@||googletagmanager.com/gtm.js$domain=talent.lowes.com
 @@||googletagmanager.com/gtm.js$domain=magasiner.familiprix.com
 @@||vodafone.com.au/gtm.js$~3p
 @@||tag.perx.ru/js/container*.js$domain=geely-motors.com
@@ -290760,7 +290769,6 @@ demae-can.com##+js(remove-attr, data-trm-action|data-trm-category|data-trm-label
 ||inventorycache.com^$~xhr
 ||oceancloudhosts.com^$~xhr
 ||d21y75miwcfqoq.cloudfront.net/436f3341$image,redirect=noop.txt
-10tv.com,11alive.com,12news.com,12newsnow.com,13newsnow.com,13wmaz.com,5newsonline.com,9news.com,abc10.com,apnews.com,artforum.com,artnews.com,billboard.com,birdsandblooms.com,calgaryherald.com,calgarysun.com,cbs19.tv,cbs8.com,cleveland.com,crooksandliars.com,deadline.com,dpreview.com,driving.ca,familyhandyman.com,financialpost.com,firstcoastnews.com,fox43.com,fox61.com,goldderby.com,golfdigest.com,hollywoodreporter.com,indiewire.com,kare11.com,kcentv.com,kens5.com,kgw.com,kiiitv.com,king5.com,krem.com,ktvb.com,kvue.com,lfpress.com,localmemphis.com,masslive.com,myfoxzone.com,nationalpost.com,nbcsports.com,newscentermaine.com,newswest9.com,oregonlive.com,ottawasun.com,rd.com,robbreport.com,rollingstone.com,sherdog.com,sidereel.com,superherohype.com,tasteofhome.com,thv11.com,torontosun.com,vancouversun.com,variety.com,vibe.com,wbir.com,wcnc.com,weareiowa.com,wfaa.com,wfmynews2.com,wgrz.com,whas11.com,windsorstar.com,wkyc.com,wltx.com,wnep.com,wqad.com,wthr.com,wtol.com,wtsp.com,wusa9.com,wwd.com,wwltv.com,wzzm13.com##+js(acs, document.getElementsByTagName, .pubads)
 247sports.com,cbsnews.com,cbssports.com,indiewire.com,nypost.com,pagesix.com,pennlive.com,syracuse.com##+js(rmnt, script, "data-adm-url")
 abc17news.com,al.com,artforum.com,artnews.com,awkward.com,awkwardmom.com,bailiwickexpress.com,barnsleychronicle.com,becomingpeculiar.com,bethcakes.com,blogher.com,bluegraygal.com,briefeguru.de,carmagazine.co.uk,cattime.com,cbr.com,chaptercheats.com,collider.com,comingsoon.net,commercialobserver.com,competentedigitale.ro,crafty.house,dailyvoice.com,decider.com,didyouknowfacts.com,dogtime.com,dualshockers.com,dustyoldthing.com,faithhub.net,femestella.com,footwearnews.com,freeconvert.com,frogsandsnailsandpuppydogtail.com,fsm-media.com,funtasticlife.com,fwmadebycarli.com,gamerant.com,gfinityesports.com,givemesport.com,gulflive.com,helloflo.com,homeglowdesign.com,honeygirlsworld.com,hotcars.com,howtogeek.com,insider-gaming.com,insurancejournal.com,jasminemaria.com,kion546.com,lehighvalleylive.com,lettyskitchen.com,lifeinleggings.com,liveandletsfly.com,lizzieinlace.com,localnews8.com,lonestarlive.com,madeeveryday.com,maidenhead-advertiser.co.uk,makeuseof.com,mardomreport.net,melangery.com,milestomemories.com,mlive.com,modernmom.com,momtastic.com,mostlymorgan.com,motherwellmag.com,movieweb.com,muddybootsanddiamonds.com,musicfeeds.com.au,nationalreview.com,nj.com,nordot.app,nothingbutnewcastle.com,nsjonline.com,oakvillenews.org,observer.com,oregonlive.com,pagesix.com,pennlive.com,pinkonthecheek.com,predic.ro,puckermom.com,qtoptens.com,realgm.com,robbreport.com,royalmailchat.co.uk,samchui.com,sandrarose.com,screenrant.com,sheknows.com,sherdog.com,sidereel.com,silive.com,simpleflying.com,sloughexpress.co.uk,spacenews.com,sportsgamblingpodcast.com,spotofteadesigns.com,ssnewstelegram.com,stacysrandomthoughts.com,superherohype.com,syracuse.com,tablelifeblog.com,thebeautysection.com,thecelticblog.com,thecurvyfashionista.com,thefashionspot.com,thegamer.com,thenerdyme.com,thenonconsumeradvocate.com,thethings.com,timesnews.net,topspeed.com,toyotaklub.org.pl,travelingformiles.com,tvline.com##+js(rmnt, script, "v4ac1eiZr0")
 usatoday.com##+js(set, gnt.x.adm, )
@@ -290777,6 +290785,7 @@ usatoday.com##+js(set, gnt.x.adm, )
 ||inventorycache.com^$redirect=noop.js,script
 ||kindhush.com^$redirect=noop.js,script
 ||oceancloudhosts.com^$redirect=noop.json,xhr
+||randisphotos.com^$redirect=noop.js,script
 ||targetfax.com^$redirect=noop.js,script
 ||ubiquitoussea.com^$redirect=noop.js,script
 ||unloadyourself.com^$redirect=noop.js,script
