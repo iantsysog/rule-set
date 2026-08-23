@@ -540,6 +540,66 @@
           "source_ip_cidr": "192.168.0.0/16"
         }
       ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "upload.app.box.com"
+        },
+        {
+          "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "upload.app.box.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "upload.app.box.com"
+        },
+        {
+          "source_ip_cidr": "10.0.0.0/8"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "upload.app.box.com"
+        },
+        {
+          "source_ip_cidr": "172.16.0.0/12"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "upload.app.box.com"
+        },
+        {
+          "source_ip_cidr": "192.168.0.0/16"
+        }
+      ]
     }
   ]
 }
