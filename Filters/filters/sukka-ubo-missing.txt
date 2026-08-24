@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Sun, 23 Aug 2026 12:54:02 GMT
+! Last modified: Mon, 24 Aug 2026 13:03:41 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.9.81
+!   - Version: 2.1.9.83
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202603110915
@@ -74635,6 +74635,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||p.softmedia.cz^
 ||analytics.sportera.fans^
 ||analytics.sen.go.kr^
 ||scollect.17173.com^
@@ -282134,6 +282135,7 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||leakgallery.com/api/lg/
 ||xn--pckua2a7gp15o89zb.com/api/am/v1/t?
 ||hna.de/fdn/
 ||yandex.ru/appcry/event|
@@ -290799,6 +290801,7 @@ usatoday.com##+js(set, gnt.x.adm, )
 ||ubiquitoussea.com^$redirect=noop.js,script
 ||unloadyourself.com^$redirect=noop.js,script
 ||googletagmanager.com/gtag/js$important,redirect=google-analytics_analytics.js,script,xhr,domain=redstoneonline.jp
+phileweb.com##+js(set-attr, span[class] img.lazyload[width], src, [data-src])
 ||sstats.bitdefender.com^$important,redirect=noop.txt,xhr
 ||metrics.streaks.jp^$redirect=noop.txt,xhr
 ! CJX's Annoyance List https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
