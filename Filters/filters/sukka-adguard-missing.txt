@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in AdGuard (but exist in uBO)
-! Last modified: Wed, 26 Aug 2026 13:05:50 GMT
+! Last modified: Thu, 27 Aug 2026 22:10:17 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,13 +8,13 @@
 ! Included filters:
 ! * uBlock filters
 !   - URL: https://ublockorigin.pages.dev/filters/filters.min.txt
-!   - Last modified: Wed, 26 Aug 2026 11:04:06 +0000
+!   - Last modified: Thu, 27 Aug 2026 17:30:33 +0000
 ! * uBlock filters – Badware risks
 !   - URL: https://ublockorigin.pages.dev/filters/badware.min.txt
-!   - Last modified: Wed, 26 Aug 2026 10:44:49 +0000
+!   - Last modified: Thu, 27 Aug 2026 04:23:07 +0000
 ! * uBlock filters – Privacy
 !   - URL: https://ublockorigin.pages.dev/filters/privacy.min.txt
-!   - Last modified: Tue, 25 Aug 2026 11:30:43 +0000
+!   - Last modified: Thu, 27 Aug 2026 05:40:47 +0000
 ! * uBlock filters – Unbreak
 !   - URL: https://ublockorigin.pages.dev/filters/unbreak.min.txt
 !   - Last modified: Wed, 26 Aug 2026 09:35:33 +0000
@@ -27,10 +27,10 @@
 ! * uBlock filters – Cookie Notices
 !   - URL: https://ublockorigin.pages.dev/filters/annoyances-cookies.txt
 !   - Homepage: https://github.com/uBlockOrigin/uAssets
-!   - Last modified: Tue, 25 Aug 2026 19:45:54 +0000
+!   - Last modified: Thu, 27 Aug 2026 10:38:45 +0000
 ! * uBlock filters – Annoyances
 !   - URL: https://ublockorigin.pages.dev/filters/annoyances.min.txt
-!   - Last modified: Sun, 23 Aug 2026 05:01:36 +0000
+!   - Last modified: Thu, 27 Aug 2026 10:20:43 +0000
 ! --------------------------------------------------------------
 ! uBlock filters https://ublockorigin.pages.dev/filters/filters.min.txt
 *_ad_$media,domain=youtube.com,3p
@@ -7391,11 +7391,11 @@ swiftuploads.com##+js(rpnt, script, toUpperCase()+, toSomeCase()+)
 1cloudfile.com,akirabox.com,akirabox.to,bowfile.com,buzzheavier.com,bzzhr.co,bzzhr.to,cg-gamespc.net,datavaults.co,dodi-repacks.site,file-me.top,file-upload.org,filemirage.com,fuckingfast.*,game-repack.site,gamedrive.*,getfreegames.net,go.zovo.ink,koramaup.com,mirrored.to,multiup.io,nathanmichaelphoto.com,ranoz.gg,reloadedsteam.com,rootz.so,steamgg.net,steamunderground.net,swiftuploads.com,torupload.com,up-4ever.net,uploadrar.*,usersdrive.com,vik1ngfile.site,worldofpcgames.com,zeilink.net,zovo2.top,zpaste.net##+js(set, Element.prototype.closest, falseFunc)
 1cloudfile.com,akirabox.com,akirabox.to,bowfile.com,buzzheavier.com,bzzhr.co,bzzhr.to,cg-gamespc.net,datavaults.co,dodi-repacks.site,file-me.top,file-upload.org,filemirage.com,fuckingfast.*,game-repack.site,gamedrive.*,getfreegames.net,go.zovo.ink,koramaup.com,mirrored.to,multiup.io,nathanmichaelphoto.com,ranoz.gg,reloadedsteam.com,rootz.so,steamgg.net,steamunderground.net,swiftuploads.com,torupload.com,up-4ever.net,uploadrar.*,usersdrive.com,vik1ngfile.site,worldofpcgames.com,zeilink.net,zovo2.top,zpaste.net##+js(aeld, click, /document\.createElement|window\.open/)
 1cloudfile.com,akirabox.com,akirabox.to,bowfile.com,buzzheavier.com,bzzhr.co,bzzhr.to,cg-gamespc.net,datavaults.co,dodi-repacks.site,file-me.top,file-upload.org,filemirage.com,fuckingfast.*,game-repack.site,gamedrive.*,getfreegames.net,go.zovo.ink,koramaup.com,mirrored.to,multiup.io,nathanmichaelphoto.com,ranoz.gg,reloadedsteam.com,rootz.so,steamgg.net,steamunderground.net,swiftuploads.com,torupload.com,up-4ever.net,uploadrar.*,usersdrive.com,vik1ngfile.site,worldofpcgames.com,zeilink.net,zovo2.top,zpaste.net##+js(nowoif, .cfd)
-*$3p,popup,to=~com|~net|~org|~to|~co,from=1cloudfile.com|akirabox.com|akirabox.to|bowfile.com|buzzheavier.com|bzzhr.co|bzzhr.to|cg-gamespc.net|datavaults.co|dodi-repacks.site|file-me.top|file-upload.org|filemirage.com|fuckingfast.*|game-repack.site|gamedrive.*|getfreegames.net|go.zovo.ink|koramaup.com|mirrored.to|multiup.io|nathanmichaelphoto.com|ranoz.gg|reloadedsteam.com|rootz.so|steamgg.net|steamunderground.net|swiftuploads.com|torupload.com|up-4ever.net|uploadrar.*|usersdrive.com|vik1ngfile.site|worldofpcgames.com|zeilink.net|zovo2.top|zpaste.net
+*$3p,popup,to=~com|~io|~net|~org|~to|~co|~mixdrop.ag|~vik1ngfile.site,from=1cloudfile.com|akirabox.com|akirabox.to|bowfile.com|buzzheavier.com|bzzhr.co|bzzhr.to|cg-gamespc.net|datavaults.co|dodi-repacks.site|file-me.top|file-upload.org|filemirage.com|fuckingfast.*|game-repack.site|gamedrive.*|getfreegames.net|go.zovo.ink|koramaup.com|mirrored.to|multiup.io|nathanmichaelphoto.com|ranoz.gg|reloadedsteam.com|rootz.so|steamgg.net|steamunderground.net|swiftuploads.com|torupload.com|up-4ever.net|uploadrar.*|usersdrive.com|vik1ngfile.site|worldofpcgames.com|zeilink.net|zovo2.top|zpaste.net
 /^https:\/\/[a-z0-9]+\.[a-z0-9]+\.[a-z][a-z][a-z]+\/\?&?[a-z]+=[a-zA-Z0-9+\/%=:_-]+[$&]/$3p,popup,domain=gg|ink|site|so|to|top
 /^https:\/\/[a-z0-9]+\.[a-z0-9]+\.[a-z][a-z][a-z]+\/\?&?[a-z]+=[a-zA-Z0-9+\/%=:_-]+[$&]/$3p,popup,match-case,to=cfd|cyou|sbs|shop|space|website
 /^https:\/\/link[0-9]+\.[a-z0-9]+\.[a-z][a-z][a-z]+\/\?&?data=[a-zA-Z0-9+\/%=:_-]+[$&]/$3p,popup,match-case,to=~com|~edu|~gov|~net|~org
-/^https:\/\/link[0-9]+\.[a-z0-9]+\.[a-z][a-z][a-z]+\/\?&?data=[a-zA-Z0-9+\/%=:_-]+[$&]/$popup,match-case,to=~com|~ink|~net|~org|~co|~gg|~so|~to|~dodi-repacks.site|~file-me.top|~game-repack.site|~vik1ngfile.site|~zovo2.top
+/^https:\/\/link[0-9]+\.[a-z0-9]+\.[a-z][a-z][a-z]+\/\?&?data=[a-zA-Z0-9+\/%=:_-]+[$&]/$popup,match-case,to=~com|~ink|~io|~net|~org|~co|~gg|~so|~to|~dodi-repacks.site|~file-me.top|~game-repack.site|~mixdrop.ag|~vik1ngfile.site|~zovo2.top
 /^https:\/\/[a-z0-9]+\.[a-z0-9]+\.[cs][bfhpy][ados][cpu]?e?\/\?&?[a-z]+=[a-zA-Z0-9+\/%=:_-]+[$&]/$popup,match-case
 /^https:\/\/[a-z0-9]+\.[a-z0-9]+\.website\/\?&?[a-z]+=[a-zA-Z0-9+\/%=:_-]+[$&]/$popup,match-case
 fuckingfast.*##+js(remove-node-text, script, '"+"')
@@ -8917,6 +8917,10 @@ followfollow.com,marketwatch.com,sporcle.com,wsj.com##+js(rmnt, script, admiral,
 huskermax.com,iphoneincanada.ca,premierguitar.com##+js(rmnt, script, adblockerDisabled, excludes, \,\")
 7daystodie-servers.com,apnews.com,cwtv.com,gameslantern.com,hytale-servers.net,minecraft-schematics.com,rust-servers.net##+js(rmnt, script, /admiral|-engaged/, excludes, \,\")
 cwtv.com##+js(rmnt, script, []).push(arguments), excludes, \,\"))
+sporcle.com##+js(rmnt, script, /\.cmd\.unshift|adblockerDisabled/, excludes, \,\")
+sporcle.com##div.row-unit-container.row:has(.new-temp-unit)
+sporcle.com##.unit-container.box:has(.new-temp-unit)
+sporcle.com##.DCDOr
 ampav.com,artforum.com,artnews.com,atxtv.co,bgr.com,billboard.com,deadline.com,dickclark.com,footwearnews.com,goldderby.com,hollywoodreporter.com,indiewire.com,la3c.com,lifeisbeautiful.com,luminatedata.com,robbreport.com,rollingstone.com,shemedia.com,sourcingjournal.com,sportico.com,spy.com,sxsw.com,tvline.com,variety.com,vibe.com,wwd.com##^script.pmc-admiral
 ampav.com,artforum.com,artnews.com,atxtv.co,bgr.com,billboard.com,deadline.com,dickclark.com,footwearnews.com,goldderby.com,hollywoodreporter.com,indiewire.com,la3c.com,lifeisbeautiful.com,luminatedata.com,robbreport.com,rollingstone.com,shemedia.com,sourcingjournal.com,sportico.com,spy.com,sxsw.com,tvline.com,variety.com,vibe.com,wwd.com##+js(rmnt, script, adblockerDisabled, excludes, \,\")
 al.com,cleveland.com,lehighvalleylive.com,masslive.com,mlive.com,nj.com,oregonlive.com,pennlive.com,silive.com,syracuse.com##+js(rmnt, script, adblockerDisabled, excludes, \,\")
@@ -9618,9 +9622,9 @@ xhamster.fm##+js(acs, pop_init)
 gayxx.net##+js(aopr, adsbyjuicy)
 ||flixbaba.net/utilsminhill.js
 explorecams.com,minecraft.buzz,rarepike.com##+js(aeld, np.detect)
-*,~amazon.*,~apple.com,~archlinux.org,~azure.com,~bing.com,~captcha-delivery.com,~chatango.com,~chatgpt.com,~chess.com,~claude.ai,~cloudflare.com,~codeberg.org,~dailymotion.com,~disqus.com,~facebook.com,~fbsbx.com,~flickr.com,~github.com,~gitlab.com,~google.com,~hcaptcha.com,~instagram.com,~kimi.com,~lichess.org,~linkedin.com,~live.com,~mega.nz,~microsoft.com,~mozilla.org,~netflix.com,~openrouter.ai,~pinterest.com,~privacy-mgmt.com,~proton.me,~rakuten.co.jp,~rakuten.com,~spotify.com,~reddit.com,~stripe.com,~tiktok.com,~tinypass.com,~tumblr.com,~twitch.tv,~twitchcdn.net,~twitter.com,~virustotal.com,~vscode.dev,~whatsapp.com,~wikipedia.org,~x.com,~yahoo.com,~yandex.*,~yandexcloud.net,~youtube.com##+js(prevent-clipboard-write, /^mshta |^msiexec |^(bash <<<|curl -kfsSL) \$\(echo .+? base64 -d |^cmd \/c\b.+?\bcurl .+?(\.exe|\.bat)\b|^cmd\b.+?\bfor \/f\b.+?\bdelims\b.+?\bpow\b|^powershell.+?-w(indowStyle)? h(idden)?\b|^powershell.+?-W H(idden)?\b|^powershell.+?-NoP\b|^powershell.+?-ep bypass\b|^powershell.+?-EP (B|U)\b|^powershell.+?-ExecutionPolicy (Bypass|Unrestricted)|\\PowerShell\.exe.+?-ep bypass\b|^powershell.+?\biex\(|^powershell.+?Invoke-Expression|^powershell.+?Invoke-WebRequest|^powershell.+?-UseBasicParsing|^cmd.+?\/c.+?-nop\b.+?\biex\(|^(cmd|powershell)\b.+?recaptcha|^(cmd|powershell)\b.+?#(Verification|     )|^(cmd|powershell)\b.+?     #|^osascript .+?\bcurl http|^curl -s\b.+?\| (bash|sh|zsh)\b|^\/bin\/(bash|sh|zsh) -c\b.+?\bcurl|^bash -c\b.+?\$\(curl|^python3? -c\b.+?\b(exec|urllib|subprocess)\b|^echo .+?base64 .+?\b(bash|osascript|z?sh)\b|openssl base64 -d|^curl\b .+?chmod \+x.+?&&|^(bash|sh|osascript)\b.+?recaptcha|^(bash|sh|osascript)\b.+?#(Verification|     )|^(bash|sh|osascript)\b.+?     #|^wget .+?\| (bash|sh)\b|^curl\b.+?-o\b.+?\/tmp\/.+?&&|^nc .+?-e \/bin\/(bash|sh)\b|^\/tmp\/.+?chmod \+x.+?&&|^wget -q.+?\.(sh|py|bin|elf)\b|^cmd .+?\bcertutil .+?\b(\.exe|\.bat)\b|^powershell .+?\birm .+?\.[a-z]+\/.+?powershell|\bpcalua(\.exe)? .+?\bcurl\b|^cmd .+?\bcmdkey .+?\bschtasks|^Invoke-Command .+?FromBase64String|^conhost .*?--headless .*?\bcmd\b/msi, domAlert, 'Beware, uBlock Origin blocked a potential ClickFix attack: ${text}', excludeMatches, /Maintainer|Contributor|^import /i)
-community-scripts.org#@#+js(prevent-clipboard-write, /^mshta |^msiexec |^(bash <<<|curl -kfsSL) \$\(echo .+? base64 -d |^cmd \/c\b.+?\bcurl .+?(\.exe|\.bat)\b|^cmd\b.+?\bfor \/f\b.+?\bdelims\b.+?\bpow\b|^powershell.+?-w(indowStyle)? h(idden)?\b|^powershell.+?-W H(idden)?\b|^powershell.+?-NoP\b|^powershell.+?-ep bypass\b|^powershell.+?-EP (B|U)\b|^powershell.+?-ExecutionPolicy (Bypass|Unrestricted)|\\PowerShell\.exe.+?-ep bypass\b|^powershell.+?\biex\(|^powershell.+?Invoke-Expression|^powershell.+?Invoke-WebRequest|^powershell.+?-UseBasicParsing|^cmd.+?\/c.+?-nop\b.+?\biex\(|^(cmd|powershell)\b.+?recaptcha|^(cmd|powershell)\b.+?#(Verification|     )|^(cmd|powershell)\b.+?     #|^osascript .+?\bcurl http|^curl -s\b.+?\| (bash|sh|zsh)\b|^\/bin\/(bash|sh|zsh) -c\b.+?\bcurl|^bash -c\b.+?\$\(curl|^python3? -c\b.+?\b(exec|urllib|subprocess)\b|^echo .+?base64 .+?\b(bash|osascript|z?sh)\b|openssl base64 -d|^curl\b .+?chmod \+x.+?&&|^(bash|sh|osascript)\b.+?recaptcha|^(bash|sh|osascript)\b.+?#(Verification|     )|^(bash|sh|osascript)\b.+?     #|^wget .+?\| (bash|sh)\b|^curl\b.+?-o\b.+?\/tmp\/.+?&&|^nc .+?-e \/bin\/(bash|sh)\b|^\/tmp\/.+?chmod \+x.+?&&|^wget -q.+?\.(sh|py|bin|elf)\b|^cmd .+?\bcertutil .+?\b(\.exe|\.bat)\b|^powershell .+?\birm .+?\.[a-z]+\/.+?powershell|\bpcalua(\.exe)? .+?\bcurl\b|^cmd .+?\bcmdkey .+?\bschtasks|^Invoke-Command .+?FromBase64String|^conhost .*?--headless .*?\bcmd\b/msi, domAlert, 'Beware, uBlock Origin blocked a potential ClickFix attack: ${text}', excludeMatches, /Maintainer|Contributor|^import /i)
-sites.google.com##+js(prevent-clipboard-write, /^mshta |^msiexec |^(bash <<<|curl -kfsSL) \$\(echo .+? base64 -d |^cmd \/c\b.+?\bcurl .+?(\.exe|\.bat)\b|^cmd\b.+?\bfor \/f\b.+?\bdelims\b.+?\bpow\b|^powershell.+?-w(indowStyle)? h(idden)?\b|^powershell.+?-W H(idden)?\b|^powershell.+?-NoP\b|^powershell.+?-ep bypass\b|^powershell.+?-EP (B|U)\b|^powershell.+?-ExecutionPolicy (Bypass|Unrestricted)|\\PowerShell\.exe.+?-ep bypass\b|^powershell.+?\biex\(|^powershell.+?Invoke-Expression|^powershell.+?Invoke-WebRequest|^powershell.+?-UseBasicParsing|^cmd.+?\/c.+?-nop\b.+?\biex\(|^(cmd|powershell)\b.+?recaptcha|^(cmd|powershell)\b.+?#(Verification|     )|^(cmd|powershell)\b.+?     #|^osascript .+?\bcurl http|^curl -s\b.+?\| (bash|sh|zsh)\b|^\/bin\/(bash|sh|zsh) -c\b.+?\bcurl|^bash -c\b.+?\$\(curl|^python3? -c\b.+?\b(exec|urllib|subprocess)\b|^echo .+?base64 .+?\b(bash|osascript|z?sh)\b|openssl base64 -d|^curl\b .+?chmod \+x.+?&&|^(bash|sh|osascript)\b.+?recaptcha|^(bash|sh|osascript)\b.+?#(Verification|     )|^(bash|sh|osascript)\b.+?     #|^wget .+?\| (bash|sh)\b|^curl\b.+?-o\b.+?\/tmp\/.+?&&|^nc .+?-e \/bin\/(bash|sh)\b|^\/tmp\/.+?chmod \+x.+?&&|^wget -q.+?\.(sh|py|bin|elf)\b|^cmd .+?\bcertutil .+?\b(\.exe|\.bat)\b|^powershell .+?\birm .+?\.[a-z]+\/.+?powershell|\bpcalua(\.exe)? .+?\bcurl\b|^cmd .+?\bcmdkey .+?\bschtasks|^Invoke-Command .+?FromBase64String|^conhost .*?--headless .*?\bcmd\b/msi, domAlert, 'Beware. uBlock Origin blocked a potential ClickFix attack: ${text}', excludeMatches, /Maintainer|Contributor|^import /i)
+*,~amazon.*,~apple.com,~archlinux.org,~azure.com,~bing.com,~captcha-delivery.com,~chatango.com,~chatgpt.com,~chess.com,~claude.ai,~cloudflare.com,~codeberg.org,~dailymotion.com,~disqus.com,~facebook.com,~fbsbx.com,~flickr.com,~github.com,~gitlab.com,~google.com,~hcaptcha.com,~instagram.com,~kimi.com,~lichess.org,~linkedin.com,~live.com,~mega.nz,~microsoft.com,~mozilla.org,~netflix.com,~openrouter.ai,~pinterest.com,~privacy-mgmt.com,~proton.me,~rakuten.co.jp,~rakuten.com,~recaptcha.net,~reddit.com,~spotify.com,~stripe.com,~tiktok.com,~tinypass.com,~tumblr.com,~twitch.tv,~twitchcdn.net,~twitter.com,~virustotal.com,~vscode.dev,~whatsapp.com,~wikipedia.org,~x.com,~yahoo.com,~yandex.*,~yandexcloud.net,~youtube.com##+js(prevent-clipboard-write, /^mshta |^msiexec |^(bash <<<|curl -kfsSL) \$\(echo .+? base64 -d |^cmd \/c .*?\bcurl .+?(\.exe|\.bat)\b|^cmd\b.+?\bfor \/f\b.+?\bdelims\b.+?\bpow\b|^powershell.+?-w(indowStyle)? h(idden)?\b|^powershell.+?-W H(idden)?\b|^powershell.+?-NoP\b|^powershell.+?-ep bypass\b|^powershell.+?-EP (B|U)\b|^powershell.+?-ExecutionPolicy (Bypass|Unrestricted)|\\PowerShell\.exe.+?-ep bypass\b|^powershell.+?\biex\(|^powershell.+?Invoke-Expression|^powershell.+?Invoke-WebRequest|^powershell.+?-UseBasicParsing|^cmd .*?\/c .+? -nop .+? iex\b|^(cmd|powershell)\b.+?recaptcha|^(cmd|powershell)\b.+?#(Verification|     )|^(cmd|powershell)\b.+?     #|^osascript .+?\bcurl http|^curl -s\b.+?\| (bash|sh|zsh)\b|^\/bin\/(bash|sh|zsh) -c\b.+?\bcurl|^bash -c\b.+?\$\(curl|^python3? -c\b.+?\b(exec|urllib|subprocess)\b|^echo .+?base64 .+?\b(bash|osascript|z?sh)\b|openssl base64 -d|^curl\b .+?chmod \+x.+?&&|^(bash|sh|osascript)\b.+?recaptcha|^(bash|sh|osascript)\b.+?#(Verification|     )|^(bash|sh|osascript)\b.+?     #|^wget .+?\| (bash|sh)\b|^curl\b.+?-o\b.+?\/tmp\/.+?&&|^nc .+?-e \/bin\/(bash|sh)\b|^\/tmp\/.+?chmod \+x.+?&&|^wget -q.+?\.(sh|py|bin|elf)\b|^cmd .+?\bcertutil .+?\b(\.exe|\.bat)\b|^powershell .+?\birm .+?\.[a-z]+\/.+?powershell|\bpcalua(\.exe)? .+?\bcurl\b|^cmd .+?\bcmdkey .+?\bschtasks|^Invoke-Command .+?FromBase64String|^conhost .*?--headless .*?\bcmd\b|^iex\(irm |^irm .+? iex\b/msi, domAlert, 'Beware, uBlock Origin blocked a potential ClickFix attack: ${text}', excludeMatches, /Maintainer|Contributor|^import /i)
+community-scripts.org,massgrave.dev#@#+js(prevent-clipboard-write, /^mshta |^msiexec |^(bash <<<|curl -kfsSL) \$\(echo .+? base64 -d |^cmd \/c .*?\bcurl .+?(\.exe|\.bat)\b|^cmd\b.+?\bfor \/f\b.+?\bdelims\b.+?\bpow\b|^powershell.+?-w(indowStyle)? h(idden)?\b|^powershell.+?-W H(idden)?\b|^powershell.+?-NoP\b|^powershell.+?-ep bypass\b|^powershell.+?-EP (B|U)\b|^powershell.+?-ExecutionPolicy (Bypass|Unrestricted)|\\PowerShell\.exe.+?-ep bypass\b|^powershell.+?\biex\(|^powershell.+?Invoke-Expression|^powershell.+?Invoke-WebRequest|^powershell.+?-UseBasicParsing|^cmd .*?\/c .+? -nop .+? iex\b|^(cmd|powershell)\b.+?recaptcha|^(cmd|powershell)\b.+?#(Verification|     )|^(cmd|powershell)\b.+?     #|^osascript .+?\bcurl http|^curl -s\b.+?\| (bash|sh|zsh)\b|^\/bin\/(bash|sh|zsh) -c\b.+?\bcurl|^bash -c\b.+?\$\(curl|^python3? -c\b.+?\b(exec|urllib|subprocess)\b|^echo .+?base64 .+?\b(bash|osascript|z?sh)\b|openssl base64 -d|^curl\b .+?chmod \+x.+?&&|^(bash|sh|osascript)\b.+?recaptcha|^(bash|sh|osascript)\b.+?#(Verification|     )|^(bash|sh|osascript)\b.+?     #|^wget .+?\| (bash|sh)\b|^curl\b.+?-o\b.+?\/tmp\/.+?&&|^nc .+?-e \/bin\/(bash|sh)\b|^\/tmp\/.+?chmod \+x.+?&&|^wget -q.+?\.(sh|py|bin|elf)\b|^cmd .+?\bcertutil .+?\b(\.exe|\.bat)\b|^powershell .+?\birm .+?\.[a-z]+\/.+?powershell|\bpcalua(\.exe)? .+?\bcurl\b|^cmd .+?\bcmdkey .+?\bschtasks|^Invoke-Command .+?FromBase64String|^conhost .*?--headless .*?\bcmd\b|^iex\(irm |^irm .+? iex\b/msi, domAlert, 'Beware, uBlock Origin blocked a potential ClickFix attack: ${text}', excludeMatches, /Maintainer|Contributor|^import /i)
+sites.google.com##+js(prevent-clipboard-write, /^mshta |^msiexec |^(bash <<<|curl -kfsSL) \$\(echo .+? base64 -d |^cmd \/c .*?\bcurl .+?(\.exe|\.bat)\b|^cmd\b.+?\bfor \/f\b.+?\bdelims\b.+?\bpow\b|^powershell.+?-w(indowStyle)? h(idden)?\b|^powershell.+?-W H(idden)?\b|^powershell.+?-NoP\b|^powershell.+?-ep bypass\b|^powershell.+?-EP (B|U)\b|^powershell.+?-ExecutionPolicy (Bypass|Unrestricted)|\\PowerShell\.exe.+?-ep bypass\b|^powershell.+?\biex\(|^powershell.+?Invoke-Expression|^powershell.+?Invoke-WebRequest|^powershell.+?-UseBasicParsing|^cmd .*?\/c .+? -nop .+? iex\b|^(cmd|powershell)\b.+?recaptcha|^(cmd|powershell)\b.+?#(Verification|     )|^(cmd|powershell)\b.+?     #|^osascript .+?\bcurl http|^curl -s\b.+?\| (bash|sh|zsh)\b|^\/bin\/(bash|sh|zsh) -c\b.+?\bcurl|^bash -c\b.+?\$\(curl|^python3? -c\b.+?\b(exec|urllib|subprocess)\b|^echo .+?base64 .+?\b(bash|osascript|z?sh)\b|openssl base64 -d|^curl\b .+?chmod \+x.+?&&|^(bash|sh|osascript)\b.+?recaptcha|^(bash|sh|osascript)\b.+?#(Verification|     )|^(bash|sh|osascript)\b.+?     #|^wget .+?\| (bash|sh)\b|^curl\b.+?-o\b.+?\/tmp\/.+?&&|^nc .+?-e \/bin\/(bash|sh)\b|^\/tmp\/.+?chmod \+x.+?&&|^wget -q.+?\.(sh|py|bin|elf)\b|^cmd .+?\bcertutil .+?\b(\.exe|\.bat)\b|^powershell .+?\birm .+?\.[a-z]+\/.+?powershell|\bpcalua(\.exe)? .+?\bcurl\b|^cmd .+?\bcmdkey .+?\bschtasks|^Invoke-Command .+?FromBase64String|^conhost .*?--headless .*?\bcmd\b|^iex\(irm |^irm .+? iex\b/msi, domAlert, 'Beware. uBlock Origin blocked a potential ClickFix attack: ${text}', excludeMatches, /Maintainer|Contributor|^import /i)
 ##.ninja-recommend-block
 blogterest.net##.blockSide > div.blockWrapper:has(> div > div.ninja-recommend-block)
 doorblog.jp,pachinkopachisro.com,blog.livedoor.jp,blog.jp,vipstyle.tokyo##.plugin-memo:has(> div.side > div.ninja-recommend-block)
@@ -15879,10 +15883,8 @@ jiocinema.com##+js(set, navigator.brave, undefined)
 *$script,domain=koamnewsnow.com,redirect-rule=noopjs
 kpkuang.org##+js(nostif, _0x)
 kpkuang.org###sterra-ad-onmid
+www.chip.de###M1:has(.page--has-billboard):style(top: 0px !important;)
 www.chip.de##.DownloadCharts-List > li:has(> a > article > .RUC-DownloadChartsBlock-AdLabel)
-chip.de###R1C3[role="complementary"]
-chip.de###R1C2[role="complementary"]:not(:has(> .Hero))
-chip.de###R1C1[role="complementary"]
 chip.de##.ButtonAuswahl + div > div[class]:has(> a[class][style="display:flex;"][href^="https://www.chip.de/downloads/"][href$=".html"])
 chip.de###aabhor
 chip.de##.ob-ad-carousel-layout
@@ -15892,15 +15894,16 @@ chip.de##.FC__Container.min-height-250px-mu:style(max-height: 0.1px !important; 
 chip.de##.app_nexus_banners_common
 chip.de###banner_top_table
 chip.de##.Ad
+chip.de##.ad
 chip.de###contentad-top-adsense-1
 chip.de##.Ad-Slot
-chip.de##.ad-slot
+chip.de##div[class*="ad-slot"]
 chip.de##.ad-listing
 chip.de##div[id*="AdSlot"]
 chip.de##.ae-banner
 chip.de##.ae-skyscraper
+chip.de##.product__top-aside
 chip.de##.RUC-DownloadButton-Wrap:has(> span:has-text(/^ANZEIGE$/))
-chip.de##.product__top-aside > section.mt-md:has(> h3:empty:first-child + table:last-child img[src*="screen13.com"])
 www.chip.de##^script:has-text(/\'\, [0-9]{3}\)\]\; \}  \}/)
 www.chip.de##^script:has-text(/\"\,\"clickp\"\:\"[0-9]{1,2}\"/)
 www.chip.de##+js(rmnt, script, /\'\, [0-9]{3}\)\]\; \}  \}/)
@@ -22417,6 +22420,7 @@ v2movies.click,v2movies.me##+js(nowoif)
 ||refpa58144.com^
 ||serving.adserver.live^
 v2movies.click,v2movies.me##[href^="https://refpa58144.com/"]
+@@||goplay.su^$ghide
 goplay.su##+js(nowoif, !addons.mozilla.org)
 goplay.ml,goplay.su##+js(json-prune, *, rot_url)
 goplay.su##+js(noeval-if, innerHTML)
@@ -23239,7 +23243,15 @@ openlua.cloud##+js(set, HTMLScriptElement.prototype.onerror, undefined)
 openlua.cloud##+js(json-prune-fetch-response, sponsor ad_provider, , propsToMatch, api.openlua.cloud)
 @@||openlua.cloud^$ghide
 openlua.cloud##+js(aeld, error, script-error)
-@@||openlua.cloud/*.js?$1p,script
+@@||openlua.cloud/*.gif$1p
+@@||openlua.cloud/ads-common.js$1p
+@@||openlua.cloud/jquery.popunder.js$1p
+@@||openlua.cloud/admanager.js$1p
+@@||openlua.cloud/exitpopup.js$1p
+@@||openlua.cloud/gpt-prebid.js$1p
+openlua.cloud##a[href^="https://boostmania.gg/"]
+openlua.cloud##div.fixed.backdrop-blur-xl
+openlua.cloud##+js(nostif, /probePlan|abort|void 0|a\(\)/)
 @@||luciferdonghua.in^$ghide
 luciferdonghua.in##+js(rmnt, script, baits.push)
 luciferdonghua.in##div[data-afuhost]
@@ -23437,6 +23449,7 @@ pixhost.*##+js(rmnt, script, AdProvider)
 pixhost.*##.content-companion
 selfhostt.com,ssdhostting.com##+js(no-xhr-if, googlesyndication)
 bdjobs.com##+js(json-edit, .bannerConfig..advertise.*)
+||goodreads.com/weblab
 ! uBlock filters – Badware risks https://ublockorigin.pages.dev/filters/badware.min.txt
 ||01net.com/telecharger/$doc
 ||flexytalk.net^
@@ -25707,6 +25720,15 @@ abogadosrosarinos.com,aptisweb.com,avene-hebergement.com,caesarjaco.co.id,https-
 abogadosrosarinos.com,aptisweb.com,avene-hebergement.com,caesarjaco.co.id,https-xhamster.com,skybap.shop##+js(aopw, ai_front)
 ##.cjs-container > #checkbox-window
 ##.cjs-container > #verify-window
+strand-co.com##+js(acs, document.createElement, .onerror)
+##body > .cf-root
+/^https:\/\/[a-z]{7,}\.(com|icu)\/[Tt]raffic\/api$/$script,match-case,3p,to=com|icu
+||weibonews.com^$all
+||biscottirbh.lol^$all
+##body > div.mw[role="main"] > .mc
+||google-meet-call.com^$all
+||faceit-account.com^$all
+||kook.bar^$all
 ||cracksway.com^$all
 ||gamingdebates.com^$all
 ||bonzi.link^$all
@@ -27676,6 +27698,7 @@ top##body > center + .A + .post
 ||fluentcleaner.org^$all
 ||ruthcottillionuchylf.github.io^$all
 ||vencord.cc^$all
+||hoka-uk.com^$all
 ! uBlock filters – Privacy https://ublockorigin.pages.dev/filters/privacy.min.txt
 ||google-analytics.com/analytics.js$script,xhr,redirect=google-analytics_analytics.js:5
 ||google-analytics.com/cx/api.js$script,redirect=google-analytics.com/cx/api.js:5
@@ -28197,20 +28220,20 @@ www.youtube.com##+js(no-xhr-if, /\/api\/stats\/atr\?.+?&rt=\d+\.\d+.+?&volume=\d
 ||zoom.us/*/app-telemetry.
 ||zoom.us/*/fingerprintjs-
 ||zoom.us/user/anonymous/telemetry
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{4}\/$/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{4,9}\/\?id=$/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{4,6}\/\?id=AW-\d+/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{3,6}\/\?id=G(TM)?-[A-Z0-9]+/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/(?:analyticsdata|gemets|gtm[a-z]+|metrics|securegtm)\/?$/$script,1p,match-case
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9]\/$/$script,1p,match-case,domain=~leagueoflegends.com|~lolesports.com|~playvalorant.com|~riotgames.com|~valorantesports.com
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?[a-z0-9]?[a-z0-9]?[a-z0-9]?\/\?id=$/$script,1p,match-case,domain=~leagueoflegends.com|~lolesports.com|~playvalorant.com|~riotgames.com|~valorantesports.com
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?\/\?id=AW-[0-9]+/$script,1p,match-case
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?[a-z0-9]?\/\?id=G(TM)?-[A-Z0-9]+/$script,1p,match-case
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/analyticsdata\/?$/$script,1p,match-case
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/gemets\/?$/$script,1p,match-case
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/gtm[a-z]+\/?$/$script,1p,match-case
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/metrics\/?$/$script,1p,match-case
-/^https:\/\/(www\.)?[a-z0-9]+\.[a-z]+(\.[a-z]+)?\/securegtm\/?$/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{4}\/$/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{4,9}\/\?id=$/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{4,6}\/\?id=AW-\d+/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9]{3,6}\/\?id=G(TM)?-[A-Z0-9]+/$script,1p,match-case,to=~xsso.leagueoflegends.com|~xsso.lolesports.com|~xsso.playvalorant.com|~xsso.riotgames.com|~xsso.valorantesports.com
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/(?:analyticsdata|gemets|gtm[a-z]+|metrics|securegtm)\/?$/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9]\/$/$script,1p,match-case,domain=~leagueoflegends.com|~lolesports.com|~playvalorant.com|~riotgames.com|~valorantesports.com
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?[a-z0-9]?[a-z0-9]?[a-z0-9]?\/\?id=$/$script,1p,match-case,domain=~leagueoflegends.com|~lolesports.com|~playvalorant.com|~riotgames.com|~valorantesports.com
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?\/\?id=AW-[0-9]+/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?[a-z0-9]?\/\?id=G(TM)?-[A-Z0-9]+/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/analyticsdata\/?$/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/gemets\/?$/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/gtm[a-z]+\/?$/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/metrics\/?$/$script,1p,match-case
+/^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/securegtm\/?$/$script,1p,match-case
 ||bdvmetricas.banvenez.com.ve^
 ||bilet.com/gtmcf/
 ||razorpay.com/build/razor-analytics/
@@ -34629,7 +34652,6 @@ oeq.org##+js(trusted-click-element, button#c-t-bn)
 fireflies.ai##+js(trusted-set-cookie, consentMode, '{"ad_storage":"denied","analytics_storage":"denied","functionality_storage":"granted","personalization_storage":"denied","ad_user_data":"denied","ad_personalization":"denied","security_storage":"granted"}')
 codewars.com##+js(trusted-click-element, a[fs-consent-element="deny"], , 2000)
 formazionepro.it##+js(trusted-click-element, button.c_link, , 1000)
-kotimikro.fi##+js(trusted-click-element, #didomi-notice-agree-button)
 memegenqc.app##+js(trusted-set-local-storage-item, memegenqc-cookie-consent, '{"analytics":false,"advertising":false,"timestamp":$now$}')
 loveholidays.com##+js(trusted-set-cookie, lvh_cookies_accepted, {%22GB%22:[%22essential%22]})
 firstchoice.co.uk##+js(trusted-set-cookie, CONSENTMGR, c1:1|c2:0|c3:0|c8:1|ts:$now$|consent:true)
@@ -34667,7 +34689,7 @@ itavisen.no##.qc-cmp2-container
 itavisen.no##+js(trusted-click-element, [id="qc-cmp2-ui"] [mode="secondary"], , 2000)
 itavisen.no##+js(trusted-click-element, [id="qc-cmp2-ui"] button[class*="css-"]:nth-of-type(1), , 3000)
 camaramar.com##+js(trusted-click-element, button.button.accept, , 2000)
-futurezone.at,maxjeune-tgvinoui.sncf##+js(trusted-click-element, #didomi-notice-agree-button)
+clubic.com,futurezone.at,kotimikro.fi,maxjeune-tgvinoui.sncf##+js(trusted-click-element, #didomi-notice-agree-button)
 gold.ac.uk##+js(trusted-click-element, button.ccc-accept-button)
 wistia.com##+js(trusted-set-local-storage-item, wistia_cookie_consent, '{"ad_storage":"denied","analytics_storage":"denied","functionality_storage":"granted","personalization_storage":"denied","security_storage":"granted","ad_user_data":"denied","ad_personalization":"denied"}')
 frandroid.com##+js(trusted-click-element, button[id="didomi-notice-agree-button"])
@@ -35654,6 +35676,7 @@ reddit.com#@#body:not(.with-listing-chooser):style(overflow: visible !important;
 reddit.com#@#body:style(pointer-events: auto !important; overflow: auto !important;)
 reddit.com##body:style(overflow: auto !important;)
 sh.reddit.com,www.reddit.com##+js(trusted-set-local-storage-item, xpromo-consolidation, $currentDate$)
+sh.reddit.com,www.reddit.com##+js(prevent-setTimeout, '{e(n,t,r)}', 30000)
 fotor.com##+js(nostif, offsetHeight)
 fotor.com##._1Pece
 fotor.com##.guanggao_close_group
