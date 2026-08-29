@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in AdGuard (but exist in uBO)
-! Last modified: Fri, 28 Aug 2026 22:10:01 GMT
+! Last modified: Sat, 29 Aug 2026 16:37:35 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,13 +8,13 @@
 ! Included filters:
 ! * uBlock filters
 !   - URL: https://ublockorigin.pages.dev/filters/filters.min.txt
-!   - Last modified: Fri, 28 Aug 2026 15:18:19 +0000
+!   - Last modified: Sat, 29 Aug 2026 03:28:03 +0000
 ! * uBlock filters – Badware risks
 !   - URL: https://ublockorigin.pages.dev/filters/badware.min.txt
 !   - Last modified: Fri, 28 Aug 2026 15:44:20 +0000
 ! * uBlock filters – Privacy
 !   - URL: https://ublockorigin.pages.dev/filters/privacy.min.txt
-!   - Last modified: Fri, 28 Aug 2026 14:20:50 +0000
+!   - Last modified: Sat, 29 Aug 2026 01:44:23 +0000
 ! * uBlock filters – Unbreak
 !   - URL: https://ublockorigin.pages.dev/filters/unbreak.min.txt
 !   - Last modified: Wed, 26 Aug 2026 09:35:33 +0000
@@ -27,7 +27,7 @@
 ! * uBlock filters – Cookie Notices
 !   - URL: https://ublockorigin.pages.dev/filters/annoyances-cookies.txt
 !   - Homepage: https://github.com/uBlockOrigin/uAssets
-!   - Last modified: Fri, 28 Aug 2026 15:06:26 +0000
+!   - Last modified: Sat, 29 Aug 2026 06:01:45 +0000
 ! * uBlock filters – Annoyances
 !   - URL: https://ublockorigin.pages.dev/filters/annoyances.min.txt
 !   - Last modified: Thu, 27 Aug 2026 10:20:43 +0000
@@ -6612,10 +6612,13 @@ ezeviral.com,pngreal.com###overlay
 pngreal.com##.adb
 ryuugames.com###wpsafe-link:style(display: block !important;)
 ryuugames.com###wpsafe-wait1,#wpsafe-link:others()
-||intercelestial.com^$csp=script-src 'self' * 'unsafe-inline'
-intercelestial.com##+js(nano-stb, , *, 0.1)
-intercelestial.com###landing, .soractrl:others()
-linegee.net##.kecil:others()
+pahe.plus##footer, .text-left, #link-view > [href], .box-main > [href]
+pahe.plus##+js(set, blurred, false)
+pahe.plus,intercelestial.com,teknoasian.com##+js(no-fetch-if, mode:no-cors)
+intercelestial.com,teknoasian.com##+js(nowoif)
+intercelestial.com,teknoasian.com##.right-sidebar.penci_sidebar.container,.penci-home-popular-posts.container,p,ul,li,[href*="s0-greate"],#sidebar,.post-pagination,.single-breadcrumb.penci-breadcrumb.container,.penci-move-title-above.post-image,#footer-section, .post-related, #comments
+intercelestial.com#@#+js(adjust-setTimeout, '', *, 0.1)
+/_ac/s/*.js|$script,1p
 laweducationinfo.com,godstoryinfo.com,armypowerinfo.com,phonereviewinfo.com,gknutshell.com,vichitrainfo.com,workproductivityinfo.com,dopomininfo.com,artoffocas.com##+js(trusted-replace-outbound-text, decodeURIComponent, Math.random() <= 0.15, false)
 laweducationinfo.com,godstoryinfo.com,armypowerinfo.com,phonereviewinfo.com,gknutshell.com,vichitrainfo.com,workproductivityinfo.com,dopomininfo.com,artoffocas.com##+js(set-cookie, __gads, 1)
 laweducationinfo.com,godstoryinfo.com,armypowerinfo.com,phonereviewinfo.com,gknutshell.com,vichitrainfo.com,workproductivityinfo.com,dopomininfo.com,artoffocas.com##+js(aopw, window.onload)
@@ -27753,7 +27756,7 @@ www.google.*##+js(href-sanitizer, #main a[href^="/url?q=http"], ?q)
 www.google.*###main a[href][ping^="/url?"]:remove-attr(ping)
 ||www.google.*/url?sa=*&source=*&cd=&ved=*&url=$urlskip=?url,doc,1p
 www.google.com##+js(aeld, mouseover, b.src, elements, #search #rso div[data-rpos] > div[data-ved])
-www.google.com##+js(rpnt, script, this.gbar_=, `window.addEventListener("mousemove",(()=>{W_jd&&document.querySelectorAll("#search #rso div[data-rpos]").forEach((t=>{let e=t.querySelector('div[data-hveid] span[jsaction^="trigger."] > a[href^="/goto?url="]');if(!e)return;let r=t.querySelector('div[id^="atritem-"]')?.attributes?.jsdata?.value?.split?.(";_;")?.[1];r&&Object.getOwnPropertySymbols(W_jd[r]).map((t=>{let l=W_jd[r][t];if("object"!=typeof l)return;let s=Object.values(l)?.[0]?.[32];if(console.log(s),s?.[3]?.[0]?.startsWith?.("http"))e.setAttribute("href",s[3][0]);else if(null!==s?.[3]){let t=Object.values(s?.[3]);t?.[0]?.[0]?.startsWith?.("http")&&e.setAttribute("href",t[0][0])}else null===s?.[3]&&s[11]?.[7]?.startsWith?.("http")&&(console.log(s),e.setAttribute("href",s[11][7]))}))}))}));this.gbar_=`)
+www.google.com##+js(rpnt, script, this.gbar_=, `window.addEventListener("mousemove",(()=>{W_jd&&document.querySelectorAll("#search #rso div[data-rpos]").forEach((t=>{let e=t.querySelector('div[data-hveid] span[jsaction^="trigger."] > a[href^="/goto?url="]');if(!e)return;let r=t.querySelector('div[id^="atritem-"]')?.attributes?.jsdata?.value?.split?.(";_;")?.[1];r&&Object.getOwnPropertySymbols(W_jd[r]).map((t=>{let l=W_jd[r][t];if("object"!=typeof l||null===l)return;let s=Object.values(l)?.[0]?.[32];if(s?.[3]?.[0]?.startsWith?.("http"))e.setAttribute("href",s[3][0]);else if(null!==s?.[3]){let t=Object.values(s?.[3]);t?.[0]?.[0]?.startsWith?.("http")&&e.setAttribute("href",t[0][0])}else null===s?.[3]&&s[11]?.[7]?.startsWith?.("http")&&e.setAttribute("href",s[11][7])}))}))}));this.gbar_=`)
 www.google.*##+js(set-attr, c-wiz[data-p] [data-query] a[target="_blank"][role="link"], rlhc, 1)
 liberation.fr,officedepot.fr,oui.sncf##+js(acs, document.createElement, '.js')
 sfr.fr##+js(aopr, _oEa)
@@ -33444,7 +33447,7 @@ pons.com##+js(trusted-click-element, button[data-e2e="pure-accept-ads"], , 1000)
 pons.com##+js(trusted-set-cookie, pons-pure, consent-given, , , domain, .pons.com)
 cnn.com##+js(trusted-set-local-storage-item, wbdLTP, 687f8fa8)
 ncaa.com##+js(trusted-set-local-storage-item, wbdLTP, 6934f2b8)
-adidas.*##+js(trusted-click-element, button[data-auto-id="glass-gdpr-default-consent-reject-button-central"], '', 1000)
+adidas.*##+js(trusted-click-element, div.button-wrapper > button.reject-all, '', 1500)
 crumblcookies.com##+js(trusted-set-local-storage-item, userTrackingConsent, '{"necessary":true,"marketing":false}')
 privacy.topreality.sk,privacy.autobazar.eu##+js(trusted-click-element, button[aria-label="Prijať všetko"])
 ilmatieteenlaitos.fi##+js(trusted-set-cookie, FMI_COOKIE_CONSENT, %7B%22ts%22%3A%221970-01-01T00%3A00%3A00.000Z%22%2C%22allow%22%3A%7B%22necessary%22%3A%7B%22fmi_necessary%22%3A1%7D%2C%22preferences%22%3A%7B%22fmi_preferences%22%3A1%7D%2C%22analytics%22%3A%7B%22rs%22%3A1%2C%22userneeds%22%3A2%7D%2C%22other%22%3A%7B%22youtube%22%3A1%2C%22fyrebox%22%3A1%7D%7D%7D, 1year)
