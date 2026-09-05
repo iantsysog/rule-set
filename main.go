@@ -1170,8 +1170,8 @@ func newRuleFile(dir, category string, entry fs.DirEntry) (ruleFile, bool) {
 		return ruleFile{}, false
 	}
 
-	base := strings.TrimSuffix(entry.Name(), ".conf")
-	if base == entry.Name() || base == "" {
+	base, ok := strings.CutSuffix(entry.Name(), ".conf")
+	if !ok || base == "" {
 		return ruleFile{}, false
 	}
 
