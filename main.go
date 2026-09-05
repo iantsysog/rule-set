@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"cmp"
 	"context"
 	"crypto/tls"
 	"errors"
@@ -19,7 +20,6 @@ import (
 	"path/filepath"
 	"regexp"
 	"slices"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -209,10 +209,8 @@ func parseImplicit(line string) entry {
 }
 
 func joinAddress(rest string) string {
-	parts := strings.Split(rest, ",")
-
-	trimmed := make([]string, 0, len(parts))
-	for _, part := range parts {
+	trimmed := make([]string, 0, strings.Count(rest, ",")+1)
+	for part := range strings.SplitSeq(rest, ",") {
 		part = strings.TrimSpace(part)
 		if part == "" {
 			break
@@ -431,7 +429,7 @@ func mergeList[T comparable](dst *badoption.Listable[T], values []T) {
 		return
 	}
 
-	setList(dst, append(append([]T(nil), (*dst)...), values...))
+	setList(dst, append(slices.Clone(*dst), values...))
 }
 
 func (c *compiler) finalize(r *option.DefaultHeadlessRule) {
@@ -900,11 +898,7 @@ func parsePortRange(raw string) (string, bool) {
 		return "", false
 	}
 
-	if start > end {
-		start, end = end, start
-	}
-
-	return fmt.Sprintf("%d:%d", start, end), true
+	return fmt.Sprintf("%d:%d", min(start, end), max(start, end)), true
 }
 
 func portRangeDelimiter(raw string) string {
@@ -1099,17 +1093,12 @@ func (p *pipeline) collect(dir string, categories []string) ([]ruleFile, error) 
 		files = append(files, categoryFiles...)
 	}
 
-	sort.Slice(files, func(i, j int) bool {
-		a, b := files[i], files[j]
-		if a.category != b.category {
-			return a.category < b.category
-		}
-
-		if a.name != b.name {
-			return a.name < b.name
-		}
-
-		return a.path < b.path
+	slices.SortFunc(files, func(a, b ruleFile) int {
+		return cmp.Or(
+			cmp.Compare(a.category, b.category),
+			cmp.Compare(a.name, b.name),
+			cmp.Compare(a.path, b.path),
+		)
 	})
 
 	return files, nil
