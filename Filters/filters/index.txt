@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Filters
-! Last modified: Mon, 07 Sep 2026 17:40:11 GMT
+! Last modified: Tue, 08 Sep 2026 16:29:39 GMT
 ! Expires: 1 hours
 ! Description: The filters from Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -58,10 +58,27 @@ webcontainer.io#@#+js(sukka-defuse-service-worker)
 *##+js(sukka-ephemeral-cache-storage)
 fandom.com##+js(sukka-defuse-cache-storage)
 *##+js(nowebrtc)
+/^10\.(?:(?:[1-9]?\d|1\d\d|2(?:[0-4]\d|5[0-5]))\.){2}(?:[1-9]?\d|1\d\d|2(?:[0-4]\d|5[0-5]))$/#@#+js(nowebrtc)
+/^172\.(?:1[6-9]|2\d|3[01])(?:\.(?:[1-9]?\d|1\d\d|2(?:[0-4]\d|5[0-5]))){2}$/#@#+js(nowebrtc)
+/^192\.168(?:\.(?:[1-9]?\d|1\d\d|2(?:[0-4]\d|5[0-5]))){2}$/#@#+js(nowebrtc)
+/^169\.254\.(?:[1-9]\d?|1\d{2}|2(?:[0-4]\d|5[0-4]))\.(?:[1-9]?\d|1\d{2}|2(?:[0-4]\d|5[0-5]))$/#@#+js(nowebrtc)
+/^\[f(?:[cd][0-9a-f]|e[89a-f])[0-9a-f]:[0-9a-f:]+\]$/#@#+js(nowebrtc)
+/^\[::ffff:(?:7f[0-9a-f]{2}|a[0-9a-f]{2}|ac1[0-9a-f]|c0a8|a9fe):[0-9a-f]{1,4}\]$/#@#+js(nowebrtc)
+/^127\.(?:(?:[1-9]?\d|1\d\d|2(?:[0-4]\d|5[0-5]))\.){2}(?:[1-9]?\d|1\d\d|2(?:[0-4]\d|5[0-5]))$/#@#+js(nowebrtc)
+localhost,0.0.0.0,[::1],[::]#@#+js(nowebrtc)
+internal,local,home.arpa#@#+js(nowebrtc)
+console.gl-inet.com#@#+js(nowebrtc)
+pi.hole#@#+js(nowebrtc)
+plex.direct#@#+js(nowebrtc)
+router.synology.com#@#+js(nowebrtc)
+unifi#@#+js(nowebrtc)
+unifi.localdomain#@#+js(nowebrtc)
+web.setup.home#@#+js(nowebrtc)
 bilibili.com#@#+js(nowebrtc)
 ui.com#@#+js(nowebrtc)
 challenges.cloudflare.com#@#+js(nowebrtc)
 speed.cloudflare.com#@#+js(nowebrtc)
+meet.google.com#@#+js(nowebrtc)
 ||youtube.com/embed/$3p,frame,redirect=click2load.html
 ||youtube-nocookie.com/embed/$3p,frame,redirect=click2load.html
 ||youtube.com/embed/$3p,object,redirect=click2load.html
@@ -304,6 +321,7 @@ intervals.icu##+js(trusted-prevent-xhr, //api/athletes/coaches/, {"coaches":[]})
 ||fandom.com/*/AgeDeclaration/$image
 fandom.com###article-discussions
 fandom.com###age-gate
+fandom.com##+js(set, fandomAgeGate, null)
 ||change.org/api-proxy/graphql?op=SuggestedPetitionsFromPetitionSunrise
 ||change.org/api-proxy/graphql?op=SunriseVictoriousPetitionsFromPetition
 ||change.org/api-proxy/graphql?op=PetitionQRCodeData
@@ -878,3 +896,7 @@ qrator.net##body:style(overflow: unset !important)
 cipherssecurity.com##.csp-overlay
 sinonjs.org##.VPCarbonAds
 landian.news##.single-activity-ticker
+||d-vps.com/api/stock/rail/*/image$image
+nytimes.com##.ribbon-container
+nytimes.com##.related-articles
+nytimes.com##.related-cont
