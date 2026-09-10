@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Wed, 09 Sep 2026 16:26:04 GMT
+! Last modified: Thu, 10 Sep 2026 16:15:48 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.11.4
+!   - Version: 2.1.11.15
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202609080647
@@ -219,6 +219,8 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
+||disutgh7q0ncc.cloudfront.net^
+||rer4.com^
 ||cloudx.io^
 ||lndrsapi.com^
 ||ac.conel.jp^
@@ -74633,6 +74635,8 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||events.plutus.ninja^
+||metrics.earlygame.com^
 ||pla.uqload.vc^
 ||rta2.newscientist.com^
 ||ureca.samsungapps.com^
@@ -282155,6 +282159,13 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||leolist.cc/static/min/js/modules/bam-impressions-
+||adverts.ie/5g8u/
+||api.mindbox.ru/*/customer/track-visit?
+||api.mindbox.ru/*/js/operations/async?*&trackerName
+roomie.jp##.r-article ~ .r-section:has(> div[id^="logly-lift-"])
+roomie.jp##.r-sidesection[data-google-interstitial]
+||runtimewire.com/api/analytics/*/events|
 newsnow.com##+js(set-session-storage-item, nfPageCount, $remove$)
 newsnow.com##+js(set-session-storage-item, pageCount, $remove$)
 ||bwapi.irunfar.com/log/
@@ -282333,8 +282344,8 @@ peacocktv.com##+js(set-local-storage-item, impressionTrackingSessionId, $remove$
 ||czesciauto24.pl/p/g^
 ||hexa.su/script.js
 ||candytm.pl/gtmgateway/
-/^https?:\/\/(android\.com\.pl|biznesenter\.pl)\/[a-z0-9]{1,4}\/$/$script,~3p,domain=android.com.pl|biznesenter.pl
-candytm.pl,biznesenter.pl##+js(abort-current-script, document.createElement, /gtm\.start|dataLayer/)
+/^https?:\/\/(android\.com\.pl|biznesenter\.pl|invezz\.com)\/[a-z0-9]{1,4}\/$/$script,~3p,domain=android.com.pl|biznesenter.pl|invezz.com
+invezz.com,candytm.pl,biznesenter.pl##+js(abort-current-script, document.createElement, /gtm\.start|dataLayer/)
 ||bifrost-api.hotstar.com/v*/events
 ||linuxcommunity.io/assets/google-universal-analytics-*.js
 ||credistory.ru/api/Metrics/
@@ -288489,6 +288500,7 @@ d4?appid*type*
 @@||googletagmanager.com/gtm.js$domain=saturn.de
 @@||metrics.us.playstation.com/b/ss/
 @@||st-*.dynamicyield.com/st*&inHead=true&id=*&jsession=*scriptVersion=*&noConsent=
+@@||pub-static.fotor.com/static/web/lib/sensors/sensorsdata.min.js
 @@||featureassets.org/v1/initialize?k=$domain=bloomberg.com
 @@||assetsconfigcdn.org/v1/initialize?k=$domain=bloomberg.com
 @@||cdn.jsdelivr.net/npm/@thumbmarkjs/thumbmarkjs/dist/thumbmark.$domain=archive.is|archive.today|archive.ph
