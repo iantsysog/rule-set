@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Mon, 14 Sep 2026 18:00:45 GMT
+! Last modified: Tue, 15 Sep 2026 16:47:39 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.11.43
+!   - Version: 2.1.11.54
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202609080647
@@ -219,6 +219,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
+||justice.maybeoneday.ch^
 ||a.ussp.io^
 ||bidderstack.com^
 ||cs.ifedata.ru^
@@ -74650,6 +74651,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||gadata.motorpresse.de^
 ||p.food.ru^
 ||7lzwgj.donaukurier.de^
 ||metrics.earlygame.com^
@@ -281666,6 +281668,8 @@ zmail.mtrl.me$image
 /^https?:\/\/(?!assets|script|static)(?:[0-9a-z]{10,13}|[0-9a-z]{6})\.[0-9A-Za-z.\-_]+\/(?=[0-9a-z+\/\-]*[A-Z])[0-9A-Za-z+\/\-]{80,106}$/$match-case,script,~3p
 /^https:\/\/cs\d{3}\.\w+\.com\/cscript\/\d{3}\/[\w\d]+\.js$/$script,3p,match-case
 /.well-known/private-click-measurement
+/api/videos/*/embed/view|$xhr
+/api/videos/*/embed/heartbeat|$xhr
 .io/yndx^
 /jc/gtm.js
 /static/modules/js/AssertiveYield/*
@@ -282177,6 +282181,10 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||index.hr/api/stats/
+||omr.com/reviews/gtm-
+||api.winstall.app/analytics/
+||berrybase.de/widgets/cbax/analytics/
 ||app.easy.tools/api/stats
 ||yandex.*/an/count/$ping
 ellegirl.jp##div[aria-label="Recommended articles carousel"]
@@ -282348,7 +282356,6 @@ gazetadopovo.com.br##section[class^="pianoRecommender"]
 ||run.app/events?cee=
 ||ecs.*.on.aws/events?cee=
 ||cdn.dsmcdn.com/web/prod/ring-manager.js
-||socialxup.com/api/track
 qwant.com##+js(prevent-fetch, apm.qwant.com/intake/v2/rum/events)
 x.com##+js(prevent-fetch, /i/api/1.1/flow/viewer.json)
 ||abs.twimg.com/responsive-web/client-web/loader.HomeTimelineAdblockNotice
@@ -287451,6 +287458,7 @@ mcp.directory##+js(remove-cookie, dotcom_user)
 dynamic-report-api.appsflyersdk.com^
 ||privacy-sandbox.appsflyersdk.com^
 -pia.appsflyersdk.com^
+.skadsdkless.appsflyersdk.com^
 -skadsdkless.appsflyersdk.com^
 -adrevenue.appsflyersdk.com^
 -attr.appsflyersdk.com^
