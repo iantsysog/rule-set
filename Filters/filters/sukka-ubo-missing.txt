@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Tue, 15 Sep 2026 16:47:39 GMT
+! Last modified: Wed, 16 Sep 2026 16:40:14 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.11.54
+!   - Version: 2.1.11.64
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202609080647
@@ -74651,6 +74651,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||counter.wargamings.net^
 ||gadata.motorpresse.de^
 ||p.food.ru^
 ||7lzwgj.donaukurier.de^
@@ -281668,6 +281669,8 @@ zmail.mtrl.me$image
 /^https?:\/\/(?!assets|script|static)(?:[0-9a-z]{10,13}|[0-9a-z]{6})\.[0-9A-Za-z.\-_]+\/(?=[0-9a-z+\/\-]*[A-Z])[0-9A-Za-z+\/\-]{80,106}$/$match-case,script,~3p
 /^https:\/\/cs\d{3}\.\w+\.com\/cscript\/\d{3}\/[\w\d]+\.js$/$script,3p,match-case
 /.well-known/private-click-measurement
+/static/js/tracker.js^
+/api/eventTracking/batchReport.json
 /api/videos/*/embed/view|$xhr
 /api/videos/*/embed/heartbeat|$xhr
 .io/yndx^
@@ -281927,7 +281930,6 @@ zmail.mtrl.me$image
 /stats.php?*event=$image
 /google_tag/*$script
 /gv-analytics/*
-/duracelltomi-google-tag-manager/*$script
 /img.gif?
 /mtracking.
 /pv.php?id=
@@ -282181,6 +282183,10 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||gorbilet.ru/blog/js/metrics.js
+||mediaexpert.pl/_internal/metrics/
+||wargamings.net/png.php?id=
+||iplayer.is/lib/tk.js
 ||index.hr/api/stats/
 ||omr.com/reviews/gtm-
 ||api.winstall.app/analytics/
@@ -288537,6 +288543,7 @@ d4?appid*type*
 @@||googletagmanager.com/gtm.js$domain=saturn.de
 @@||metrics.us.playstation.com/b/ss/
 @@||st-*.dynamicyield.com/st*&inHead=true&id=*&jsession=*scriptVersion=*&noConsent=
+@@||data.tm-awx.com$domain=gloucestershirelive.co.uk
 @@||rj.com/layouts/system/VisitorIdentification.js$domain=rj.com
 @@||sgtm.viking.de/gtm.js$domain=viking.de
 @@||pub-static.fotor.com/static/web/lib/sensors/sensorsdata.min.js
@@ -288566,6 +288573,8 @@ d4?appid*type*
 @@||techlab-cdn.com/e/$domain=sephora.com
 @@.my.salesforce-setup.com/_ui/common/config/field/*/d?id=*&type=
 @@||static.cloudflareinsights.com^$domain=quasarzone.com,script
+@@||feliz.data.tm-awx.com^$domain=cheshire-live.co.uk
+@@||feliz-web.data.tm-awx.com^$domain=cheshire-live.co.uk
 @@||feliz.data.tm-awx.com^$domain=football.london
 @@||feliz-web.data.tm-awx.com^$domain=football.london
 @@||cdn.clerk.io/clerk.js$domain=avxperten.at|avxperten.be|avxperten.com|avxperten.cy|avxperten.cz|avxperten.de|avxperten.dk|avxperten.ee|avxperten.es|avxperten.fi|avxperten.fr|avxperten.gr|avxperten.hr|avxperten.hu|avxperten.it|avxperten.lt|avxperten.lu|avxperten.lv|avxperten.nl|avxperten.no|avxperten.pl|avxperten.pt|avxperten.ro|avxperten.se|avxperten.si|avxperten.sk|brukas.no
