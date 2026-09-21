@@ -3,8 +3,8 @@ module github.com/iantsysog/rule-set
 go 1.27.1
 
 require (
-	github.com/sagernet/sing v0.9.1-0.20260904133552-ffcabb706b1c
-	github.com/sagernet/sing-box v1.15.0-alpha.2
+	github.com/sagernet/sing v0.9.5-0.20260917164122-8fc5da509c10
+	github.com/sagernet/sing-box v1.15.0-alpha.6
 	golang.org/x/sys v0.47.0
 )
 
@@ -25,7 +25,7 @@ require (
 	github.com/sagernet/gvisor v0.0.0-20250811-sing-box-mod.1 // indirect
 	github.com/sagernet/netlink v0.0.0-20260814022025-64455d367bbf // indirect
 	github.com/sagernet/nftables v0.3.0-mod.4 // indirect
-	github.com/sagernet/sing-tun v0.9.1-0.20260902150540-98e457e39c90 // indirect
+	github.com/sagernet/sing-tun v0.9.4-0.20260917142847-fbc0c3dff312 // indirect
 	github.com/sagernet/sing-usbip v0.0.0-20260817040617-28bd42667eca // indirect
 	github.com/vishvananda/netns v0.0.5 // indirect
 	go4.org/netipx v0.0.0-20260823151212-3075585bcbeb // indirect
