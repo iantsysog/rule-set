@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Sun, 20 Sep 2026 15:54:51 GMT
+! Last modified: Mon, 21 Sep 2026 18:09:08 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.11.86
+!   - Version: 2.1.11.98
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202609080647
@@ -12265,6 +12265,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||swa.millesima.pt^
 ||swa.proflowers.com^
 ||swa.proplants.com^
+||swasc.homedepot.com^
 ||swebanalytics.eniro.net^
 ||swebanalytics.krakdeals.dk^
 ||swebanalytics.proff.dk^
@@ -74651,6 +74652,11 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||rlog.baifentan.com^
+||analytics.laxamentum.tech^
+||e.missav.
+||u.omgjav.com^
+||n.nstbrowser.io^
 ||stats.stellar.rip^
 ||dtam.thrive.today^
 ||jnt.bild.de^
@@ -281755,7 +281761,7 @@ zmail.mtrl.me$image
 .com.br/cliente/trackRemote^|
 /impr-trck?
 /prgr-trk?
-||umami.
+||umami.$domain=~umami.is
 .co/gr?id=
 /api/site/tracking-config/*
 /api/track|$3p,xhr
@@ -282184,6 +282190,10 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||api.claydar.com/tracker/
+/wp-content/uploads/*/*.js?id=G-$domain=fcportables.com
+||finanzen.*/api/page-visits/track
+||cdn.shopify.com/extensions/*/affliate-by-secomapp-125/
 ||wlct-one.de/api/*/mtrcs/
 ||oeamtc.at/*/js/cms.frontend._js.tracking/
 ||spaziogames.it/6vzv/
@@ -282227,7 +282237,7 @@ newsnow.com##+js(set-session-storage-item, pageCount, $remove$)
 ||bwapi.irunfar.com/log/
 ||bwapi.irunfar.com/event/
 ||animegratis.net/js/layout-signal.js
-harpersbazaar.com##div[aria-labelledby="recirc-heading"]
+womenshealthmag.com,harpersbazaar.com##div[aria-labelledby="recirc-heading"]
 ||otrium.*/static/newrelic.js
 ||otrium.*/measure/
 ||tellows.jp/ping.php?p=
@@ -282643,7 +282653,6 @@ abc.net.au##+js(set-local-storage-item, snowplowOutQueue_Presentation Layer, $re
 ||rudderstack.com/v1/batch?writeKey=
 ||simplywall.st/backend/flags/proxy/client/metrics
 ||doofinder.com/api/v*/stats/
-||chatgpt.com/backend-api/beacons/
 ||lg-chatbot.com/chatbot/v*/api/client_logger
 ||cv-library.co.uk/assets/js/ext/amplitude-
 ||cv-library.co.uk/assets/js/ext/clickstream.
@@ -288551,6 +288560,9 @@ d4?appid*type*
 @@||googletagmanager.com/gtm.js$domain=saturn.de
 @@||metrics.us.playstation.com/b/ss/
 @@||st-*.dynamicyield.com/st*&inHead=true&id=*&jsession=*scriptVersion=*&noConsent=
+@@||integrations.fitanalytics.com/shop/bergfreunde/pdp.js$domain=bergfreunde.de|berg-freunde.at|berg-freunde.ch|bergfreunde.nl|bergfreunde.be|bergfreunde.it|bergfreunde.es|bergfreunde.eu|bergfreunde.dk|bergfreunde.se|bergfreunde.no|bergfreunde.fi|alpinetrek.co.uk|alpiniste.fr|campz.ie
+@@||widget.fitanalytics.com/widget_zepto.js$domain=bergfreunde.de|berg-freunde.at|berg-freunde.ch|bergfreunde.nl|bergfreunde.be|bergfreunde.it|bergfreunde.es|bergfreunde.eu|bergfreunde.dk|bergfreunde.se|bergfreunde.no|bergfreunde.fi|alpinetrek.co.uk|alpiniste.fr|campz.ie
+@@||widget.fitanalytics.com/widget/api/$domain=bergfreunde.de|berg-freunde.at|berg-freunde.ch|bergfreunde.nl|bergfreunde.be|bergfreunde.it|bergfreunde.es|bergfreunde.eu|bergfreunde.dk|bergfreunde.se|bergfreunde.no|bergfreunde.fi|alpinetrek.co.uk|alpiniste.fr|campz.ie
 @@||data.tm-awx.com$domain=gloucestershirelive.co.uk
 @@||rj.com/layouts/system/VisitorIdentification.js$domain=rj.com
 @@||sgtm.viking.de/gtm.js$domain=viking.de
