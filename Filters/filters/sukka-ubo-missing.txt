@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Mon, 21 Sep 2026 18:09:08 GMT
+! Last modified: Wed, 23 Sep 2026 16:41:38 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.11.98
+!   - Version: 2.1.12.12
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202609080647
@@ -396,7 +396,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||b-sing.com^
 ||client-sdk.hackle.io^
 ||t.jibeno.xyz^
-||ctxcollect.com^
 ||conduit-beacon-usw2.mtvnservices.com^
 ||tvp.tv^
 ||adsximg.com^
@@ -74652,6 +74651,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||analytics.sportigio.com^
 ||rlog.baifentan.com^
 ||analytics.laxamentum.tech^
 ||e.missav.
@@ -74809,7 +74809,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||dlso-ap96.macgamingdb.app^
 ||fm-analytics.cloudbees.io^
 ||mlm-tracking.meinestadt.de^
-||stats.temptcdn.com^
 ||opt.mocortech.com^
 ||analytics-proxy-501188673100.us-central1.run.app^
 ||analytics.studiodesignapp.com^
@@ -75026,7 +75025,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||bilog.lovense-api.com^
 ||log.lovense-api.com^
 ||tdum.alibaba.com^
-||webpushstat-sgp.engagelab.com^
 ||analytics.simpler.so^
 ||api-ktm.kkday.com^
 ||riskpoc.trip.com^
@@ -75366,7 +75364,6 @@ prd.api.bleacherreport.com^
 ||e.fomo.com^
 ||iq.afterpay.com^
 ||events.statsigapi.net^
-||fourier.alibaba.com^
 ||fourier.aliexpress.com^
 ||sofire.1024tera.com^
 ||market-click-baobab.yandex.ru^
@@ -76433,7 +76430,6 @@ prd.api.bleacherreport.com^
 ||hwa.his.huawei.com^
 ||i.bigin.io^
 ||ibeat.indiatimes.com^
-||ichnaea-web.netflix.com^
 ||ichnaea.netflix.com^
 ||img.opentracker.net
 ||in.cuebiq.com^
@@ -282190,6 +282186,14 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||tracker.telegram.hr^
+||beam.telegram.hr^
+||campaign.telegram.hr^
+app.socios.com##+js(set-local-storage-item, deviceId, $remove$)
+||im.np-payment-gateway.com/bff/atone/event/tracking
+||storage.googleapis.com/*/js/comscore.js
+||eurozpravy.cz/js/matomo-events.js
+||footmercato.net/lib/prebid$script
 ||api.claydar.com/tracker/
 /wp-content/uploads/*/*.js?id=G-$domain=fcportables.com
 ||finanzen.*/api/page-visits/track
@@ -282653,6 +282657,7 @@ abc.net.au##+js(set-local-storage-item, snowplowOutQueue_Presentation Layer, $re
 ||rudderstack.com/v1/batch?writeKey=
 ||simplywall.st/backend/flags/proxy/client/metrics
 ||doofinder.com/api/v*/stats/
+||chatgpt.com/backend-api/sentinel/ping
 ||lg-chatbot.com/chatbot/v*/api/client_logger
 ||cv-library.co.uk/assets/js/ext/amplitude-
 ||cv-library.co.uk/assets/js/ext/clickstream.
@@ -288560,6 +288565,7 @@ d4?appid*type*
 @@||googletagmanager.com/gtm.js$domain=saturn.de
 @@||metrics.us.playstation.com/b/ss/
 @@||st-*.dynamicyield.com/st*&inHead=true&id=*&jsession=*scriptVersion=*&noConsent=
+comed.com##+js(set-constant, setupGoogleAnalytics, noopFunc)
 @@||integrations.fitanalytics.com/shop/bergfreunde/pdp.js$domain=bergfreunde.de|berg-freunde.at|berg-freunde.ch|bergfreunde.nl|bergfreunde.be|bergfreunde.it|bergfreunde.es|bergfreunde.eu|bergfreunde.dk|bergfreunde.se|bergfreunde.no|bergfreunde.fi|alpinetrek.co.uk|alpiniste.fr|campz.ie
 @@||widget.fitanalytics.com/widget_zepto.js$domain=bergfreunde.de|berg-freunde.at|berg-freunde.ch|bergfreunde.nl|bergfreunde.be|bergfreunde.it|bergfreunde.es|bergfreunde.eu|bergfreunde.dk|bergfreunde.se|bergfreunde.no|bergfreunde.fi|alpinetrek.co.uk|alpiniste.fr|campz.ie
 @@||widget.fitanalytics.com/widget/api/$domain=bergfreunde.de|berg-freunde.at|berg-freunde.ch|bergfreunde.nl|bergfreunde.be|bergfreunde.it|bergfreunde.es|bergfreunde.eu|bergfreunde.dk|bergfreunde.se|bergfreunde.no|bergfreunde.fi|alpinetrek.co.uk|alpiniste.fr|campz.ie
