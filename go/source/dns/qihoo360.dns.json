@@ -9,14 +9,10 @@
         "360.net",
         "qiku.com",
         "360os.com",
-        "qhimg.com",
         "qhmsg.com",
-        "qhres.com",
         "yunpan.cn",
         "haosou.com",
         "qh-cdn.com",
-        "qhimgs.com",
-        "qhres2.com",
         "yunpan.com",
         "360kuai.com",
         "360safe.com",
@@ -28,8 +24,7 @@
         "qhupdate.com",
         "yunpan.com.cn",
         "360webcache.com"
-      ],
-      "domain_regex": "^[\\w.-]*?\\.qhimgs[\\w.-]\\.com$"
+      ]
     }
   ]
 }

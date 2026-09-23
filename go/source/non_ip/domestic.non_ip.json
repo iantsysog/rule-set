@@ -302,6 +302,7 @@
         "qiniu.com",
         "qixin.com",
         "qzone.com",
+        "rnote.com",
         "roblox.cn",
         "sifou.com",
         "sinajs.cn",
@@ -871,7 +872,7 @@
         "kingsoft-office-service.com",
         "dl.delivery.mp.microsoft.com"
       ],
-      "domain_regex": "^[\\w.-]*?\\.qhimgs[\\w.-]\\.com$"
+      "domain_regex": "^qhimgs[\\w.-]\\.com$"
     }
   ]
 }

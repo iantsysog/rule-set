@@ -1,0 +1,16 @@
+{
+  "version": 5,
+  "rules": [
+    {
+      "domain_suffix": [
+        "hdslb.com",
+        "qhimg.com",
+        "qhres.com",
+        "qhimgs.com",
+        "qhres2.com",
+        "music.126.net"
+      ],
+      "domain_regex": "^qhimgs[\\w.-]\\.com$"
+    }
+  ]
+}
