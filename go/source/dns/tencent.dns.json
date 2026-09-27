@@ -2,10 +2,7 @@
   "version": 5,
   "rules": [
     {
-      "domain": [
-        "url.cn",
-        "tx-safety-video.acfun.cn"
-      ],
+      "domain": "url.cn",
       "domain_suffix": [
         "qq.com",
         "qpic.cn",
