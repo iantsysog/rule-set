@@ -2,7 +2,10 @@
   "version": 5,
   "rules": [
     {
-      "domain": "registry.npmmirror.com",
+      "domain": [
+        "time.xtracloud.net",
+        "registry.npmmirror.com"
+      ],
       "domain_suffix": [
         "tbcdn.cn",
         "hdslb.com",
