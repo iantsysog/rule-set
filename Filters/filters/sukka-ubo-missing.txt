@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Tue, 06 Oct 2026 18:15:15 GMT
+! Last modified: Wed, 07 Oct 2026 18:48:06 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.12.92
+!   - Version: 2.1.13.5
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202610011010
@@ -74655,9 +74655,14 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||tag.flvcdn.net^
+||r-tag.coeteco.jp^
+||gtm.ground.news^
+||d.ground.news^
+||data.petri.com^
+||c3.wildwolf.name^
 ||tips.delt.io^
 ||unami.delt.io^
-||servt.ergadx.com^
 ||one01.stright.bizris.com^
 ||analytics.infomaniak.com^
 ||biprx.n12.co.il^
@@ -281691,6 +281696,7 @@ zmail.mtrl.me$image
 /^https?:\/\/(?!assets|script|static)(?:[0-9a-z]{10,13}|[0-9a-z]{6})\.[0-9A-Za-z.\-_]+\/(?=[0-9a-z+\/\-]*[A-Z])[0-9A-Za-z+\/\-]{80,106}$/$match-case,script,~3p
 /^https:\/\/cs\d{3}\.\w+\.com\/cscript\/\d{3}\/[\w\d]+\.js$/$script,3p,match-case
 /.well-known/private-click-measurement
+/wp-content/plugins/advanced-ads-tracking/*
 /static/js/tracker.js^
 /api/eventTracking/batchReport.json
 /api/videos/*/embed/view|$xhr
@@ -282205,6 +282211,14 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||u.stmedia.click/script.js
+elektromobilni.pl##+js(set-constant, advadsTracking, {})
+||niketalk.com/gtag/
+||ground.news/monitoring
+||ground.news/api/posthog/
+ground.news##+js(set-local-storage-item, anon-user-info, $remove$)
+||collector-pxebumdlwe.px-cloud.net/b/s/beacon
+||isratrip.net/platform/api/pub_funnel.php
 ||a.nel.cloudflare.com/report/
 ||delt.io/a/
 v-1.co.il##+js(set-local-storage-item, v1_device_id, $remove$)
@@ -287578,11 +287592,12 @@ dlsdk.appsflyer.com^
 ||int.vlancaa.site^
 ||int.vlancaa.fun^
 ||tok.vaicore.xyz^
+||api-sdk-tracking.beaconbank.jp^
 ||api-sdk.beaconbank.jp^
 ||stream-log.profilepassport.jp^
-|||nt-stream-log.profilepassport.jp^
-|||pp3-sdk-api.profilepassport.jp^
-|||pp3-sdkdata-v2-ut.profilepassport.jp^
+||nt-stream-log.profilepassport.jp^
+||pp3-sdk-api.profilepassport.jp^
+||pp3-sdkdata-v2-ut.profilepassport.jp^
 ||metrics.li^
 ||bid.ctv.house^
 ||log.calomeal.com^
@@ -288608,6 +288623,10 @@ d4?appid*type*
 @@||googletagmanager.com/gtm.js$domain=saturn.de
 @@||metrics.us.playstation.com/b/ss/
 @@||st-*.dynamicyield.com/st*&inHead=true&id=*&jsession=*scriptVersion=*&noConsent=
+@@||rtoaster.jp^$script,domain=nitori-net.jp
+@@||rtl.nl/_astro/snowplow.*.js$domain=rtl.nl
+@@||st-*.dynamicyield.com/st?$script,domain=easytoys.pl|easytoys.nl|easytoys.be|easytoys.es|easytoys.it
+@@||liveapi.yext.com^$domain=answers.business.lloydsbank.com
 @@||power.mhi.com/modules/contrib/google_tag/js/gtm.js$domain=power.mhi.com
 @@||googletagmanager.com/gtm.js$domain=power.mhi.com
 @@||cmp.optimizely.com/assets/$image,domain=roadscholar.org
