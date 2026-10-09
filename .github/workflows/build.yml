@@ -85,9 +85,11 @@ jobs:
 
       - name: Patches for Ruleset
         run: |
-          echo "updates.alma.now" >> build/List/domainset/download.conf
-          echo "us.aws.cdn.hf.co" >> build/List/domainset/download.conf
-          echo "download.calibre-ebook.com" >> build/List/domainset/download.conf
+          {
+            echo "updates.alma.now"
+            echo "us.aws.cdn.hf.co"
+            echo "download.calibre-ebook.com"
+          } >> build/List/domainset/download.conf
           echo "PROCESS-NAME,NeatDownloadManager" >> build/List/non_ip/download.conf
 
           # cat >> build/List/non_ip/global.conf <<'EOF'
@@ -182,26 +184,15 @@ jobs:
 
       - name: Resolve Version for sing-box
         id: version
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          curl_headers=(
-            -H "Accept: application/vnd.github+json"
-          )
-          if [[ -n "${GITHUB_TOKEN:-}" ]]; then
-            curl_headers+=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
-          fi
           version=$(
-            curl -sL "${curl_headers[@]}" \
-              https://api.github.com/repos/SagerNet/sing-box/releases?per_page=100 \
-            | jq -er '
-                if type != "array" then
-                  error("GitHub releases API returned " + type + ": " + (.message // .))
-                else
-                  [.[] | select(.prerelease == true)][0].tag_name | ltrimstr("v")
-                end
-              '
+            git ls-remote --tags --refs https://github.com/SagerNet/sing-box \
+              | cut -d/ -f3 \
+              | sed -n '/-/s/^v//p' \
+              | sort -V \
+              | tail -n 1
           )
+          [[ -n "$version" ]] || { echo "no sing-box prerelease tag found" >&2; exit 1; }
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Generate Base Outputs
