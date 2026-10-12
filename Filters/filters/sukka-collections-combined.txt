@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Collections Combined
-! Last modified: Sun, 11 Oct 2026 17:37:57 GMT
+! Last modified: Mon, 12 Oct 2026 21:11:44 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -18,10 +18,10 @@
 !   - URL: https://cdn.jsdelivr.net/gh/easylist/easylist@master/custom-lists/youtube-whatdoyoulikedoforfun.txt
 ! * Adblock Warning Removal List
 !   - URL: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
-!   - Version: 202610111732
+!   - Version: 202610122102
 !   - Homepage: https://github.com/easylist/antiadblockfilters
 !   - Licence: https://easylist.to/pages/licence.html
-!   - Last modified: 11 Oct 2026 17:32 UTC
+!   - Last modified: 12 Oct 2026 21:02 UTC
 ! * BarbBlock
 !   - URL: https://paulgb.github.io/BarbBlock/blacklists/ublock-origin.txt
 !   - Homepage: https://paulgb.github.io/
@@ -74,7 +74,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * ➗ Actually Legitimate URL Shortener Tool
 !   - URL: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt
-!   - Version: 10October2026v1
+!   - Version: 12October2026v3
 !   - Homepage: https://github.com/DandelionSprout/adfilt/discussions/163
 ! * 🐊 Imgur: Pure Imagery Experience
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/ImgurPureImageryExperience.txt
@@ -18918,6 +18918,16 @@ $removeparam=_rdc
 ||instagram.com^$doc,removeparam=click_source
 ||instagram.com^$doc,removeparam=ndid
 ||instacart.com^$doc,removeparam=ic_medium
+||instagram.com^$doc,removeparam=psln
+||instagram.com^$doc,removeparam=rpxt
+||instagram.com^$doc,removeparam=srtk
+||instagram.com^$doc,removeparam=obrf
+||instagram.com^$doc,removeparam=cplk
+||instagram.com^$doc,removeparam=dlrf
+||instagram.com^$doc,removeparam=xtok
+||instagram.com^$doc,removeparam=mdxt
+||instagram.com^$doc,removeparam=exln
+||instagram.com^$doc,removeparam=vrfl
 $removeparam=cp_ksver
 $removeparam=biw
 $removeparam=bih
@@ -19027,13 +19037,6 @@ $removeparam=share_link_id
 ||tiktok.com^$removeparam=share_author_id
 $doc,removeparam=/^web_id\d+/,domain=tiktok.com
 ||tiktok.com^$removeparam=embed_source
-||instagram.com^$doc,removeparam=psln
-||instagram.com^$doc,removeparam=rpxt
-||instagram.com^$doc,removeparam=srtk
-||instagram.com^$doc,removeparam=obrf
-||instagram.com^$doc,removeparam=cplk
-||instagram.com^$doc,removeparam=dlrf
-||instagram.com^$doc,removeparam=xtok
 $removeparam=si,doc,domain=open.spotify.com|soundcloud.com|youtu.be|zappos.com
 ||open.spotify.com^$removeparam=/^.*advertising_partner_name=.*$/i
 ||open.spotify.com^$removeparam=%243p
@@ -19595,7 +19598,7 @@ $removeparam=CAGPSPN
 ||lendgo.com^$removeparam=apr
 $removeparam=rt,domain=lendgo.com|bilibili.com
 ||lendgo.com^$removeparam=lt
-$doc,removeparam=lid,domain=baidu.com|chewy.com|clickserve.dartsearch.net|flipkart.com|instagram.com|weather.com|harborfreight.com|sonypictures.com
+$doc,removeparam=lid,domain=baidu.com|chewy.com|clickserve.dartsearch.net|flipkart.com|instagram.com|weather.com|harborfreight.com|sonypictures.com|mcdonalds.com
 $removeparam=referaldomain,domain=microcenter.com
 $removeparam=web,domain=microcenter.com|tomtop.com
 ||unieuro.it^$removeparam=dedup
@@ -20705,6 +20708,7 @@ ref=macapp.supply$doc,removeparam=ref
 ||verizon.com^$doc,removeparam=CUHID
 ||verizon.com^$doc,removeparam=EMHID
 ||verizon.com^$doc,removeparam=BID
+ref=thebirthofacapital.info$doc,removeparam=ref
 $removeparam=w,domain=files.wordpress.com|store.playstation.com|s-microsoft.com|store-images.microsoft.com|dr.dk|if.com.au
 $removeparam=h,domain=files.wordpress.com|store.playstation.com|s-microsoft.com|store-images.microsoft.com|dr.dk
 $removeparam=width,domain=i-viaplay.com.akamaized.net|media.discordapp.net|tvno.nu
