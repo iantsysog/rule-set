@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Thu, 15 Oct 2026 16:47:01 GMT
+! Last modified: Fri, 16 Oct 2026 16:29:36 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.13.59
+!   - Version: 2.1.13.66
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202610011010
@@ -220,6 +220,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
+||adtasukaru.com^$3p
 ||manus-analytics.com^
 ||rt.buzzni.com^
 ||did.kr^$3p
@@ -78348,6 +78349,10 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||config.trackingplan.com^
+||eu-tracks.trackingplan.com^
+||tracks.trackingplan.com^
+||log.mopo.de^
 ||tracking.broadpeak.io^
 ||a.wing.st^
 ||metrics.elcomercio.es^
@@ -304339,7 +304344,6 @@ _analytics.js?
 /js/sync?visitor_id=
 /pixel/?block_id=*&hash=*&host=
 .demandbase.*.js
-/zaius.gif?
 /common/tracking/webtrekk
 /bbtstats/*
 /px.js?ch=
@@ -304550,6 +304554,11 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||bookbear.kr/js/site_log.js
+||yimg.com/*/ymanalytics-core.js
+||faz.net/api/fpid/
+||plapi.cdnvideohub.com/*/events
+||edge.fedy.io^$domain=ensonhaber.com
 ||7movies.ac/api/analytics/event|
 ||catch.dmm.co.jp/newrelic.js
 ||video.dmm.co.jp/js/tracking.min.js
