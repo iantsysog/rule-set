@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Mon, 19 Oct 2026 18:38:51 GMT
+! Last modified: Tue, 20 Oct 2026 16:45:17 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.13.78
+!   - Version: 2.1.13.84
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202610011010
@@ -29513,7 +29513,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||we.trk.the-savings-guru.com^
 ||winnersmindset.org^
 ||woof.psi-lekarna.cz^
-||www.vcrnads.com^
 ||a.healthy-publishing.com^
 ||a.vital-health-path.com^
 ||ads.drviniciusandrade.com.br^
@@ -36908,6 +36907,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||load.st.carloanfirst.co.uk^
 ||load.st.feestfabriek.nl^
 ||load.st.fussballreisen.com^
+||load.st.growking24.com^
 ||load.st.kirsch-vs.de^
 ||load.st.malier.pl^
 ||load.st.masterminds-event.nl^
@@ -58257,6 +58257,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||load.ggl.ma-deco-tendance.fr^
 ||load.ggl.ma-peluche.fr^
 ||load.ggl.magic-plush.com^
+||load.ggl.maison-orthopedique.fr^
 ||load.ggl.malampechampignon.fr^
 ||load.ggl.malampedechevet.com^
 ||load.ggl.mein-pluschtier.de^
@@ -58275,6 +58276,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||load.ggl.tabloide.fr^
 ||load.ggl.tabloide.it^
 ||load.ggl.tendance-jeans.com^
+||load.ggl.tousenpyjama.com^
 ||load.ggl.univers-plaid.com^
 ||load.ggl.universpokemon.com^
 ||load.ggl.veilleuse.fr^
@@ -58776,6 +58778,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||load.gtm.yalume.com.br^
 ||load.gtm.yassamineinternationalschool.com^
 ||load.gtm.yogateria.com.br^
+||load.gtm.zaro.bd^
 ||load.gtm1.ecu.edu.au^
 ||load.gtm2.ecu.edu.au^
 ||load.gtm2.educationone.com.br^
@@ -59170,6 +59173,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||load.server.dragiovannadasilva.com^
 ||load.server.easytransfer.is^
 ||load.server.ehumu.com.bd^
+||load.server.elaraltd.com^
 ||load.server.elpatronfranquia.com.br^
 ||load.server.empreender40mais.com^
 ||load.server.empureo.com^
@@ -80165,6 +80169,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||tracks.hackmd.io^
 ||bigdata-scfx-push.kucoin.plus^
 ||config.trackingplan.com^
 ||eu-tracks.trackingplan.com^
@@ -315983,6 +315988,9 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||koin.com/wp-content/plugins/chartbeat/build/chartbeat-user-tracking.*.js
+||cdn.vector.co/pixel.js
+||external.citynews.it/~shared/do/api/plausible/
 ||partner-events.favicdn.net/*/partnerEventsTracking.js
 ||diablochairs.com/static/*/RedChamps_OrderAnalyticalInfo/js/referral.min.js
 ||diablochairs.com/datalayer/index/events?
@@ -320366,6 +320374,7 @@ abp?type=js&session$domain=prosieben.de|sat1.de|kabeleins.de|sixx.de|prosiebenma
 ||prlog.ru/images/counter/$3p
 ||quantserve.com^*.swf?$3p
 ||quantserve.com^*^a=$3p
+||qualtrics.com^*/metrics
 ||quantserve.com/api/
 ||quantserve.com/pixel$3p
 ||qoo.by/counter.js$3p
@@ -321978,7 +321987,6 @@ d4?appid*type*
 ||h-adashx4ae.ut.taobao.com^
 ||audid-api.taobao.com^
 ||analytics.ff.avast.com^
-||node.aibeacon.jp^
 ||wsmetrics.batch.com^
 ||log.isnssdk.com^
 ||log-tb.isnssdk.com^
@@ -322530,6 +322538,7 @@ goldmansachs.com##+js(prevent-fetch, edge.adobedc.net)
 @@||cdn.cxense.com/cx.js$domain=hochi.news
 @@||api.cxense.com/public/widget/data?json=$domain=hochi.news
 @@||dd.subito.it.first-party-js.datadome.co^$script,xhr,domain=areariservata.subito.it
+@@||g.alicdn.com/alilog/mlog/aplus_$script,domain=youku.tv
 @@||g.alicdn.com/alilog/mlog/aplus_o.js$domain=v.youku.com
 @@||log.mmstat.com/eg.js$domain=v.youku.com
 @@||securepubads.g.doubleclick.net/tag/js/gpt.js$script,redirect=googletagservices_gpt.js,domain=parade.com
@@ -322705,7 +322714,7 @@ bilibili.com##+js(set-constant, __MIRROR_REPORT__.techReportPb, noopFunc)
 bilibili.com##+js(set-constant, __MIRROR_REPORT__.customReportPb, noopFunc)
 bilibili.com##+js(set-constant, __MIRROR_REPORT__.customPerformanceQuota, noopFunc)
 @@||prod.adobeccstatic.com/unav/*/AnalyticsProvider.*.bundle.js$domain=acrobat.adobe.com
-@@||s.yimg.com/ss/analytics3.js$domain=tw.news.yahoo.com|tw.yahoo.com|tw.stock.yahoo.com|hk.news.yahoo.com|hk.yahoo.com|hk.stock.yahoo.com
+@@||s.yimg.com/ss/analytics3.js$domain=tw.news.yahoo.com|tw.yahoo.com|tw.stock.yahoo.com|hk.news.yahoo.com|hk.yahoo.com|hk.stock.yahoo.com|help.yahoo.com
 id.condenast.com##+js(set-constant, appInfo.snowplow.trackSelfDescribingEvent, noopFunc)
 @@||googletagmanager.com/gtm.js$domain=challenges.fr
 @@||cdn.optimizely.com/datafiles/*.json$domain=alaskaair.com
