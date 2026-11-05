@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Collections Combined
-! Last modified: Wed, 04 Nov 2026 19:39:05 GMT
+! Last modified: Thu, 05 Nov 2026 19:48:53 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -18,10 +18,10 @@
 !   - URL: https://cdn.jsdelivr.net/gh/easylist/easylist@master/custom-lists/youtube-whatdoyoulikedoforfun.txt
 ! * Adblock Warning Removal List
 !   - URL: https://easylist-downloads.adblockplus.org/antiadblockfilters.txt
-!   - Version: 202611041932
+!   - Version: 202611051942
 !   - Homepage: https://github.com/easylist/antiadblockfilters
 !   - Licence: https://easylist.to/pages/licence.html
-!   - Last modified: 04 Nov 2026 19:32 UTC
+!   - Last modified: 05 Nov 2026 19:42 UTC
 ! * BarbBlock
 !   - URL: https://paulgb.github.io/BarbBlock/blacklists/ublock-origin.txt
 !   - Homepage: https://paulgb.github.io/
@@ -31,7 +31,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * 💊 Dandelion Sprout's Anti-Malware List
 !   - URL: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Dandelion%20Sprout's%20Anti-Malware%20List.txt
-!   - Version: 27October2026v1
+!   - Version: 05November2026v2
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * 🛃 Anti-'Adoptables and Artsite NFTs' List
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/AntiAdoptablesList.txt
@@ -74,7 +74,7 @@
 !   - Homepage: https://github.com/DandelionSprout/adfilt/blob/master/Wiki/General-info.md#-english
 ! * ➗ Actually Legitimate URL Shortener Tool
 !   - URL: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt
-!   - Version: 31October2026v2
+!   - Version: 04November2026v1
 !   - Homepage: https://github.com/DandelionSprout/adfilt/discussions/163
 ! * 🐊 Imgur: Pure Imagery Experience
 !   - URL: https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/ImgurPureImageryExperience.txt
@@ -16022,6 +16022,8 @@ drvhub.net##.driver-item__install
 ||tgdrive.app^$all
 ||tg-drive-bx4f.onrender.com^$all
 ||ibarrareal.es^$all
+||giraffic.com^$all
+||giraffic.net^$all
 ||0network.com^$all
 ||100conversions.com^$all
 ||1tag.ai^$all
@@ -20766,6 +20768,7 @@ buffalonews.com##+js(set, lee_trkLinkSrc, noopFunc)
 @@||thepointsguy.com/preference-center/$doc,removeparam=/^\??utm_.*$/i
 @@$removeparam,doc,domain=archive.today|archive.fo|archive.is|archive.li|archive.md|archive.ph|archive.vn|archiveiya74codqgiixo33q62qlrqtkgmcitqx5u2oeqnmn5bpcbiyd.onion
 @@||warp.ndl.go.jp^$doc,removeparam
+@@||newsletter.smartbrief.com/UnSubscribe.jsp$removeparam
 ! 🐊 Imgur: Pure Imagery Experience https://cdn.jsdelivr.net/gh/DandelionSprout/adfilt@master/ImgurPureImageryExperience.txt
 imgur.com##.Gallery-Sidebar
 imgur.com##.BottomRecirc
