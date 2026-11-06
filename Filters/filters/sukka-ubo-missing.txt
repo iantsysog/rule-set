@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Thu, 05 Nov 2026 19:48:53 GMT
+! Last modified: Fri, 06 Nov 2026 19:14:15 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.14.93
+!   - Version: 2.1.15.0
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202610011010
@@ -29092,7 +29092,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||whatif.de.adobe.com^
 ||whatif.uk.adobe.com^
 ||workforce-optimization.insperity.com^
-||www.hproicalc.com^
 ||1886.olympia.co.uk^
 ||constellation.epghealth.com^
 ||event.mazars.nl^
@@ -31019,7 +31018,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||waves.elliottswave.com^
 ||we.trk.the-savings-guru.com^
 ||woof.psi-lekarna.cz^
-||www.tasticlinkportal.com^
 ||a.healthy-publishing.com^
 ||ads.drviniciusandrade.com.br^
 ||adtrack.herbalia.rs^
@@ -32386,7 +32384,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||cdn.finnkone.fi^
 ||cdn.foractiv.cz^
 ||cdn.ford-koegler.de^
-||cdn.formulrr.co.uk^
 ||cdn.goodevas.cz^
 ||cdn.goodevas.it^
 ||cdn.goodevas.uk^
@@ -48644,8 +48641,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||wsst.memberspot.de^
 ||wwc8h2sv.demiselbijoux.com^
 ||wwi.gosafari.de^
-||www.formulrr.co.uk^
-||www.gtm.houtproplus.nl^
 ||www2.maartenmechelen.be^
 ||www2.mamawillow.com^
 ||www2.ongle24.be^
@@ -63043,6 +63038,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||load.mkt.of3dacademy.es^
 ||load.mlcy.vieirajr.com^
 ||load.module.dupixent.com^
+||load.moeda.mwresearch.com.br^
 ||load.monitor.derisbooks.com.br^
 ||load.moticon.com^
 ||load.moto.thecriptopro.com^
@@ -85839,6 +85835,8 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||visor.sbrf.ru^
+||fluid-player-analytics.sky.it^
 ||pbs.yahoo.com^
 ||pbd.yahoo.com^
 ||api-node.corvexa.cloud^
@@ -377402,6 +377400,8 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+/api/track|$domain=turizmguncel.com|brutto-netto-rechner.digital
+||winfuture.de/wfk/?id=GTM-
 ||tools.finanztip.de/track/
 ||kitco.com/api/cms-proxy?
 ||api.biggo.com/api/v*/view-attest?
@@ -377488,7 +377488,6 @@ news.jp##div.recommend > h2.recommend__title
 ||mall.hanssem.com/resources/js/log/
 ||tcafe21.com/plugin/perf/
 ||vdrama.fans/js/vd-analytics.js
-||turizmguncel.com/api/track|
 ||pixhost.to/m7v2q9/
 ||d.linker-network.me/viewable|
 rtvi.com##+js(set-local-storage-item, viewer-id, $remove$)
@@ -380880,7 +380879,6 @@ today.ua##.li-bi-container
 ||bmscdn.com/m6/scripts/libs/bms-analytics.js
 ||proxy.tproger.ru/yandex-metrika.js
 ||wurking.global.ssl.fastly.net/ingestly-ingest/
-||static.foxnews.com/static/leap/sites/fnc/metrics.js
 ||web.snrbox.com/*?tracker=
 ||web.snrbox.com/tck/$xhr,redirect=noop.txt
 ||fenerbahce.org/cmsapi/webanalytics/
