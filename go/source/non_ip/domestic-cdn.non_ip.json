@@ -3,7 +3,9 @@
   "rules": [
     {
       "domain": [
+        "app.jianguoyun.com",
         "time.xtracloud.net",
+        "comet.jianguoyun.com",
         "registry.npmmirror.com"
       ],
       "domain_suffix": [
