@@ -600,6 +600,186 @@
           "source_ip_cidr": "192.168.0.0/16"
         }
       ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain": "app.drime.cloud"
+        },
+        {
+          "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain": "app.drime.cloud"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain": "app.drime.cloud"
+        },
+        {
+          "source_ip_cidr": "10.0.0.0/8"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain": "app.drime.cloud"
+        },
+        {
+          "source_ip_cidr": "172.16.0.0/12"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain": "app.drime.cloud"
+        },
+        {
+          "source_ip_cidr": "192.168.0.0/16"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.cloudflarestorage.com"
+        },
+        {
+          "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.cloudflarestorage.com"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.cloudflarestorage.com"
+        },
+        {
+          "source_ip_cidr": "10.0.0.0/8"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.cloudflarestorage.com"
+        },
+        {
+          "source_ip_cidr": "172.16.0.0/12"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.cloudflarestorage.com"
+        },
+        {
+          "source_ip_cidr": "192.168.0.0/16"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.dev"
+        },
+        {
+          "process_path_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.dev"
+        },
+        {
+          "package_name_regex": "^.*?CloudMounter$"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.dev"
+        },
+        {
+          "source_ip_cidr": "10.0.0.0/8"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.dev"
+        },
+        {
+          "source_ip_cidr": "172.16.0.0/12"
+        }
+      ]
+    },
+    {
+      "type": "logical",
+      "mode": "and",
+      "rules": [
+        {
+          "domain_suffix": "r2.dev"
+        },
+        {
+          "source_ip_cidr": "192.168.0.0/16"
+        }
+      ]
     }
   ]
 }
