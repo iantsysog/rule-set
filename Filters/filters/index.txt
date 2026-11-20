@@ -1,5 +1,5 @@
 ! Title: [sukka] Sukka Filters
-! Last modified: Thu, 19 Nov 2026 20:24:18 GMT
+! Last modified: Fri, 20 Nov 2026 19:55:33 GMT
 ! Expires: 1 hours
 ! Description: The filters from Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -82,7 +82,10 @@ meet.google.com#@#+js(nowebrtc)
 butterfly-effect.dev#@#+js(nowebrtc)
 ampcode.com#@#+js(nowebrtc)
 manus.im#@#+js(nowebrtc)
+butterfly-effect.cn#@#+js(nowebrtc)
+manus.cn#@#+js(nowebrtc)
 teams.live.com#@#+js(nowebrtc)
+openpacketloss.com#@#+js(nowebrtc)
 ||youtube.com/embed/$3p,frame,redirect=click2load.html
 ||youtube-nocookie.com/embed/$3p,frame,redirect=click2load.html
 ||youtube.com/embed/$3p,object,redirect=click2load.html
@@ -786,10 +789,6 @@ copvpn.com##.hidden
 www.ionos.com##.exit-intent-ionos
 www.ionos.com##.fade.modal-backdrop
 www.zhihu.com##.Reward
-lowendaff.com##.joe_advert-large
-lowendaff.com###custom_sponsor_widget
-lowendaff.com##.epcl-banner
-lowendaff.com###dmit-ads
 ||xn--feus21h.xyz/static/team/uploadpic/$image
 www.3dmgame.com##.head_ent
 abdenasser.github.io##.app-promo-modal
@@ -926,3 +925,5 @@ tao.zz.ac###noad
 www.chinapress.com.my##.prompt-login-wrapper-2
 www.singtaousa.com##.kadence-conversion
 www.singtaousa.com##.kadence-conversion-overlay
+lowendaff.com##a.brand-card.partner-card
+lowendaff.com##.follow-banner
