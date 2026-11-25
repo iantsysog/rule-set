@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Tue, 24 Nov 2026 22:16:02 GMT
+! Last modified: Wed, 25 Nov 2026 21:31:40 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.16.30
+!   - Version: 2.1.16.41
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202610011010
@@ -220,6 +220,10 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
+||clerk-telemetry.com^
+||ghtinc.com^
+||download.gameanalytics.com^
+||stmtag.ru^
 ||dataplane.rudderstack.com^
 ||api.rudderstack.com^
 ||cognitivlabs.com^
@@ -299,7 +303,8 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||adtasukaru.com^$3p
 ||manus-analytics.com^
 ||rt.buzzni.com^
-||did.kr^$3p
+||track.did.kr^
+||analytics.did.kr^
 ||tracking.trickbyte.com^
 ||analytics-event.com^
 ||integrations-itbl.co^
@@ -88473,6 +88478,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||dsh-otel-collector.deepseeksvc.com^
 ||ingest.t3.codes^
 ||stats.proxypurity.com^
 ||cast-imp.jtbc.co.kr^
@@ -90751,6 +90757,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||track.eventail.bg^
 ||track.solunexnexoria.vip^
 ||track.zoacademia.club^
+||tracker.beam.remp.startitup.sk^
 ||tracking.bolt.eu^
 ||tracking.facts.hk^
 ||tracking.joker.com^
@@ -90846,7 +90853,6 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||d.ground.news^
 ||data.petri.com^
 ||c3.wildwolf.name^
-||tips.delt.io^
 ||unami.delt.io^
 ||one01.stright.bizris.com^
 ||analytics.infomaniak.com^
@@ -404055,6 +404061,8 @@ zy4jviawqldmteoh.view.s11.sfmc-osl.com$image
 /com.snowplowanalytics.$domain=~snowplowanalytics.com
 .com.br/tracking.set^|
 .com.br/cliente/trackRemote^|
+/p/p.gif?p=
+||pxl-us.
 /impr-trck?
 /prgr-trk?
 ||umami.$domain=~umami.is|~umami.recipes
@@ -404485,6 +404493,9 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||html5.gamedistribution.com/*/gameanalytics.js
+||pexels.com/*/vendor/snowplow
+||r34tube.com/clk/c|
 ||wispbyte.com/client/api/analytics/
 ||ninjaone.com/wp-content/themes/ninjaone/js/analytics/
 ||fp.yangcong345.com/fe-monitor-
