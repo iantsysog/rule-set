@@ -1,5 +1,5 @@
 ! Title: [sukka] Filters missing in uBO (but exist in AdGuard)
-! Last modified: Thu, 26 Nov 2026 21:19:28 GMT
+! Last modified: Fri, 27 Nov 2026 21:00:35 GMT
 ! Expires: 8 hours
 ! Description: Some third party filter lists collected and combined by Sukka
 ! License: https://github.com/SukkaW/Filters/blob/master/LICENSE
@@ -8,7 +8,7 @@
 ! Included filters:
 ! * AdGuard Tracking Protection filter (Optimized)
 !   - URL: https://filters.adtidy.org/extension/ublock/filters/3_optimized.txt
-!   - Version: 2.1.16.54
+!   - Version: 2.1.16.63
 ! * CJX's Annoyance List
 !   - URL: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 !   - Version: 202610011010
@@ -220,6 +220,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||ib.snssdk.com^
 ||xlog.snssdk.com^
 ||log.snssdk.com^
+||cdn.diginetica.net^
 ||adcanvas.com^$3p
 ||clerk-telemetry.com^
 ||ghtinc.com^
@@ -31687,6 +31688,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||tracking.vessi.se^
 ||trc.hyperxgadgets.com^
 ||trck.acetrck.com^
+||trck.bestonlinecasino.club^
 ||trck.fareshare.org^
 ||trck.theuniversalsavings.com^
 ||trk.acacarefoundation.org^
@@ -88478,6 +88480,12 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||countly.
 ||countly-
 |piwik.
+||telemetry.*.oraclecloud.com^
+||events.*.oci.oraclecloud.com^
+||logging.*.oci.oraclecloud.com^
+||ac.avito.ru^
+||ap-prd-edge-clientlog.nexon.com^
+||toy.log.nexon.io^
 ||pan.pazarama.com^
 ||telemetry.*.oci.oraclecloud.com^
 ||dsh-otel-collector.deepseeksvc.com^
@@ -88718,6 +88726,7 @@ biteki.com##.slick-slide > div[id] + script:upward(1):remove()
 ||aura.fairyaura.com^
 ||b.csquaregrc.com^
 ||b.dora.work^
+||beam.denikn.cz^
 ||beats.churchdesk.com^
 ||blog-analytics.hskl.me^
 ||bmf7ct7jmk.baronrojolapelicula.com^
@@ -92830,6 +92839,7 @@ prd.api.bleacherreport.com^
 ||qlog.adap.tv^
 ||qnajplxtvz-a.akamaihd.net^
 ||r.miamano.com^
+||r.movad.de^
 ||alt-r.my.com^
 ||r.my.com^
 ||r.rbc.ru^
@@ -92839,6 +92849,7 @@ prd.api.bleacherreport.com^
 ||rrss.abc.es^
 ||rubicon.wellsfargo.com^
 ||s.frida.vse42.ru^
+||s.izrnvo.com^
 ||s.news.naver.com^
 ||s3.smartphonehoesjes.nl^
 ||sa.bbc.co.uk^
@@ -125388,6 +125399,7 @@ email.co.innovatodesign.com$image
 email.co.innovatodesign.sbs$image
 email.co.intimatediamond.com$image
 email.co.ipsystemsusa.com$image
+email.co.irries.com$image
 email.co.irvacollection.com$image
 email.co.ivadress.com$image
 email.co.jacksonandblake.com$image
@@ -404494,6 +404506,8 @@ mexc.com##+js(set-local-storage-item, _yjsu_yjad, $remove$)
 ||google-analytics.com^$object,redirect=noop.js,script
 ||googletagmanager.com/gtag/$3p,object,redirect=noop.js,script
 @@||nlog.naver.com/n|$domain=search.naver.com|www.naver.com
+||streamvsmov.com/api/embed-hit|
+||daophim.*/metrics/
 ||cdn.tmtarget.com/tracking/
 ||pazarama.com/event-collector-worker.js
 ||busbud.com/metrics/
@@ -406759,7 +406773,6 @@ joinrs.com##+js(set-local-storage-item, TRACKING_EVENTS, $remove$)
 ||cdn.production.townsquareblogs.com/wp-content/uploads/static/prebid/carbon/pb.js
 ||zed.dev/_vercel/insights/view
 ||dg.incomaker.com/tracking/
-||unpkg.com/web-vitals
 hochi.news###ohtani-pickup
 ||files.slideruletools.com/eluredils-g.js
 ||r25.jp/api/tracking/
@@ -407798,6 +407811,7 @@ cienradios.com##article[class^="cXense-"]
 park.ajinomoto.co.jp##.bottomMenu
 ||theurbanlist.com/assets/dist/autotrack.*.js
 ||static1.dmcdn.net/playerv5/dmp.pes_pip_tracking.*.js
+||go.mgdjmp.com/eye.gif
 ||go.xhamster*.*/eye.gif
 ||androidpolice.com/pixel.png?
 ||customfingerprints.bablosoft.com/clientsafe.js
@@ -411090,6 +411104,8 @@ d4?appid*type*
 @@||googletagmanager.com/gtm.js$domain=saturn.de
 @@||metrics.us.playstation.com/b/ss/
 @@||st-*.dynamicyield.com/st*&inHead=true&id=*&jsession=*scriptVersion=*&noConsent=
+ekitan.com##+js(set-constant, executeImpressionTicketTracking, noopFunc)
+ekitan.com##+js(set-constant, initHomesTracking, noopFunc)
 @@||fp.yangcong345.com/*/webTrack.js$domain=school.yangcongxueyuan.com
 kick.com##+js(prevent-fetch, litix.io)
 kick.com##+js(no-setTimeout-if, startBeaconSending)
@@ -413517,6 +413533,7 @@ usatoday.com##+js(set, gnt.x.adm, )
 ||googletagmanager.com/gtag/js$important,redirect=google-analytics_analytics.js,script,xhr,domain=redstoneonline.jp
 ||sstats.bitdefender.com^$important,redirect=noop.txt,xhr
 ||metrics.streaks.jp^$redirect=noop.txt,xhr
+@@||ekitan.com/transit/js/ticket-analytics.js$badfilter,~3p
 ! CJX's Annoyance List https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
 /wiseatom/banner/pack_
 /npm/disable-devtool
